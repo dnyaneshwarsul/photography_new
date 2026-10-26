@@ -1,0 +1,184 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .about-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .about-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .about-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .about-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        height: 46px;
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+    }
+
+    textarea.form-control {
+        height: auto;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .section-divider {
+        border-top: 2px dashed #E2E8F0;
+        margin: 20px 0;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="about-card">
+        <!-- HEADER -->
+        <div class="about-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-123 me-2 text-danger"></i>
+                Edit "Our Numbers" Counter Stats Section
+            </h4>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mx-4 mt-3" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- BODY FORM -->
+        <div class="about-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- SECTION SMALL TITLE -->
+                    <div class="col-md-4">
+                        <label class="form-label">
+                            Section Small Title
+                        </label>
+                        <input type="text" name="numbers_small_title" class="form-control"
+                            value="{{ about.numbers_small_title|default:'OUR NUMBERS' }}" placeholder="OUR NUMBERS">
+                    </div>
+
+                    <!-- MAIN SECTION HEADING -->
+                    <div class="col-md-8">
+                        <label class="form-label">
+                            Main Section Heading
+                        </label>
+                        <input type="text" name="numbers_title" class="form-control"
+                            value="{{ about.numbers_title|default:'Growing Together Through Photography' }}" placeholder="Growing Together Through Photography">
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div class="col-12">
+                        <label class="form-label">
+                            Section Description / Subtitle
+                        </label>
+                        <textarea name="numbers_desc" class="form-control" rows="2"
+                            placeholder="Our growing photography community continues to capture beautiful stories.">{{ about.numbers_desc|default:'Our growing photography community continues to capture beautiful stories.' }}</textarea>
+                    </div>
+
+                    <div class="col-12"><div class="section-divider"></div></div>
+                    <h5 class="fw-bold text-dark mb-0"><i class="bi bi-bar-chart-fill me-2 text-danger"></i> 4 Statistics Counter Boxes</h5>
+
+                    <!-- STAT 1 -->
+                    <div class="col-md-3">
+                        <label class="form-label">Stat 1 Count</label>
+                        <input type="text" name="stat1_count" class="form-control" value="{{ about.stat1_count|default:'500+' }}">
+                        <label class="form-label mt-2">Stat 1 Title</label>
+                        <input type="text" name="stat1_title" class="form-control" value="{{ about.stat1_title|default:'Happy Clients' }}">
+                        <label class="form-label mt-2">Stat 1 Icon Class</label>
+                        <input type="text" name="stat1_icon" class="form-control" value="{{ about.stat1_icon|default:'bi bi-people' }}">
+                    </div>
+
+                    <!-- STAT 2 -->
+                    <div class="col-md-3">
+                        <label class="form-label">Stat 2 Count</label>
+                        <input type="text" name="stat2_count" class="form-control" value="{{ about.stat2_count|default:'150+' }}">
+                        <label class="form-label mt-2">Stat 2 Title</label>
+                        <input type="text" name="stat2_title" class="form-control" value="{{ about.stat2_title|default:'Professional Photographers' }}">
+                        <label class="form-label mt-2">Stat 2 Icon Class</label>
+                        <input type="text" name="stat2_icon" class="form-control" value="{{ about.stat2_icon|default:'bi bi-camera' }}">
+                    </div>
+
+                    <!-- STAT 3 -->
+                    <div class="col-md-3">
+                        <label class="form-label">Stat 3 Count</label>
+                        <input type="text" name="stat3_count" class="form-control" value="{{ about.stat3_count|default:'1000+' }}">
+                        <label class="form-label mt-2">Stat 3 Title</label>
+                        <input type="text" name="stat3_title" class="form-control" value="{{ about.stat3_title|default:'Events Captured' }}">
+                        <label class="form-label mt-2">Stat 3 Icon Class</label>
+                        <input type="text" name="stat3_icon" class="form-control" value="{{ about.stat3_icon|default:'bi bi-calendar-heart' }}">
+                    </div>
+
+                    <!-- STAT 4 -->
+                    <div class="col-md-3">
+                        <label class="form-label">Stat 4 Count</label>
+                        <input type="text" name="stat4_count" class="form-control" value="{{ about.stat4_count|default:'25+' }}">
+                        <label class="form-label mt-2">Stat 4 Title</label>
+                        <input type="text" name="stat4_title" class="form-control" value="{{ about.stat4_title|default:'Photography Categories' }}">
+                        <label class="form-label mt-2">Stat 4 Icon Class</label>
+                        <input type="text" name="stat4_icon" class="form-control" value="{{ about.stat4_icon|default:'bi bi-grid' }}">
+                    </div>
+
+                    <!-- SUBMIT BUTTON -->
+                    <div class="col-12 mt-4 text-end">
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-cloud-arrow-up-fill me-2"></i> Update Numbers Section
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include "admin/footer.html" %}

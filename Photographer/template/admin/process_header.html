@@ -1,0 +1,143 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .process-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .process-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .process-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .process-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="process-card">
+        <!-- HEADER -->
+        <div class="process-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-pencil-square me-2 text-danger"></i>
+                Edit "How We Work" Section Header
+            </h4>
+            <a href="/admin/process-list/" class="btn btn-outline-light btn-sm font-weight-bold">
+                <i class="bi bi-list-ul me-1"></i> View Process List
+            </a>
+        </div>
+
+        <!-- FORM -->
+        <div class="process-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="/admin/process-header/">
+                {% csrf_token %}
+
+                <div class="mb-4">
+                    <label class="form-label">
+                        Small Subtitle / Badge Text <span class="required">*</span>
+                    </label>
+                    <input type="text" 
+                           class="form-control" 
+                           name="small_title" 
+                           value="{{ header_data.small_title|default:'OUR PROCESS' }}" 
+                           placeholder="e.g. OUR PROCESS" 
+                           required>
+                    <div class="form-text text-muted">Displays as the uppercase gold badge text above the main heading.</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">
+                        Main Section Title <span class="required">*</span>
+                    </label>
+                    <input type="text" 
+                           class="form-control" 
+                           name="title" 
+                           value="{{ header_data.title|default:'How We Work' }}" 
+                           placeholder="e.g. How We Work" 
+                           required>
+                    <div class="form-text text-muted">The main heading text for the section.</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">
+                        Section Sub-description
+                    </label>
+                    <textarea class="form-control" 
+                              name="description" 
+                              rows="3" 
+                              placeholder="e.g. From the first conversation to the final delivery, we make your photography experience simple and enjoyable.">{{ header_data.description|default:'' }}</textarea>
+                    <div class="form-text text-muted">Paragraph text displayed beneath the main heading.</div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-3 mt-4">
+                    <button type="submit" class="btn btn-save">
+                        <i class="bi bi-check-circle-fill me-1"></i> Save Header Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,178 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .process-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .process-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .process-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .process-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="process-card">
+        <!-- HEADER -->
+        <div class="process-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-megaphone me-2 text-danger"></i>
+                Edit Services Page CTA Banner Section
+            </h4>
+        </div>
+
+        <!-- FORM -->
+        <div class="process-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="/admin/services-cta-section/" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-4">
+                    <label class="form-label">
+                        Small Subtitle / Badge Text <span class="required">*</span>
+                    </label>
+                    <input type="text" 
+                           class="form-control" 
+                           name="small_title" 
+                           value="{{ cta.small_title|default:'LET\'S CREATE MEMORIES' }}" 
+                           placeholder="e.g. LET'S CREATE MEMORIES" 
+                           required>
+                    <div class="form-text text-muted">Small badge title text above main heading.</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">
+                        Main Banner Title <span class="required">*</span>
+                    </label>
+                    <input type="text" 
+                           class="form-control" 
+                           name="title" 
+                           value="{{ cta.title|default:'Ready to Capture Your Beautiful Moments?' }}" 
+                           placeholder="e.g. Ready to Capture Your Beautiful Moments?" 
+                           required>
+                    <div class="form-text text-muted">Main heading displayed on the CTA banner.</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">
+                        Banner Description
+                    </label>
+                    <textarea class="form-control" 
+                              name="description" 
+                              rows="3" 
+                              placeholder="Let's turn your special moments into beautiful, timeless photographs...">{{ cta.description|default:'' }}</textarea>
+                    <div class="form-text text-muted">Paragraph text displayed beneath the title.</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label">Button 1 Text</label>
+                        <input type="text" class="form-control" name="btn1_text" value="{{ cta.btn1_text|default:'Book Your Session' }}">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label">Button 1 Link URL</label>
+                        <input type="text" class="form-control" name="btn1_link" value="{{ cta.btn1_link|default:'/booking_form/' }}">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label">Button 2 Text</label>
+                        <input type="text" class="form-control" name="btn2_text" value="{{ cta.btn2_text|default:'Contact Us' }}">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label">Button 2 Link URL</label>
+                        <input type="text" class="form-control" name="btn2_link" value="{{ cta.btn2_link|default:'/contact/' }}">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">
+                        CTA Banner Background Image
+                    </label>
+                    {% if cta.bg_image %}
+                        <div class="mb-2">
+                            <img src="{{ cta.bg_image.url }}" alt="CTA Background" style="max-height: 150px; border-radius: 10px; border: 1px solid #ddd;">
+                        </div>
+                    {% endif %}
+                    <input type="file" 
+                           class="form-control" 
+                           name="bg_image" 
+                           accept="image/*">
+                    <div class="form-text text-muted">Upload a new background photo for the Services CTA section.</div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-3 mt-4">
+                    <button type="submit" class="btn btn-save">
+                        <i class="bi bi-check-circle-fill me-1"></i> Save Services CTA Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

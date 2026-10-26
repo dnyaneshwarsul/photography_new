@@ -1,0 +1,181 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .testimonial-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .testimonial-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .testimonial-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .testimonial-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control, .form-select {
+        height: 46px;
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+    }
+
+    textarea.form-control {
+        height: auto;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .image-preview {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #EF4444;
+        display: none;
+        margin-top: 12px;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="testimonial-card">
+        <!-- HEADER -->
+        <div class="testimonial-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-chat-quote-fill me-2 text-danger"></i>
+                Add Client Testimonial
+            </h4>
+            <a href="/admin/testimonial-list/" class="btn btn-outline-light btn-sm font-weight-bold">
+                <i class="bi bi-list-ul me-1"></i> View Testimonials List
+            </a>
+        </div>
+
+        <!-- FORM -->
+        <div class="testimonial-body">
+            <form method="POST" action="/admin/add-testimonial/" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- CLIENT PHOTO -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            Client Profile Photo
+                        </label>
+                        <input type="file" class="form-control" id="client_photo" name="client_photo" accept=".jpg,.jpeg,.png,.webp">
+                        <small class="text-muted">Recommended: Square client photo or avatar.</small>
+                        <div>
+                            <img id="photoPreview" class="image-preview" alt="Client Photo Preview">
+                        </div>
+                    </div>
+
+                    <!-- CLIENT NAME -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Client Name <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" name="client_name" placeholder="e.g. Priya Sharma, Rahul Patil, Sneha Kulkarni" required>
+                    </div>
+
+                    <!-- RATING -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Star Rating <span class="required">*</span>
+                        </label>
+                        <select class="form-select" name="rating" required>
+                            <option value="5" selected>★★★★★ (5 Stars)</option>
+                            <option value="4">★★★★☆ (4 Stars)</option>
+                            <option value="3">★★★☆☆ (3 Stars)</option>
+                            <option value="2">★★☆☆☆ (2 Stars)</option>
+                            <option value="1">★☆☆☆☆ (1 Star)</option>
+                        </select>
+                    </div>
+
+                    <!-- REVIEW TEXT -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            Client Review / Feedback <span class="required">*</span>
+                        </label>
+                        <textarea class="form-control" name="review" rows="4" placeholder="Enter client testimonial text..." required></textarea>
+                    </div>
+
+                    <!-- BUTTONS -->
+                    <div class="col-12 text-end mt-4 pt-2 border-top">
+                        <button type="reset" class="btn btn-light me-2 border font-weight-bold">
+                            <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+                        </button>
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-check-circle me-1"></i> Save Testimonial
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const photoInput = document.getElementById("client_photo");
+    const photoPreview = document.getElementById("photoPreview");
+    if (photoInput && photoPreview) {
+        photoInput.addEventListener("change", function() {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                photoPreview.src = e.target.result;
+                photoPreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+});
+</script>
+
+{% include "admin/footer.html" %}

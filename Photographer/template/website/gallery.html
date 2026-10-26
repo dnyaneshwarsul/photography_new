@@ -1,0 +1,1961 @@
+{% load static %}
+{% include "website/navbar.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Photography Gallery</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+            color: #222;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        /* =========================================
+           COMMON
+        ========================================= */
+
+        .section-padding {
+            padding: 90px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title .subtitle {
+            color: #b28b5e;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .section-title h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            max-width: 680px;
+            margin: auto;
+            color: #777;
+            line-height: 1.8;
+        }
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .gallery-hero {
+            min-height: 600px;
+
+            background:
+                linear-gradient(
+                    rgba(0,0,0,0.60),
+                    rgba(0,0,0,0.60)
+                ),
+                url("https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000&q=85")
+                center center / cover no-repeat;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            padding: 30px;
+        }
+
+        .hero-content .hero-small {
+            color: #e3bd88;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .hero-content h1 {
+            font-size: 70px;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .hero-content p {
+            max-width: 680px;
+            margin: auto;
+            color: #eeeeee;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* =========================================
+           CATEGORY MENU
+        ========================================= */
+
+        .category-section {
+            padding: 45px 0;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .category-menu a {
+            color: #444;
+            border: 1px solid #ddd;
+            padding: 10px 22px;
+            border-radius: 30px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .category-menu a:hover {
+            background: #b28b5e;
+            color: #fff;
+            border-color: #b28b5e;
+        }
+
+        /* =========================================
+           GALLERY SECTION
+        ========================================= */
+
+        .gallery-section {
+            padding: 90px 0;
+        }
+
+        .gallery-section:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        /* =========================================
+           PHOTO CARD
+        ========================================= */
+
+        .photo-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 360px;
+            background: #eee;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+            transition: transform 0.6s ease;
+        }
+
+        /* Only image zoom */
+        .photo-card:hover img {
+            transform: scale(1.07);
+        }
+
+        /* =========================================
+           PHOTO TITLE
+        ========================================= */
+
+        .photo-info {
+            padding-top: 15px;
+        }
+
+        .photo-info h4 {
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
+
+        .photo-info p {
+            margin: 0;
+            color: #888;
+            font-size: 13px;
+        }
+
+        /* =========================================
+           FEATURE PHOTO
+        ========================================= */
+
+        .large-photo {
+            height: 520px;
+        }
+
+        /* =========================================
+           DARK SECTION
+        ========================================= */
+
+        .dark-gallery {
+            background: #111 !important;
+            color: #fff;
+        }
+
+        .dark-gallery .section-title h2 {
+            color: #fff;
+        }
+
+        .dark-gallery .section-title p {
+            color: #aaa;
+        }
+
+        .dark-gallery .photo-info h4 {
+            color: #fff;
+        }
+
+        .dark-gallery .photo-info p {
+            color: #aaa;
+        }
+
+        /* =========================================
+           STATS
+        ========================================= */
+
+        .stats-section {
+            padding: 80px 0;
+            background: #111;
+            color: #fff;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-box i {
+            color: #c19a6b;
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .stat-box h3 {
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
+
+        .stat-box p {
+            color: #aaa;
+            margin: 0;
+        }
+
+        /* =========================================
+           CTA
+        ========================================= */
+
+        .gallery-cta {
+            padding: 110px 20px;
+
+            background:
+                linear-gradient(
+                    rgba(0,0,0,0.72),
+                    rgba(0,0,0,0.72)
+                ),
+                url("https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=2000&q=85")
+                center / cover no-repeat;
+
+            text-align: center;
+            color: #fff;
+        }
+
+        .gallery-cta h2 {
+            font-size: 52px;
+            margin-bottom: 15px;
+        }
+
+        .gallery-cta p {
+            color: #ddd;
+            max-width: 650px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+
+        .btn-gold {
+            display: inline-block;
+            padding: 13px 28px;
+            background: #b28b5e;
+            color: #fff;
+            border: 1px solid #b28b5e;
+            border-radius: 4px;
+            transition: 0.3s;
+            margin: 5px;
+        }
+
+        .btn-gold:hover {
+            background: #947148;
+            color: #fff;
+        }
+
+        .btn-outline-light-custom {
+            display: inline-block;
+            padding: 13px 28px;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            transition: 0.3s;
+            margin: 5px;
+        }
+
+        .btn-outline-light-custom:hover {
+            background: #fff;
+            color: #222;
+        }
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 991px) {
+
+            .hero-content h1 {
+                font-size: 55px;
+            }
+
+            .section-title h2 {
+                font-size: 36px;
+            }
+
+            .photo-card {
+                height: 320px;
+            }
+
+            .large-photo {
+                height: 450px;
+            }
+
+            .gallery-cta h2 {
+                font-size: 43px;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .gallery-hero {
+                min-height: 520px;
+            }
+
+            .hero-content h1 {
+                font-size: 43px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+            }
+
+            .section-padding,
+            .gallery-section {
+                padding: 65px 0;
+            }
+
+            .section-title {
+                margin-bottom: 35px;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+
+            .photo-card {
+                height: 300px;
+            }
+
+            .large-photo {
+                height: 350px;
+            }
+
+            .gallery-cta {
+                padding: 80px 20px;
+            }
+
+            .gallery-cta h2 {
+                font-size: 36px;
+            }
+
+            .stat-box h3 {
+                font-size: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .hero-content {
+                padding: 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-content .hero-small {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .category-menu {
+                gap: 8px;
+            }
+
+            .category-menu a {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+
+            .photo-card {
+                height: 270px;
+            }
+
+            .large-photo {
+                height: 300px;
+            }
+
+            .gallery-cta h2 {
+                font-size: 32px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     1. GALLERY HERO
+===================================================== -->
+
+<section class="gallery-hero" style="background: linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url('{% if gallery_hero.hero_image %}{{ gallery_hero.hero_image.url }}{% else %}https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000&q=85{% endif %}') center center / cover no-repeat;">
+
+    <div class="hero-content">
+
+        <div class="hero-small">
+            {{ gallery_hero.small_title|default:"OUR PHOTOGRAPHY COLLECTION" }}
+        </div>
+
+        <h1>{{ gallery_hero.title|default:"Photo Gallery" }}</h1>
+
+        <p>
+            {{ gallery_hero.description|default:"Explore our collection of beautiful photographs, capturing love, happiness, celebrations and unforgettable moments that deserve to be remembered forever." }}
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     2. CATEGORY MENU
+===================================================== -->
+
+<section class="category-section">
+
+    <div class="container">
+
+        <div class="category-menu">
+
+            <a href="#wedding">
+                Wedding
+            </a>
+
+            <a href="#prewedding">
+                Pre-Wedding
+            </a>
+
+            <a href="#birthday">
+                Birthday
+            </a>
+
+            <a href="#baby">
+                Baby & Kids
+            </a>
+
+            <a href="#events">
+                Events
+            </a>
+
+            <a href="#fashion">
+                Fashion
+            </a>
+
+            <a href="#portrait">
+                Portrait
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     3. WEDDING
+===================================================== -->
+
+<section class="gallery-section" id="wedding">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="subtitle">
+                {{ wedding_header.small_title|default:"Love & Forever" }}
+            </div>
+
+            <h2>{{ wedding_header.title|default:"Wedding Photography" }}</h2>
+
+            <p>
+                {{ wedding_header.description|default:"Beautiful wedding moments captured with emotions, traditions, happiness and timeless memories." }}
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for item in wedding_items %}
+            <div class="{% if forloop.counter <= 2 %}col-lg-6 col-md-6{% else %}col-lg-4 col-md-6{% endif %}">
+                <div class="photo-card {% if forloop.counter <= 2 %}large-photo{% endif %}">
+                    {% if item.gallery_image %}
+                        <img src="{{ item.gallery_image.url }}" alt="{{ item.title|default:'Wedding Photography' }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85" alt="Wedding Photography">
+                    {% endif %}
+                </div>
+
+                <div class="photo-info">
+                    <h4>{{ item.title|default:"Wedding Moments" }}</h4>
+                    <p>{{ item.subtitle|default:"Wedding Photography" }}</p>
+                </div>
+            </div>
+            {% empty %}
+
+            <!-- Photo 1 -->
+            <div class="col-lg-6 col-md-6">
+                <div class="photo-card large-photo">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=85" alt="Wedding Photography">
+                </div>
+                <div class="photo-info">
+                    <h4>Forever Begins</h4>
+                    <p>Wedding Ceremony</p>
+                </div>
+            </div>
+
+            <!-- Photo 2 -->
+            <div class="col-lg-6 col-md-6">
+                <div class="photo-card large-photo">
+                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85" alt="Wedding Couple">
+                </div>
+                <div class="photo-info">
+                    <h4>Beautiful Couple</h4>
+                    <p>Wedding Couple Photography</p>
+                </div>
+            </div>
+
+            <!-- Photo 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85" alt="Wedding Moment">
+                </div>
+                <div class="photo-info">
+                    <h4>Wedding Moments</h4>
+                    <p>Candid Photography</p>
+                </div>
+            </div>
+
+            <!-- Photo 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=85" alt="Wedding Couple">
+                </div>
+                <div class="photo-info">
+                    <h4>Couple Portrait</h4>
+                    <p>Wedding Portrait</p>
+                </div>
+            </div>
+
+            <!-- Photo 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?auto=format&fit=crop&w=900&q=85" alt="Wedding Celebration">
+                </div>
+                <div class="photo-info">
+                    <h4>Wedding Celebration</h4>
+                    <p>Reception</p>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     4. PRE-WEDDING
+===================================================== -->
+
+<section class="gallery-section bg-light" id="prewedding">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="subtitle">
+                {{ prewedding_header.small_title|default:"Couple Stories" }}
+            </div>
+
+            <h2>{{ prewedding_header.title|default:"Pre-Wedding Photography" }}</h2>
+
+            <p>
+                {{ prewedding_header.description|default:"Romantic couple sessions filled with love, beautiful locations and natural emotions." }}
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for item in prewedding_items %}
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    {% if item.gallery_image %}
+                        <img src="{{ item.gallery_image.url }}" alt="{{ item.title|default:'Pre-Wedding Photography' }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=85" alt="Pre Wedding">
+                    {% endif %}
+                </div>
+                <div class="photo-info">
+                    <h4>{{ item.title|default:"Romantic Moments" }}</h4>
+                    <p>{{ item.subtitle|default:"Pre-Wedding Shoot" }}</p>
+                </div>
+            </div>
+            {% empty %}
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=85" alt="Pre Wedding">
+                </div>
+                <div class="photo-info">
+                    <h4>Romantic Moments</h4>
+                    <p>Pre-Wedding Shoot</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=85" alt="Couple Photography">
+                </div>
+                <div class="photo-info">
+                    <h4>Love Story</h4>
+                    <p>Couple Photography</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=900&q=85" alt="Outdoor Couple">
+                </div>
+                <div class="photo-info">
+                    <h4>Outdoor Love</h4>
+                    <p>Outdoor Pre-Wedding</p>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     5. BIRTHDAY
+===================================================== -->
+
+<section class="gallery-section" id="birthday">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="subtitle">
+                {{ birthday_header.small_title|default:"Celebration" }}
+            </div>
+
+            <h2>{{ birthday_header.title|default:"Birthday Photography" }}</h2>
+
+            <p>
+                {{ birthday_header.description|default:"Colourful birthday celebrations, beautiful decorations, cake cutting and memorable family moments." }}
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for item in birthday_items %}
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    {% if item.gallery_image %}
+                        <img src="{{ item.gallery_image.url }}" alt="{{ item.title|default:'Birthday Photography' }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=85" alt="Birthday Party">
+                    {% endif %}
+                </div>
+                <div class="photo-info">
+                    <h4>{{ item.title|default:"Birthday Celebration" }}</h4>
+                    <p>{{ item.subtitle|default:"Birthday Photography" }}</p>
+                </div>
+            </div>
+            {% empty %}
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=900&q=85" alt="Birthday Party">
+                </div>
+                <div class="photo-info">
+                    <h4>Birthday Celebration</h4>
+                    <p>Birthday Photography</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=900&q=85" alt="Birthday Decoration">
+                </div>
+                <div class="photo-info">
+                    <h4>Birthday Party</h4>
+                    <p>Party Photography</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=900&q=85" alt="Birthday Celebration">
+                </div>
+                <div class="photo-info">
+                    <h4>Special Day</h4>
+                    <p>Birthday Memories</p>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     6. BABY & KIDS
+===================================================== -->
+
+<section class="gallery-section bg-light" id="baby">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="subtitle">
+                {{ baby_header.small_title|default:"Little Memories" }}
+            </div>
+
+            <h2>{{ baby_header.title|default:"Baby & Kids Photography" }}</h2>
+
+            <p>
+                {{ baby_header.description|default:"Cute smiles, innocent expressions and precious childhood memories captured naturally." }}
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for item in baby_items %}
+            <div class="col-lg-3 col-md-6">
+                <div class="photo-card">
+                    {% if item.gallery_image %}
+                        <img src="{{ item.gallery_image.url }}" alt="{{ item.title|default:'Baby & Kids Photography' }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=700&q=85" alt="Baby Photography">
+                    {% endif %}
+                </div>
+                <div class="photo-info">
+                    <h4>{{ item.title|default:"Little Smile" }}</h4>
+                    <p>{{ item.subtitle|default:"Baby Photography" }}</p>
+                </div>
+            </div>
+            {% empty %}
+
+            <div class="col-lg-3 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=700&q=85" alt="Baby Photography">
+                </div>
+                <div class="photo-info">
+                    <h4>Little Smile</h4>
+                    <p>Baby Photography</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?auto=format&fit=crop&w=700&q=85" alt="Kids Photography">
+                </div>
+                <div class="photo-info">
+                    <h4>Happy Kids</h4>
+                    <p>Kids Photography</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1504159506876-f8338247a14a?auto=format&fit=crop&w=700&q=85" alt="Child Photography">
+                </div>
+                <div class="photo-info">
+                    <h4>Childhood Moments</h4>
+                    <p>Kids Portrait</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1540479859555-17af45c78602?auto=format&fit=crop&w=700&q=85" alt="Kids Portrait">
+                </div>
+                <div class="photo-info">
+                    <h4>Little Star</h4>
+                    <p>Kids Portrait</p>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     7. EVENTS
+===================================================== -->
+
+<section class="gallery-section" id="events">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="subtitle">
+                {{ events_header.small_title|default:"Special Events" }}
+            </div>
+
+            <h2>{{ events_header.title|default:"Event Photography" }}</h2>
+
+            <p>
+                {{ events_header.description|default:"Corporate events, social gatherings, parties and special celebrations captured professionally." }}
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for item in events_items %}
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    {% if item.gallery_image %}
+                        <img src="{{ item.gallery_image.url }}" alt="{{ item.title|default:'Event Photography' }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=85" alt="Event Photography">
+                    {% endif %}
+                </div>
+                <div class="photo-info">
+                    <h4>{{ item.title|default:"Event Celebration" }}</h4>
+                    <p>{{ item.subtitle|default:"Event Photography" }}</p>
+                </div>
+            </div>
+            {% empty %}
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=85" alt="Event Photography">
+                </div>
+                <div class="photo-info">
+                    <h4>Event Celebration</h4>
+                    <p>Event Photography</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=85" alt="Corporate Event">
+                </div>
+                <div class="photo-info">
+                    <h4>Corporate Event</h4>
+                    <p>Corporate Photography</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=900&q=85" alt="Party Event">
+                </div>
+                <div class="photo-info">
+                    <h4>Special Celebration</h4>
+                    <p>Party Photography</p>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     8. FASHION
+===================================================== -->
+
+<section class="gallery-section bg-light" id="fashion">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="subtitle">
+                {{ fashion_header.small_title|default:"Style & Creativity" }}
+            </div>
+
+            <h2>{{ fashion_header.title|default:"Fashion Photography" }}</h2>
+
+            <p>
+                {{ fashion_header.description|default:"Creative fashion portraits, professional looks and stylish photography for brands and individuals." }}
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for item in fashion_items %}
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    {% if item.gallery_image %}
+                        <img src="{{ item.gallery_image.url }}" alt="{{ item.title|default:'Fashion Photography' }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=85" alt="Fashion Photography">
+                    {% endif %}
+                </div>
+                <div class="photo-info">
+                    <h4>{{ item.title|default:"Fashion Style" }}</h4>
+                    <p>{{ item.subtitle|default:"Fashion Photography" }}</p>
+                </div>
+            </div>
+            {% empty %}
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=85" alt="Fashion Photography">
+                </div>
+                <div class="photo-info">
+                    <h4>Fashion Style</h4>
+                    <p>Fashion Photography</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=85" alt="Fashion Model">
+                </div>
+                <div class="photo-info">
+                    <h4>Modern Look</h4>
+                    <p>Model Photography</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=85" alt="Fashion Portrait">
+                </div>
+                <div class="photo-info">
+                    <h4>Creative Portrait</h4>
+                    <p>Fashion Portrait</p>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     9. PORTRAIT
+===================================================== -->
+
+<section class="gallery-section" id="portrait">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="subtitle">
+                {{ portrait_header.small_title|default:"Personal Stories" }}
+            </div>
+
+            <h2>{{ portrait_header.title|default:"Portrait Photography" }}</h2>
+
+            <p>
+                {{ portrait_header.description|default:"Individual, professional, family and creative portraits captured with natural expressions." }}
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for item in portrait_items %}
+            <div class="col-lg-3 col-md-6">
+                <div class="photo-card">
+                    {% if item.gallery_image %}
+                        <img src="{{ item.gallery_image.url }}" alt="{{ item.title|default:'Portrait Photography' }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=85" alt="Portrait Photography">
+                    {% endif %}
+                </div>
+                <div class="photo-info">
+                    <h4>{{ item.title|default:"Classic Portrait" }}</h4>
+                    <p>{{ item.subtitle|default:"Portrait Photography" }}</p>
+                </div>
+            </div>
+            {% empty %}
+
+            <div class="col-lg-3 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=85" alt="Portrait Photography">
+                </div>
+                <div class="photo-info">
+                    <h4>Classic Portrait</h4>
+                    <p>Portrait Photography</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=85" alt="Female Portrait">
+                </div>
+                <div class="photo-info">
+                    <h4>Natural Beauty</h4>
+                    <p>Portrait Session</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=700&q=85" alt="Male Portrait">
+                </div>
+                <div class="photo-info">
+                    <h4>Professional Portrait</h4>
+                    <p>Personal Branding</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=700&q=85" alt="Creative Portrait">
+                </div>
+                <div class="photo-info">
+                    <h4>Creative Expression</h4>
+                    <p>Creative Portrait</p>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+    <style>
+
+        /* =====================================================
+           VIDEO GALLERY SECTION
+        ====================================================== */
+
+        .video-gallery-section {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+
+
+        /* =====================================================
+           SECTION HEADING
+        ====================================================== */
+
+        .video-subtitle {
+            display: inline-block;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            letter-spacing: 2px;
+
+            color: #b08d57;
+
+            margin-bottom: 10px;
+        }
+
+
+        .video-title {
+            font-size: 40px;
+
+            font-weight: 700;
+
+            color: #1f2937;
+
+            margin-bottom: 15px;
+        }
+
+
+        .video-title span {
+            color: #b08d57;
+        }
+
+
+        .video-description {
+            width: 100%;
+
+            margin: 0 auto;
+
+            color: #6b7280;
+
+            font-size: 15px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           VIDEO CARD
+        ====================================================== */
+
+        .video-card {
+            background: #ffffff;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.08);
+
+            transition: all 0.3s ease;
+
+            height: 100%;
+        }
+
+
+        .video-card:hover {
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.14);
+        }
+
+
+        /* =====================================================
+           VIDEO WRAPPER
+        ====================================================== */
+
+        .video-wrapper {
+            position: relative;
+
+            width: 100%;
+
+            height: 300px;
+
+            background: #000000;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           VIDEO
+        ====================================================== */
+
+        .gallery-video {
+            width: 100%;
+
+            height: 100%;
+
+            display: block;
+
+            background: #000000;
+        }
+
+
+        /* =====================================================
+           VIDEO CONTENT
+        ====================================================== */
+
+        .video-content {
+            padding: 25px;
+        }
+
+
+        .video-category {
+            display: inline-block;
+
+            color: #b08d57;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+
+        .video-content h3 {
+            font-size: 22px;
+
+            font-weight: 700;
+
+            color: #1f2937;
+
+            margin-bottom: 10px;
+        }
+
+
+        .video-content p {
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin-bottom: 0;
+        }
+
+
+        /* =====================================================
+           VIEW MORE BUTTON
+        ====================================================== */
+
+        .video-view-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #1f2937;
+
+            color: #ffffff;
+
+            padding: 13px 28px;
+
+            border-radius: 50px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            transition: all 0.3s ease;
+        }
+
+
+        .video-view-btn:hover {
+            background: #b08d57;
+
+            color: #ffffff;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================================
+           TABLET
+        ====================================================== */
+
+        @media (max-width: 991px) {
+
+            .video-gallery-section {
+                padding: 60px 0;
+            }
+
+            .video-title {
+                font-size: 34px;
+            }
+
+            .video-wrapper {
+                height: 280px;
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 576px) {
+
+            .video-gallery-section {
+                padding: 50px 0;
+            }
+
+            .video-title {
+                font-size: 28px;
+
+                line-height: 1.3;
+            }
+
+            .video-description {
+                font-size: 14px;
+            }
+
+            .video-wrapper {
+                height: 230px;
+            }
+
+            .video-content {
+                padding: 20px;
+            }
+
+            .video-content h3 {
+                font-size: 20px;
+            }
+
+        }
+
+    </style>
+
+
+
+<!-- =========================================================
+     VIDEO GALLERY SECTION
+========================================================= -->
+
+<section class="video-gallery-section">
+
+
+    <div class="container">
+
+
+        <!-- =====================================================
+             SECTION HEADING
+        ====================================================== -->
+
+        <div class="text-center mb-5">
+
+            <span class="video-subtitle">
+                OUR VIDEO STORIES
+            </span>
+
+
+            <h2 class="video-title">
+
+                Beautiful Moments,
+                <span>Beautiful Stories</span>
+
+            </h2>
+
+
+            <p class="video-description">
+
+                Relive your most precious moments through our
+                cinematic photography and videography stories.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             VIDEO CARDS
+        ====================================================== -->
+
+        <div class="row g-4">
+
+
+            <!-- =================================================
+                 PRE-WEDDING
+            ================================================== -->
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+
+                <div class="video-card">
+
+
+                    <div class="video-wrapper">
+
+                        <video
+                            class="gallery-video"
+                            controls
+                            preload="metadata"
+                            playsinline>
+
+                            <source
+                                src="{% static 'website/videos/prewedding.mp4' %}"
+                                type="video/mp4">
+
+                            Your browser does not support
+                            the video tag.
+
+                        </video>
+
+                    </div>
+
+
+                    <div class="video-content">
+
+                        <span class="video-category">
+                            Pre-Wedding
+                        </span>
+
+
+                        <h3>
+                            Love Before The Wedding
+                        </h3>
+
+
+                        <p>
+
+                            A beautiful cinematic journey
+                            capturing love, laughter and
+                            unforgettable moments.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BIRTHDAY
+            ================================================== -->
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+
+                <div class="video-card">
+
+
+                    <div class="video-wrapper">
+
+                        <video
+                            class="gallery-video"
+                            controls
+                            preload="metadata"
+                            playsinline>
+
+                            <source
+                                src="{% static 'website/videos/Bathday.mp4' %}"
+                                type="video/mp4">
+
+                            Your browser does not support
+                            the video tag.
+
+                        </video>
+
+                    </div>
+
+
+                    <div class="video-content">
+
+                        <span class="video-category">
+                            Birthday
+                        </span>
+
+
+                        <h3>
+                            A Celebration To Remember
+                        </h3>
+
+
+                        <p>
+
+                            Capturing smiles, happiness
+                            and special birthday
+                            celebrations with cinematic
+                            moments.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ANNIVERSARY
+            ================================================== -->
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+
+                <div class="video-card">
+
+
+                    <div class="video-wrapper">
+
+                        <video
+                            class="gallery-video"
+                            controls
+                            preload="metadata"
+                            playsinline>
+
+                            <source
+                                src="{% static 'website/videos/Anniversary.mp4' %}"
+                                type="video/mp4">
+
+                            Your browser does not support
+                            the video tag.
+
+                        </video>
+
+                    </div>
+
+
+                    <div class="video-content">
+
+                        <span class="video-category">
+                            Anniversary
+                        </span>
+
+
+                        <h3>
+                            Celebrating Togetherness
+                        </h3>
+
+
+                        <p>
+
+                            Relive the beautiful journey
+                            of love, memories and
+                            togetherness.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 WEDDING
+            ================================================== -->
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+
+                <div class="video-card">
+
+
+                    <div class="video-wrapper">
+
+                        <video
+                            class="gallery-video"
+                            controls
+                            preload="metadata"
+                            playsinline>
+
+                            <source
+                                src="{% static 'website/videos/wedding.mp4' %}"
+                                type="video/mp4">
+
+                            Your browser does not support
+                            the video tag.
+
+                        </video>
+
+                    </div>
+
+
+                    <div class="video-content">
+
+                        <span class="video-category">
+                            Wedding
+                        </span>
+
+
+                        <h3>
+                            Forever Begins Here
+                        </h3>
+
+
+                        <p>
+
+                            Cinematic wedding stories
+                            filled with emotions,
+                            happiness and unforgettable
+                            memories.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RECEPTION
+            ================================================== -->
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+
+                <div class="video-card">
+
+
+                    <div class="video-wrapper">
+
+                        <video
+                            class="gallery-video"
+                            controls
+                            preload="metadata"
+                            playsinline>
+
+                            <source
+                                src="{% static 'website/videos/Reception.mp4' %}"
+                                type="video/mp4">
+
+                            Your browser does not support
+                            the video tag.
+
+                        </video>
+
+                    </div>
+
+
+                    <div class="video-content">
+
+                        <span class="video-category">
+                            Reception
+                        </span>
+
+
+                        <h3>
+                            A Night To Remember
+                        </h3>
+
+
+                        <p>
+
+                            Beautiful reception moments
+                            captured with elegance,
+                            emotions and cinematic style.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 COUPLE
+            ================================================== -->
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+
+                <div class="video-card">
+
+
+                    <div class="video-wrapper">
+
+                        <video
+                            class="gallery-video"
+                            controls
+                            preload="metadata"
+                            playsinline>
+
+                            <source
+                                src="{% static 'website/videos/cuple.mp4' %}"
+                                type="video/mp4">
+
+                            Your browser does not support
+                            the video tag.
+
+                        </video>
+
+                    </div>
+
+
+                    <div class="video-content">
+
+                        <span class="video-category">
+                            Couple
+                        </span>
+
+
+                        <h3>
+                            Moments Of Love
+                        </h3>
+
+
+                        <p>
+
+                            A cinematic collection of
+                            beautiful couple moments
+                            and unforgettable memories.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================================
+             VIEW MORE
+        ====================================================== -->
+
+        <div class="text-center mt-5">
+
+            <a
+                href="#"
+                class="video-view-btn">
+
+                View More Videos
+
+                <i class="bi bi-arrow-right ms-2"></i>
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+
+
+<!-- =====================================================
+     10. STATS
+===================================================== -->
+
+<section class="stats-section">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-box">
+
+                    <i class="bi bi-camera"></i>
+
+                    <h3>500+</h3>
+
+                    <p>Events Covered</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-box">
+
+                    <i class="bi bi-heart"></i>
+
+                    <h3>300+</h3>
+
+                    <p>Weddings</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-box">
+
+                    <i class="bi bi-people"></i>
+
+                    <h3>1000+</h3>
+
+                    <p>Happy Clients</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-box">
+
+                    <i class="bi bi-award"></i>
+
+                    <h3>8+</h3>
+
+                    <p>Years Experience</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     11. CTA
+===================================================== -->
+
+<section class="gallery-cta" id="cta" style="background: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url('{% if gallery_cta.bg_image %}{{ gallery_cta.bg_image.url }}{% else %}https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=2000&q=85{% endif %}') center / cover no-repeat;">
+
+    <div class="container">
+
+        <h2>{{ gallery_cta.title|default:"Have a Moment to Capture?" }}</h2>
+
+        <p>
+            {{ gallery_cta.description|default:"Let's turn your special moments into beautiful memories that you can cherish forever." }}
+        </p>
+
+        <div>
+
+            <a href="{{ gallery_cta.btn1_link|default:'/booking_form/' }}" class="btn-gold">
+
+                <i class="bi bi-camera me-2"></i>
+
+                {{ gallery_cta.btn1_text|default:"Book a Photoshoot" }}
+
+            </a>
+
+
+            <a href="{{ gallery_cta.btn2_link|default:'/contact/' }}" class="btn-outline-light-custom">
+
+                <i class="bi bi-chat-dots me-2"></i>
+
+                {{ gallery_cta.btn2_text|default:"Contact Us" }}
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+{% include "website/footer.html" %}
+
+
+

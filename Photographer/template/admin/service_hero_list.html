@@ -1,0 +1,155 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .list-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+        border: 1px solid #E2E8F0;
+    }
+
+    .list-header {
+        background: linear-gradient(135deg, #1e1b18 0%, #322824 50%, #8a4f29 100%);
+        color: white;
+        padding: 24px 30px;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .list-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.3rem;
+    }
+
+    .list-body {
+        padding: 30px;
+    }
+
+    .table-hero img {
+        width: 140px;
+        height: 75px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+    }
+
+    .badge-label {
+        background: rgba(217, 119, 6, 0.1);
+        color: #d97706;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.78rem;
+    }
+
+    .btn-action {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- FLASH MESSAGES -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show rounded-3 shadow-sm border-0 mb-3" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="list-card">
+        <!-- HEADER -->
+        <div class="list-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-images me-2 text-warning"></i>
+                Services Page Hero Banners List
+            </h4>
+            <a href="/admin/add-service-hero/" class="btn btn-warning btn-sm fw-bold rounded-3 text-dark">
+                <i class="bi bi-plus-circle-fill me-1"></i> Add New Hero Banner
+            </a>
+        </div>
+
+        <!-- BODY -->
+        <div class="list-body">
+            {% if hero_entries %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Banner Image</th>
+                                <th>Label & Main Title</th>
+                                <th>Description</th>
+                                <th>Button & Link</th>
+                                <th>Bottom Subtitle</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for hero in hero_entries %}
+                                <tr>
+                                    <td class="fw-bold">{{ forloop.counter }}</td>
+                                    <td>
+                                        <div class="table-hero">
+                                            {% if hero.hero_image %}
+                                                <img src="{{ hero.hero_image.url }}" alt="Hero Image">
+                                            {% else %}
+                                                <div class="bg-secondary text-white rounded p-3 text-center small">No Image</div>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge-label d-inline-block mb-1">{{ hero.label_text }}</span>
+                                        <div class="fw-bold text-dark fs-6">
+                                            {{ hero.title_prefix }}<span class="text-warning">{{ hero.title_highlight }}</span>{{ hero.title_suffix }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="small text-muted" style="max-width: 280px;">
+                                            {{ hero.description|truncatewords:15 }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="fw-semibold small text-dark">{{ hero.btn_text }}</div>
+                                        <span class="badge bg-light text-secondary border">{{ hero.btn_link }}</span>
+                                    </td>
+                                    <td>
+                                        <small class="fw-semibold text-secondary">{{ hero.bottom_text }}</small>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="/admin/edit-service-hero/{{ hero.id }}/" class="btn btn-outline-primary btn-action me-1" title="Edit">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a href="/admin/delete-service-hero/{{ hero.id }}/" class="btn btn-outline-danger btn-action" title="Delete" onclick="return confirm('Are you sure you want to delete this Hero Banner?');">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-camera fs-1 text-muted d-block mb-2"></i>
+                    <h5 class="fw-bold text-secondary">No Services Hero Banner Added Yet</h5>
+                    <p class="text-muted small">Click the button below to add your first Services Hero Banner.</p>
+                    <a href="/admin/add-service-hero/" class="btn btn-warning fw-bold text-dark mt-2">
+                        <i class="bi bi-plus-circle me-1"></i> Add Services Hero Banner
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% include "admin/footer.html" %}

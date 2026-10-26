@@ -1,0 +1,139 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .about-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .about-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .about-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .about-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        height: 46px;
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+    }
+
+    textarea.form-control {
+        height: auto;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="about-card">
+        <!-- HEADER -->
+        <div class="about-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-grid-fill me-2 text-danger"></i>
+                Edit "What We Do" Section Header
+            </h4>
+            <a href="/admin/service-list/" class="btn btn-outline-light btn-sm font-weight-bold">
+                <i class="bi bi-list-ul me-1"></i> Manage Service Cards
+            </a>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mx-4 mt-3" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- BODY FORM -->
+        <div class="about-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- SECTION SMALL LABEL -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Section Small Label
+                        </label>
+                        <input type="text" name="what_we_do_label" class="form-control"
+                            value="{{ about.what_we_do_label|default:'WHAT WE DO' }}" placeholder="WHAT WE DO">
+                    </div>
+
+                    <!-- MAIN SECTION HEADING -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Main Section Heading
+                        </label>
+                        <input type="text" name="what_we_do_title" class="form-control"
+                            value="{{ about.what_we_do_title|default:'Photography For Every Special Moment' }}" placeholder="Photography For Every Special Moment">
+                    </div>
+
+                    <!-- SUBTITLE / DESCRIPTION -->
+                    <div class="col-12">
+                        <label class="form-label">
+                            Section Description / Subtitle
+                        </label>
+                        <textarea name="what_we_do_desc" class="form-control" rows="3"
+                            placeholder="From intimate portraits to grand celebrations, we help you discover photography services that match your occasion and style.">{{ about.what_we_do_desc|default:'From intimate portraits to grand celebrations, we help you discover photography services that match your occasion and style.' }}</textarea>
+                    </div>
+
+                    <!-- SUBMIT BUTTON -->
+                    <div class="col-12 mt-4 text-end">
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-cloud-arrow-up-fill me-2"></i> Update Header Section
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include "admin/footer.html" %}

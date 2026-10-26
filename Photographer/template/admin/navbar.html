@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Overview | Admin Panel</title>
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<!-- Theme Stylesheet -->
+<link rel="stylesheet" href="/static/admin/navbar.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<!-- ==========================================================================
+     SIDEBAR
+     ========================================================================== -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<aside class="sidebar" id="appSidebar">
+
+  <a href="/admin/" class="sidebar-brand text-decoration-none">
+    <div class="brand-logo"><i class="bi bi-briefcase-fill"></i></div>
+    <div class="brand-text">
+      <span class="brand-main">Admin</span>
+      <span class="brand-sub">Panel</span>
+    </div>
+  </a>
+
+  <nav class="sidebar-nav">
+    <ul class="nav flex-column">
+
+      <!-- Dashboard -->
+      <li class="nav-item">
+        <a href="/admin/" class="nav-link {% if active_page == 'dashboard' or not active_page %}active{% endif %}">
+          <i class="bi bi-grid-1x2-fill link-icon"></i>
+          <span class="link-label">Dashboard</span>
+        </a>
+      </li>
+
+      <!-- Photographer Bookings -->
+      <li class="nav-item">
+        <a href="/admin/booking-list/" class="nav-link {% if active_page == 'booking_list' %}active{% endif %}">
+          <i class="bi bi-calendar-check-fill link-icon text-warning"></i>
+          <span class="link-label">Photographer Bookings</span>
+        </a>
+      </li>
+
+      <!-- Customer Booking History -->
+      <li class="nav-item">
+        <a href="/admin/customer-booking-history/" class="nav-link {% if active_page == 'customer_booking_history' %}active{% endif %}">
+          <i class="bi bi-clock-history link-icon text-info"></i>
+          <span class="link-label">Customer Booking History</span>
+        </a>
+      </li>
+
+      <!-- ===================== HOME PAGE ===================== -->
+      <li class="nav-item">
+        <a href="#menuHomePage" class="nav-link" data-bs-toggle="collapse" data-bs-target="#menuHomePage" aria-expanded="false" role="button">
+          <i class="bi bi-house-fill link-icon"></i>
+          <span class="link-label">Home Page</span>
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse sidebar-submenu" id="menuHomePage">
+
+          <!-- Slider -->
+          <a href="#menuSlider" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuSlider" aria-expanded="false" role="button">
+            <i class="bi bi-images" style="margin-right:6px;font-size:0.8rem;"></i>Slider
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuSlider">
+            <a href="/admin/add-slider/" class="nav-link d-block">Add Slider</a>
+            <a href="/admin/slider-list/" class="nav-link d-block">Slider List</a>
+          </div>
+
+          <!-- About Me -->
+          <a href="#menuAboutMe" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutMe" aria-expanded="false" role="button">
+            <i class="bi bi-person-circle" style="margin-right:6px;font-size:0.8rem;"></i>Home About Me
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutMe">
+            <a href="/admin/add-home-about/" class="nav-link d-block">Add Home About</a>
+            <a href="/admin/home-about-list/" class="nav-link d-block">Home About List</a>
+          </div>
+
+          <!-- What We Offer -->
+          <a href="#menuWhatWeOffer" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuWhatWeOffer" aria-expanded="false" role="button">
+            <i class="bi bi-box-seam" style="margin-right:6px;font-size:0.8rem;"></i>What We Offer
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuWhatWeOffer">
+            <a href="/admin/what-we-offer-header/" class="nav-link d-block">Edit Section Header</a>
+            <a href="/admin/add-what-we-offer/" class="nav-link d-block">Add Offer Item</a>
+            <a href="/admin/what-we-offer-list/" class="nav-link d-block">What We Offer List</a>
+          </div>
+
+
+
+          <!-- Services -->
+          <a href="#menuServices" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuServices" aria-expanded="false" role="button">
+            <i class="bi bi-briefcase" style="margin-right:6px;font-size:0.8rem;"></i>What We Do / Services
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuServices">
+            <a href="/admin/what-we-do-header/" class="nav-link d-block">Edit Section Header</a>
+            <a href="/admin/add-service/" class="nav-link d-block">Add Service Card</a>
+            <a href="/admin/service-list/" class="nav-link d-block">Services List</a>
+          </div>
+
+          <!-- Our Best -->
+          <a href="#menuOurBest" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuOurBest" aria-expanded="false" role="button">
+            <i class="bi bi-trophy" style="margin-right:6px;font-size:0.8rem;"></i>Our Best
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuOurBest">
+            <a href="/admin/add-featured/" class="nav-link d-block">Add Featured Work</a>
+            <a href="/admin/featured-list/" class="nav-link d-block">Featured Work List</a>
+          </div>
+
+          <!-- Photography Category -->
+          <a href="#menuPhotoCategory" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuPhotoCategory" aria-expanded="false" role="button">
+            <i class="bi bi-camera" style="margin-right:6px;font-size:0.8rem;"></i>Photography Category
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuPhotoCategory">
+            <a href="/admin/add-category/" class="nav-link d-block">Add Category</a>
+            <a href="/admin/category-list/" class="nav-link d-block">Category List</a>
+          </div>
+
+          <!-- Video Stories -->
+          <a href="#menuVideoStories" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuVideoStories" aria-expanded="false" role="button">
+            <i class="bi bi-play-btn" style="margin-right:6px;font-size:0.8rem;"></i>Video Stories
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuVideoStories">
+            <a href="/admin/add-video-story/" class="nav-link d-block">Add Video Story</a>
+            <a href="/admin/video-story-list/" class="nav-link d-block">Video Stories List</a>
+          </div>
+
+          <!-- Recent Gallery -->
+          <a href="#menuRecentGallery" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuRecentGallery" aria-expanded="false" role="button">
+            <i class="bi bi-grid-3x3-gap" style="margin-right:6px;font-size:0.8rem;"></i>Recent Gallery
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuRecentGallery">
+            <a href="/admin/add-gallery/" class="nav-link d-block">Add Gallery Image</a>
+            <a href="/admin/gallery-list/" class="nav-link d-block">Gallery List</a>
+          </div>
+
+          <!-- Why Us / About Me -->
+          <a href="#menuWhyUs" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuWhyUs" aria-expanded="false" role="button">
+            <i class="bi bi-patch-check" style="margin-right:6px;font-size:0.8rem;"></i>Why Us / About Me
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuWhyUs">
+            <a href="/admin/why-us-header/" class="nav-link d-block">Edit Section Header & Photo</a>
+            <a href="/admin/add-why-us/" class="nav-link d-block">Add Feature Item</a>
+            <a href="/admin/why-us-list/" class="nav-link d-block">Why Us List</a>
+          </div>
+
+          <!-- How We Work -->
+          <a href="#menuHowWeWork" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuHowWeWork" aria-expanded="false" role="button">
+            <i class="bi bi-diagram-3" style="margin-right:6px;font-size:0.8rem;"></i>How We Work
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuHowWeWork">
+            <a href="/admin/process-header/" class="nav-link d-block">Edit Section Header</a>
+            <a href="/admin/add-process/" class="nav-link d-block">Add Process Step</a>
+            <a href="/admin/process-list/" class="nav-link d-block">Process List</a>
+          </div>
+
+          <!-- Real Stories -->
+          <a href="#menuRealStories" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuRealStories" aria-expanded="false" role="button">
+            <i class="bi bi-book" style="margin-right:6px;font-size:0.8rem;"></i>Real Stories
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuRealStories">
+            <a href="/admin/add-client-story/" class="nav-link d-block">Add Real Story</a>
+            <a href="/admin/client-story-list/" class="nav-link d-block">Real Stories List</a>
+          </div>
+
+          <!-- Client Testimonials -->
+          <a href="#menuTestimonials" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuTestimonials" aria-expanded="false" role="button">
+            <i class="bi bi-chat-quote" style="margin-right:6px;font-size:0.8rem;"></i>Client Testimonials
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuTestimonials">
+            <a href="/admin/add-testimonial/" class="nav-link d-block">Add Testimonial</a>
+            <a href="/admin/testimonial-list/" class="nav-link d-block">Testimonials List</a>
+          </div>
+
+          <!-- Instagram Gallery -->
+          <a href="#menuInstaGallery" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuInstaGallery" aria-expanded="false" role="button">
+            <i class="bi bi-instagram" style="margin-right:6px;font-size:0.8rem;"></i>Instagram Gallery
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuInstaGallery">
+            <a href="/admin/add-insta-post/" class="nav-link d-block">Add Instagram Post</a>
+            <a href="/admin/insta-post-list/" class="nav-link d-block">Instagram Gallery List</a>
+          </div>
+
+          <!-- Awards & Recognition -->
+          <a href="#menuAwards" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAwards" aria-expanded="false" role="button">
+            <i class="bi bi-trophy" style="margin-right:6px;font-size:0.8rem;"></i>Awards & Recognition
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAwards">
+            <a href="/admin/add-award/" class="nav-link d-block">Add Award</a>
+            <a href="/admin/award-list/" class="nav-link d-block">Awards List</a>
+          </div>
+
+          <!-- Contact Us -->
+          <a href="#menuContactUs" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuContactUs" aria-expanded="false" role="button">
+            <i class="bi bi-envelope" style="margin-right:6px;font-size:0.8rem;"></i>Contact Us
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuContactUs">
+            <a href="#" class="nav-link d-block">Contact Us List</a>
+          </div>
+
+        </div>
+      </li>
+
+      <!-- ===================== ABOUT PAGE ===================== -->
+      <li class="nav-item">
+        <a href="#menuAboutPage" class="nav-link {% if 'about' in request.path or 'what-we-do' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuAboutPage" aria-expanded="{% if 'about' in request.path or 'what-we-do' in request.path %}true{% else %}false{% endif %}" role="button">
+          <i class="bi bi-info-circle-fill link-icon"></i>
+          <span class="link-label">About Page</span>
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse sidebar-submenu {% if 'about' in request.path or 'what-we-do' in request.path %}show{% endif %}" id="menuAboutPage">
+
+          <!-- 1. About Top Hero Banner -->
+          <a href="#menuAboutHero" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutHero" aria-expanded="false" role="button">
+            <i class="bi bi-images" style="margin-right:6px;font-size:0.8rem;"></i>Top Hero Banner
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutHero">
+            <a href="/admin/add-about-hero/" class="nav-link d-block">Add Hero Banner</a>
+            <a href="/admin/about-hero-list/" class="nav-link d-block">Hero Banner List</a>
+          </div>
+
+          <!-- 2. Who We Are Section -->
+          <a href="#menuAboutWhoWeAre" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutWhoWeAre" aria-expanded="false" role="button">
+            <i class="bi bi-person-circle" style="margin-right:6px;font-size:0.8rem;"></i>Who We Are Section
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutWhoWeAre">
+            <a href="/admin/add-about/" class="nav-link d-block">Add Who We Are</a>
+            <a href="/admin/about-list/" class="nav-link d-block">Who We Are List</a>
+          </div>
+
+          <!-- 3. Our Story (Timeline) -->
+          <a href="#menuAboutStory" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutStory" aria-expanded="false" role="button">
+            <i class="bi bi-journal-bookmark" style="margin-right:6px;font-size:0.8rem;"></i>OUR STORY (Timeline)
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutStory">
+            <a href="/admin/about-story-header/" class="nav-link d-block">Story Section Info</a>
+            <a href="/admin/add-about-story/" class="nav-link d-block">Add Story Step</a>
+            <a href="/admin/about-story-list/" class="nav-link d-block">Story Steps List</a>
+          </div>
+
+          <!-- 3. What We Do (Services) -->
+          <a href="#menuAboutServices" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutServices" aria-expanded="false" role="button">
+            <i class="bi bi-briefcase" style="margin-right:6px;font-size:0.8rem;"></i>WHAT WE DO (Services)
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutServices">
+            <a href="/admin/what-we-do-header/" class="nav-link d-block">Edit Header Section</a>
+            <a href="/admin/what-we-do-list/" class="nav-link d-block">Header Details List</a>
+            <a href="/admin/add-service/" class="nav-link d-block">Add Service Card</a>
+            <a href="/admin/service-list/" class="nav-link d-block">Services List</a>
+          </div>
+
+          <!-- 4. Our Mission -->
+          <a href="#menuAboutMission" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutMission" aria-expanded="false" role="button">
+            <i class="bi bi-compass" style="margin-right:6px;font-size:0.8rem;"></i>OUR MISSION
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutMission">
+            <a href="/admin/about-mission-section/" class="nav-link d-block">Edit Mission Info & Image</a>
+            <a href="/admin/about-mission-list/" class="nav-link d-block">Mission Details List</a>
+          </div>
+
+          <!-- 5. Our Vision -->
+          <a href="#menuAboutVision" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutVision" aria-expanded="false" role="button">
+            <i class="bi bi-eye" style="margin-right:6px;font-size:0.8rem;"></i>OUR VISION
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutVision">
+            <a href="/admin/about-vision-section/" class="nav-link d-block">Edit Vision Info & Image</a>
+            <a href="/admin/about-vision-list/" class="nav-link d-block">Vision Details List</a>
+          </div>
+
+          <!-- 4. Why Choose Us -->
+          <a href="#menuAboutWhyUs" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutWhyUs" aria-expanded="false" role="button">
+            <i class="bi bi-patch-check" style="margin-right:6px;font-size:0.8rem;"></i>Why Choose Us
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutWhyUs">
+            <a href="/admin/add-why-us/" class="nav-link d-block">Add Why Us</a>
+            <a href="/admin/why-us-list/" class="nav-link d-block">Why Us List</a>
+          </div>
+
+          <!-- 5. Client Testimonials -->
+          <a href="#menuAboutTestimonials" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutTestimonials" aria-expanded="false" role="button">
+            <i class="bi bi-chat-quote" style="margin-right:6px;font-size:0.8rem;"></i>Client Testimonials
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutTestimonials">
+            <a href="/admin/add-testimonial/" class="nav-link d-block">Add Testimonial</a>
+            <a href="/admin/testimonial-list/" class="nav-link d-block">Testimonials List</a>
+          </div>
+
+          <!-- 6. Awards & Recognition -->
+          <a href="#menuAboutAwards" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutAwards" aria-expanded="false" role="button">
+            <i class="bi bi-trophy" style="margin-right:6px;font-size:0.8rem;"></i>Awards & Recognition
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutAwards">
+            <a href="/admin/add-award/" class="nav-link d-block">Add Award</a>
+            <a href="/admin/award-list/" class="nav-link d-block">Awards List</a>
+          </div>
+
+          <!-- 7. Our Numbers -->
+          <a href="#menuAboutNumbers" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutNumbers" aria-expanded="false" role="button">
+            <i class="bi bi-123" style="margin-right:6px;font-size:0.8rem;"></i>OUR NUMBERS
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutNumbers">
+            <a href="/admin/about-numbers-section/" class="nav-link d-block">Edit Stats Counter Info</a>
+            <a href="/admin/about-numbers-list/" class="nav-link d-block">Numbers Details List</a>
+          </div>
+
+          <!-- 8. Start Your Story CTA -->
+          <a href="#menuAboutCTA" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuAboutCTA" aria-expanded="false" role="button">
+            <i class="bi bi-megaphone" style="margin-right:6px;font-size:0.8rem;"></i>START YOUR STORY CTA
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuAboutCTA">
+            <a href="/admin/about-cta-section/" class="nav-link d-block">Edit CTA Banner Info & Image</a>
+            <a href="/admin/about-cta-list/" class="nav-link d-block">CTA Details List</a>
+          </div>
+
+        </div>
+      </li>
+
+      <!-- ===================== SERVICES PAGE ===================== -->
+      <li class="nav-item">
+        <a href="#menuServicesPage" class="nav-link {% if 'service' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuServicesPage" aria-expanded="{% if 'service' in request.path %}true{% else %}false{% endif %}" role="button">
+          <i class="bi bi-briefcase-fill link-icon"></i>
+          <span class="link-label">Services Page</span>
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse sidebar-submenu {% if 'service' in request.path %}show{% endif %}" id="menuServicesPage">
+
+          <!-- 1. Services Hero Banner -->
+          <a href="#menuServicesHero" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuServicesHero" aria-expanded="false" role="button">
+            <i class="bi bi-images" style="margin-right:6px;font-size:0.8rem;"></i>Services Hero Banner
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuServicesHero">
+            <a href="/admin/add-service-hero/" class="nav-link d-block">Add Services Hero Banner</a>
+            <a href="/admin/service-hero-list/" class="nav-link d-block">Services Banner List</a>
+          </div>
+
+          <!-- 2. Services Cards -->
+          <a href="#menuServicesCard" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuServicesCard" aria-expanded="false" role="button">
+            <i class="bi bi-camera" style="margin-right:6px;font-size:0.8rem;"></i>Services Cards
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuServicesCard">
+            <a href="/admin/add-service/" class="nav-link d-block">Add Service Card</a>
+            <a href="/admin/service-list/" class="nav-link d-block">Services List</a>
+          </div>
+
+          <!-- 3. What We Offer -->
+          <a href="#menuServicesOffer" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuServicesOffer" aria-expanded="false" role="button">
+            <i class="bi bi-gift" style="margin-right:6px;font-size:0.8rem;"></i>What We Offer
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuServicesOffer">
+            <a href="/admin/what-we-offer-header/" class="nav-link d-block">Edit Offer Header</a>
+            <a href="/admin/add-what-we-offer/" class="nav-link d-block">Add Offer Item</a>
+            <a href="/admin/what-we-offer-list/" class="nav-link d-block">Offer Items List</a>
+          </div>
+
+          <!-- 4. Our Portfolio -->
+          <a href="#menuServicesPortfolio" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuServicesPortfolio" aria-expanded="false" role="button">
+            <i class="bi bi-award" style="margin-right:6px;font-size:0.8rem;"></i>Our Portfolio
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuServicesPortfolio">
+            <a href="/admin/add-featured/" class="nav-link d-block">Add Portfolio Item</a>
+            <a href="/admin/featured-list/" class="nav-link d-block">Portfolio List</a>
+          </div>
+
+          <!-- 5. CTA Banner Section -->
+          <a href="#menuServicesCTA" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuServicesCTA" aria-expanded="false" role="button">
+            <i class="bi bi-megaphone" style="margin-right:6px;font-size:0.8rem;"></i>CTA Banner Section
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuServicesCTA">
+            <a href="/admin/services-cta-section/" class="nav-link d-block">Edit CTA Banner Info & Image</a>
+          </div>
+
+        </div>
+      </li>
+
+
+      <!-- ===================== CATEGORIES PAGE ===================== -->
+      <li class="nav-item">
+        <a href="#menuCategoriesPage" class="nav-link {% if 'categor' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuCategoriesPage" aria-expanded="{% if 'categor' in request.path %}true{% else %}false{% endif %}" role="button">
+          <i class="bi bi-grid-3x3-gap-fill link-icon"></i>
+          <span class="link-label">Categories Page</span>
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse sidebar-submenu {% if 'categor' in request.path %}show{% endif %}" id="menuCategoriesPage">
+
+          <!-- 1. Categories Hero Banner -->
+          <a href="#menuCategoryHero" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuCategoryHero" aria-expanded="false" role="button">
+            <i class="bi bi-images" style="margin-right:6px;font-size:0.8rem;"></i>Categories Hero Banner
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuCategoryHero">
+            <a href="/admin/category-hero-section/" class="nav-link d-block">Edit Hero Banner</a>
+            <a href="/admin/category-hero-list/" class="nav-link d-block">Category Hero List</a>
+          </div>
+
+          <!-- 2. Section Header & Settings -->
+          <a href="#menuCategoryHeader" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuCategoryHeader" aria-expanded="false" role="button">
+            <i class="bi bi-gear-wide-connected" style="margin-right:6px;font-size:0.8rem;"></i>All Categories Section Header
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuCategoryHeader">
+            <a href="/admin/category-section-header/" class="nav-link d-block">Edit Section Header</a>
+          </div>
+
+          <!-- 3. Photography Categories -->
+          <a href="#menuCategoryItems" class="nav-link d-block" data-bs-toggle="collapse" data-bs-target="#menuCategoryItems" aria-expanded="false" role="button">
+            <i class="bi bi-tags" style="margin-right:6px;font-size:0.8rem;"></i>Photography Category Cards
+          </a>
+          <div class="collapse sidebar-submenu-nested" id="menuCategoryItems">
+            <a href="/admin/add-category/" class="nav-link d-block">Add Category Card</a>
+            <a href="/admin/category-list/" class="nav-link d-block">Category Cards List</a>
+          </div>
+
+        </div>
+      </li>
+
+
+      <!-- ===================== GALLERY PAGE ===================== -->
+      <li class="nav-item">
+        <a href="#menuGalleryPage" class="nav-link {% if 'gallery' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuGalleryPage" aria-expanded="{% if 'gallery' in request.path %}true{% else %}false{% endif %}" role="button">
+          <i class="bi bi-images link-icon"></i>
+          <span class="link-label">Gallery Page</span>
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse sidebar-submenu {% if 'gallery' in request.path %}show{% endif %}" id="menuGalleryPage">
+
+          <!-- 1. Gallery Hero Banner -->
+          <a href="#menuGalleryHero" class="nav-link d-block {% if 'gallery-hero-section' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuGalleryHero" aria-expanded="{% if 'gallery-hero-section' in request.path %}true{% else %}false{% endif %}" role="button">
+            <i class="bi bi-images" style="margin-right:6px;font-size:0.8rem;"></i>Gallery Hero Banner
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested {% if 'gallery-hero-section' in request.path %}show{% endif %}" id="menuGalleryHero">
+            <a href="/admin/gallery-hero-section/" class="nav-link d-block {% if active_page == 'gallery_hero_section' %}active{% endif %}">Edit Hero Banner Info & Photo</a>
+          </div>
+
+          <!-- 2. Love & Forever -->
+          <a href="#menuGalleryLove" class="nav-link d-block {% if 'wedding-header' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuGalleryLove" aria-expanded="{% if 'wedding-header' in request.path %}true{% else %}false{% endif %}" role="button">
+            <i class="bi bi-heart" style="margin-right:6px;font-size:0.8rem;"></i>Love & Forever
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested {% if 'wedding-header' in request.path %}show{% endif %}" id="menuGalleryLove">
+            <a href="/admin/gallery-wedding-header/" class="nav-link d-block {% if active_page == 'gallery_wedding_header' %}active{% endif %}">Edit Section Header (Love & Forever)</a>
+            <a href="/admin/add-gallery/" class="nav-link d-block">Add Love & Forever Image</a>
+            <a href="/admin/gallery-list/" class="nav-link d-block">Love & Forever List</a>
+          </div>
+
+          <!-- 3. Couple Stories -->
+          <a href="#menuGalleryCouple" class="nav-link d-block {% if 'prewedding-header' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuGalleryCouple" aria-expanded="{% if 'prewedding-header' in request.path %}true{% else %}false{% endif %}" role="button">
+            <i class="bi bi-people" style="margin-right:6px;font-size:0.8rem;"></i>Couple Stories
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested {% if 'prewedding-header' in request.path %}show{% endif %}" id="menuGalleryCouple">
+            <a href="/admin/gallery-prewedding-header/" class="nav-link d-block {% if active_page == 'gallery_prewedding_header' %}active{% endif %}">Edit Section Header (Couple Stories)</a>
+            <a href="/admin/add-gallery/" class="nav-link d-block">Add Couple Story Image</a>
+            <a href="/admin/gallery-list/" class="nav-link d-block">Couple Stories List</a>
+          </div>
+
+          <!-- 4. Celebration -->
+          <a href="#menuGalleryCelebration" class="nav-link d-block {% if 'birthday-header' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuGalleryCelebration" aria-expanded="{% if 'birthday-header' in request.path %}true{% else %}false{% endif %}" role="button">
+            <i class="bi bi-balloon" style="margin-right:6px;font-size:0.8rem;"></i>Celebration
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested {% if 'birthday-header' in request.path %}show{% endif %}" id="menuGalleryCelebration">
+            <a href="/admin/gallery-birthday-header/" class="nav-link d-block {% if active_page == 'gallery_birthday_header' %}active{% endif %}">Edit Section Header (Celebration)</a>
+            <a href="/admin/add-gallery/" class="nav-link d-block">Add Celebration Image</a>
+            <a href="/admin/gallery-list/" class="nav-link d-block">Celebration List</a>
+          </div>
+
+          <!-- 5. Little Memories -->
+          <a href="#menuGalleryLittle" class="nav-link d-block {% if 'baby-header' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuGalleryLittle" aria-expanded="{% if 'baby-header' in request.path %}true{% else %}false{% endif %}" role="button">
+            <i class="bi bi-stars" style="margin-right:6px;font-size:0.8rem;"></i>Little Memories
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested {% if 'baby-header' in request.path %}show{% endif %}" id="menuGalleryLittle">
+            <a href="/admin/gallery-baby-header/" class="nav-link d-block {% if active_page == 'gallery_baby_header' %}active{% endif %}">Edit Section Header (Little Memories)</a>
+            <a href="/admin/add-gallery/" class="nav-link d-block">Add Little Memory Image</a>
+            <a href="/admin/gallery-list/" class="nav-link d-block">Little Memories List</a>
+          </div>
+
+          <!-- 6. Style & Creativity -->
+          <a href="#menuGalleryStyle" class="nav-link d-block {% if 'fashion-header' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuGalleryStyle" aria-expanded="{% if 'fashion-header' in request.path %}true{% else %}false{% endif %}" role="button">
+            <i class="bi bi-palette" style="margin-right:6px;font-size:0.8rem;"></i>Style & Creativity
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested {% if 'fashion-header' in request.path %}show{% endif %}" id="menuGalleryStyle">
+            <a href="/admin/gallery-fashion-header/" class="nav-link d-block {% if active_page == 'gallery_fashion_header' %}active{% endif %}">Edit Section Header (Style & Creativity)</a>
+            <a href="/admin/add-gallery/" class="nav-link d-block">Add Style Image</a>
+            <a href="/admin/gallery-list/" class="nav-link d-block">Style & Creativity List</a>
+          </div>
+
+          <!-- 7. Personal Stories -->
+          <a href="#menuGalleryPersonal" class="nav-link d-block {% if 'portrait-header' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuGalleryPersonal" aria-expanded="{% if 'portrait-header' in request.path %}true{% else %}false{% endif %}" role="button">
+            <i class="bi bi-journal-text" style="margin-right:6px;font-size:0.8rem;"></i>Personal Stories
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested {% if 'portrait-header' in request.path %}show{% endif %}" id="menuGalleryPersonal">
+            <a href="/admin/gallery-portrait-header/" class="nav-link d-block {% if active_page == 'gallery_portrait_header' %}active{% endif %}">Edit Section Header (Personal Stories)</a>
+            <a href="/admin/add-gallery/" class="nav-link d-block">Add Personal Story Image</a>
+            <a href="/admin/gallery-list/" class="nav-link d-block">Personal Stories List</a>
+          </div>
+
+          <!-- 8. Gallery CTA Banner -->
+          <a href="#menuGalleryCTA" class="nav-link d-block {% if 'gallery-cta-section' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuGalleryCTA" aria-expanded="{% if 'gallery-cta-section' in request.path %}true{% else %}false{% endif %}" role="button">
+            <i class="bi bi-megaphone" style="margin-right:6px;font-size:0.8rem;"></i>Gallery CTA Banner
+            <i class="bi bi-chevron-down chevron"></i>
+          </a>
+          <div class="collapse sidebar-submenu-nested {% if 'gallery-cta-section' in request.path %}show{% endif %}" id="menuGalleryCTA">
+            <a href="/admin/gallery-cta-section/" class="nav-link d-block {% if active_page == 'gallery_cta_section' %}active{% endif %}">Edit CTA Banner Info & Photo</a>
+          </div>
+
+        </div>
+      </li>
+
+            <!-- ===================== CONTACT PAGE ===================== -->
+      <li class="nav-item">
+        <a href="#menuContactPage" class="nav-link {% if 'contact' in request.path %}active{% endif %}" data-bs-toggle="collapse" data-bs-target="#menuContactPage" aria-expanded="{% if 'contact' in request.path %}true{% else %}false{% endif %}" role="button">
+          <i class="bi bi-envelope-paper-fill link-icon text-danger"></i>
+          <span class="link-label">Contact Page</span>
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse sidebar-submenu {% if 'contact' in request.path %}show{% endif %}" id="menuContactPage">
+
+          <!-- 1. Contact Hero Banner -->
+          <a href="/admin/contact-hero-section/" class="nav-link d-block {% if active_page == 'contact_hero_section' %}active{% endif %}">
+            <i class="bi bi-image" style="margin-right:6px;font-size:0.8rem;"></i>Edit Contact Hero Banner
+          </a>
+
+          <!-- 2. Contact Information & Address -->
+          <a href="/admin/contact-info-section/" class="nav-link d-block {% if active_page == 'contact_info_section' %}active{% endif %}">
+            <i class="bi bi-geo-alt" style="margin-right:6px;font-size:0.8rem;"></i>Edit Contact Info & Address
+          </a>
+
+          <!-- 3. Customer Messages & Inquiries -->
+          <a href="/admin/contact-inquiry-list/" class="nav-link d-block {% if active_page == 'contact_inquiry_list' %}active{% endif %}">
+            <i class="bi bi-inbox" style="margin-right:6px;font-size:0.8rem;"></i>View Customer Messages
+          </a>
+
+        </div>
+      </li>
+
+
+
+
+    </ul>
+  </nav>
+</aside>
+
+
+<div class="main-wrapper">
+
+  <!-- ==========================================================================
+       HEADER
+       ========================================================================== -->
+  <header class="app-header">
+
+    <div class="header-left">
+      <button class="sidebar-toggle-btn" id="sidebarToggleBtn" type="button" aria-label="Toggle Sidebar">
+        <i class="bi bi-list"></i>
+      </button>
+      <h1 class="page-title">Dashboard Overview</h1>
+    </div>
+
+    <div class="header-search d-none d-md-block">
+      <i class="bi bi-search"></i>
+      <input type="text" class="form-control" placeholder="Search here...">
+    </div>
+
+    <div class="header-right">
+      <a href="/" target="_blank" class="btn btn-outline-secondary btn-sm rounded-3 fw-semibold me-2 d-none d-sm-inline-flex align-items-center">
+        <i class="bi bi-globe me-1"></i> Visit Website
+      </a>
+
+      <button class="icon-btn d-none d-sm-flex" type="button" title="Messages">
+        <i class="bi bi-chat-dots"></i>
+      </button>
+
+      <button class="icon-btn" type="button" title="Notifications">
+        <i class="bi bi-bell"></i>
+        <span class="badge-dot">5</span>
+      </button>
+
+      <div class="dropdown">
+        <button class="profile-menu-toggle dropdown-toggle" type="button" id="adminProfileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          {% if admin_profile_img %}
+            <img src="{{ admin_profile_img }}" alt="{{ admin_display_name }}" class="rounded-circle" style="width:36px;height:36px;object-fit:cover;">
+          {% else %}
+            <img src="https://ui-avatars.com/api/?name={{ admin_display_name|urlencode }}&background=059669&color=fff&bold=true" alt="{{ admin_display_name }}">
+          {% endif %}
+          <span class="profile-info d-none d-md-block">
+            <span class="profile-name">{{ admin_display_name }}</span>
+            <span class="profile-role">Super Admin</span>
+          </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end profile-dropdown-menu" aria-labelledby="adminProfileDropdown">
+          <li><a class="dropdown-item" href="/admin/profile_list/"><i class="bi bi-people"></i> Admin Profile</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-danger" href="/admin/logout/"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+        </ul>
+      </div>
+
+
+
+    </div>
+  </header>
+
+  <main class="app-main">

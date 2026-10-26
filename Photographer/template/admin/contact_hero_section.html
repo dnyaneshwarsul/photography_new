@@ -1,0 +1,199 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .process-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .process-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .process-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .process-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+
+    .image-preview-banner {
+        max-height: 180px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid #e2d7c7;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="process-card">
+        <!-- HEADER -->
+        <div class="process-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-image me-2 text-danger"></i>
+                Edit Contact Page Hero Banner
+            </h4>
+            <a href="/contact/" target="_blank" class="btn btn-outline-light btn-sm fw-bold">
+                <i class="bi bi-box-arrow-up-right me-1"></i> Preview Contact Page
+            </a>
+        </div>
+
+        <!-- FORM -->
+        <div class="process-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="/admin/contact-hero-section/" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- 1. SMALL TITLE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            1. Small Badge Title / Tagline <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="small_title" 
+                               value="{{ hero.small_title|default:"LET'S CREATE SOMETHING BEAUTIFUL" }}" 
+                               placeholder="e.g. LET'S CREATE SOMETHING BEAUTIFUL" 
+                               required>
+                    </div>
+
+                    <!-- 2. MAIN TITLE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            2. Hero Main Title <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="title" 
+                               value="{{ hero.title|default:'Contact Us' }}" 
+                               placeholder="e.g. Contact Us" 
+                               required>
+                    </div>
+
+                    <!-- 3. DESCRIPTION -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            3. Hero Description / Subtitle Paragraph <span class="required">*</span>
+                        </label>
+                        <textarea class="form-control" 
+                                  name="description" 
+                                  rows="3" 
+                                  placeholder="Have a special moment that you want to capture? We'd love to hear your story and create beautiful memories that you can cherish forever." 
+                                  style="height: auto;" 
+                                  required>{{ hero.description|default:'' }}</textarea>
+                    </div>
+
+                    <!-- 4. HERO BACKGROUND PHOTO -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            4. Hero Background Photo
+                        </label>
+                        <input type="file" 
+                               class="form-control" 
+                               id="hero_image"
+                               name="hero_image" 
+                               accept=".jpg,.jpeg,.png,.webp">
+                        <small class="text-muted">Upload high resolution background photo for the Contact Page Hero section.</small>
+                        <div>
+                            {% if hero.hero_image %}
+                                <img id="heroImagePreview" src="{{ hero.hero_image.url }}" class="image-preview-banner" alt="Current Hero Background">
+                            {% else %}
+                                <img id="heroImagePreview" class="image-preview-banner" alt="Preview" style="display:none;">
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- SUBMIT BUTTON -->
+                    <div class="col-12 text-end mt-4 pt-2 border-top">
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-check-circle-fill me-1"></i> Save Contact Hero Banner
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const imageInput = document.getElementById("hero_image");
+    const imagePreview = document.getElementById("heroImagePreview");
+    if (imageInput && imagePreview) {
+        imageInput.addEventListener("change", function() {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+});
+</script>
+
+{% include "admin/footer.html" %}

@@ -1,0 +1,366 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .profile-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .profile-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .profile-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .profile-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        height: 46px;
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .profile-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #EF4444;
+        display: none;
+        margin-top: 12px;
+    }
+
+    .logo-preview {
+        max-width: 160px;
+        max-height: 85px;
+        object-fit: contain;
+        display: none;
+        margin-top: 12px;
+        border-radius: 6px;
+        border: 1px solid #E2E8F0;
+        padding: 4px;
+        background: #FAFAFA;
+    }
+
+    .password-box {
+        position: relative;
+    }
+
+    .password-box .eye-btn {
+        position: absolute;
+        right: 12px;
+        top: 8px;
+        border: none;
+        background: transparent;
+        font-size: 19px;
+        color: #64748B;
+        cursor: pointer;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+
+    .social-icon {
+        margin-right: 6px;
+        font-size: 1rem;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="profile-card">
+        <!-- HEADER -->
+        <div class="profile-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-person-circle me-2 text-danger"></i>
+                Admin Profile Form
+            </h4>
+            <a href="{% url 'profile_list' %}" class="btn btn-outline-light btn-sm font-weight-bold">
+                <i class="bi bi-arrow-left me-1"></i> View Profile List
+            </a>
+        </div>
+
+        <!-- FORM -->
+        <div class="profile-body">
+            <form id="adminProfileForm" method="POST" action="{% url 'admin_profile' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- WEBSITE LOGO -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Website Logo <span class="required">*</span>
+                        </label>
+                        <input type="file" class="form-control" id="website_logo" name="website_logo" accept=".jpg,.jpeg,.png,.webp" required>
+                        <div class="invalid-feedback">Please select website logo.</div>
+                        <img id="logoPreview" class="logo-preview" alt="Logo Preview">
+                    </div>
+
+                    <!-- ADMIN PROFILE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Admin Profile <span class="required">*</span>
+                        </label>
+                        <input type="file" class="form-control" id="admin_profile" name="admin_profile" accept=".jpg,.jpeg,.png,.webp" required>
+                        <div class="invalid-feedback">Please select admin profile image.</div>
+                        <img id="profilePreview" class="profile-image" alt="Profile Preview">
+                    </div>
+
+                    <!-- ADMIN NAME -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Admin Name <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="admin_name" name="admin_name" placeholder="Enter admin name" minlength="2" maxlength="100" pattern="[A-Za-z ]+" required>
+                        <div class="invalid-feedback">Please enter a valid admin name.</div>
+                    </div>
+
+                    <!-- MOBILE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Mobile Number <span class="required">*</span>
+                        </label>
+                        <input type="tel" class="form-control" id="admin_mobile" name="admin_mobile" placeholder="Enter 10 digit mobile number" maxlength="10" pattern="[6-9][0-9]{9}" required>
+                        <div class="invalid-feedback">Enter a valid 10 digit mobile number.</div>
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Email <span class="required">*</span>
+                        </label>
+                        <input type="email" class="form-control" id="admin_email" name="admin_email" placeholder="admin@gmail.com" maxlength="150" required>
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
+
+                    <!-- PASSWORD -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Password <span class="required">*</span>
+                        </label>
+                        <div class="password-box">
+                            <input type="password" class="form-control" id="admin_password" name="admin_password" placeholder="Enter password" minlength="8" maxlength="128" required>
+                            <button type="button" class="eye-btn" id="togglePassword">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback">Password must be at least 8 characters.</div>
+                    </div>
+
+                    <!-- INSTAGRAM -->
+                    <div class="col-md-6">
+                        <label class="form-label text-danger">
+                            <i class="bi bi-instagram social-icon"></i>
+                            Instagram Link
+                        </label>
+                        <input type="url" class="form-control" id="admin_instagram_link" name="admin_instagram_link" placeholder="https://instagram.com/username">
+                        <div class="invalid-feedback">Please enter a valid Instagram URL.</div>
+                    </div>
+
+                    <!-- FACEBOOK -->
+                    <div class="col-md-6">
+                        <label class="form-label text-primary">
+                            <i class="bi bi-facebook social-icon"></i>
+                            Facebook Link
+                        </label>
+                        <input type="url" class="form-control" id="admin_facebook_link" name="admin_facebook_link" placeholder="https://facebook.com/username">
+                        <div class="invalid-feedback">Please enter a valid Facebook URL.</div>
+                    </div>
+
+                    <!-- LINKEDIN -->
+                    <div class="col-md-6">
+                        <label class="form-label text-primary">
+                            <i class="bi bi-linkedin social-icon"></i>
+                            LinkedIn Link
+                        </label>
+                        <input type="url" class="form-control" id="admin_linkden_link" name="admin_linkden_link" placeholder="https://linkedin.com/in/username">
+                        <div class="invalid-feedback">Please enter a valid LinkedIn URL.</div>
+                    </div>
+
+                    <!-- X / TWITTER -->
+                    <div class="col-md-6">
+                        <label class="form-label text-dark">
+                            <i class="bi bi-twitter-x social-icon"></i>
+                            X (Twitter) Link
+                        </label>
+                        <input type="url" class="form-control" id="admin_twiter_link" name="admin_twiter_link" placeholder="https://x.com/username">
+                        <div class="invalid-feedback">Please enter a valid X/Twitter URL.</div>
+                    </div>
+
+                    <!-- YOUTUBE -->
+                    <div class="col-md-6">
+                        <label class="form-label text-danger">
+                            <i class="bi bi-youtube social-icon"></i>
+                            YouTube Link
+                        </label>
+                        <input type="url" class="form-control" id="admin_youtube_link" name="admin_youtube_link" placeholder="https://youtube.com/@username">
+                        <div class="invalid-feedback">Please enter a valid YouTube URL.</div>
+                    </div>
+
+                    <!-- BUTTONS -->
+                    <div class="col-12 text-end mt-4 pt-2 border-top">
+                        <button type="reset" class="btn btn-light me-2 border font-weight-bold">
+                            <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+                        </button>
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-check-circle me-1"></i> Save Profile
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("adminProfileForm");
+    if (form) {
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            if (!form.checkValidity()) {
+                event.stopPropagation();
+                form.classList.add("was-validated");
+                return;
+            }
+            form.classList.add("was-validated");
+
+            const popup = document.createElement("div");
+            popup.innerHTML = `
+                <div class="position-fixed top-0 end-0 p-3" style="z-index:9999">
+                    <div class="toast show align-items-center text-bg-success border-0" role="alert">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                Admin Profile Saved Successfully!
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(popup);
+
+            setTimeout(function() {
+                popup.remove();
+                form.submit();
+            }, 1500);
+        });
+    }
+
+    const togglePassword = document.getElementById("togglePassword");
+    if (togglePassword) {
+        togglePassword.addEventListener("click", function() {
+            const password = document.getElementById("admin_password");
+            const icon = this.querySelector("i");
+            if (password.type === "password") {
+                password.type = "text";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            } else {
+                password.type = "password";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            }
+        });
+    }
+
+    const adminMobile = document.getElementById("admin_mobile");
+    if (adminMobile) {
+        adminMobile.addEventListener("input", function() {
+            this.value = this.value.replace(/[^0-9]/g, "").slice(0, 10);
+        });
+    }
+
+    const adminName = document.getElementById("admin_name");
+    if (adminName) {
+        adminName.addEventListener("input", function() {
+            this.value = this.value.replace(/[^A-Za-z ]/g, "");
+        });
+    }
+
+    function previewImage(inputId, previewId) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        if (!input || !preview) return;
+
+        input.addEventListener("change", function() {
+            const file = this.files[0];
+            if (!file) return;
+
+            const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+            const maxSize = 2 * 1024 * 1024;
+
+            if (!allowedTypes.includes(file.type)) {
+                alert("Only JPG, PNG and WEBP images are allowed.");
+                this.value = "";
+                preview.style.display = "none";
+                return;
+            }
+
+            if (file.size > maxSize) {
+                alert("Image size must be less than 2 MB.");
+                this.value = "";
+                preview.style.display = "none";
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    previewImage("website_logo", "logoPreview");
+    previewImage("admin_profile", "profilePreview");
+});
+</script>
+
+{% include "admin/footer.html" %}

@@ -1,0 +1,88 @@
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <span>&copy; 2026 Photographer Panel. All rights reserved.</span>
+    <span>Version 1.0.0</span>
+  </footer>
+
+</div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Initialize all Bootstrap dropdowns cleanly
+    const dropdownElementList = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+    dropdownElementList.forEach(function (dropdownToggleEl) {
+        new bootstrap.Dropdown(dropdownToggleEl);
+    });
+
+    // Sidebar toggle logic (mobile overlay and desktop collapse)
+    const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+    const appSidebar       = document.getElementById('appSidebar');
+    const sidebarBackdrop  = document.getElementById('sidebarBackdrop');
+
+    function isMobileView() {
+        return window.innerWidth < 992;
+    }
+
+    function toggleSidebar() {
+        if (isMobileView()) {
+            if (appSidebar) appSidebar.classList.toggle('show');
+            if (sidebarBackdrop) sidebarBackdrop.classList.toggle('show');
+        } else {
+            document.body.classList.toggle('sidebar-collapsed');
+        }
+    }
+
+    if (sidebarToggleBtn) {
+        sidebarToggleBtn.addEventListener('click', toggleSidebar);
+    }
+
+    if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', function () {
+            if (appSidebar) appSidebar.classList.remove('show');
+            if (sidebarBackdrop) sidebarBackdrop.classList.remove('show');
+        });
+    }
+
+    window.addEventListener('resize', function () {
+        if (isMobileView()) {
+            document.body.classList.remove('sidebar-collapsed');
+        } else {
+            if (appSidebar) appSidebar.classList.remove('show');
+            if (sidebarBackdrop) sidebarBackdrop.classList.remove('show');
+        }
+    });
+
+    // Auto expand parent menus & highlight active link based on current URL path
+    const currentPath = window.location.pathname;
+    const sidebarLinks = document.querySelectorAll(".sidebar a.nav-link");
+
+    sidebarLinks.forEach(link => {
+        const href = link.getAttribute("href");
+        if (href && href !== "#" && !href.startsWith("#") && currentPath.length > 1 && (currentPath === href || (href !== '/admin/' && currentPath.includes(href)))) {
+            link.classList.add("active");
+
+            // Expand all ancestor collapse containers
+            let parentCollapse = link.closest(".collapse");
+            while (parentCollapse) {
+                parentCollapse.classList.add("show");
+                const triggerBtn = document.querySelector(`[data-bs-target="#${parentCollapse.id}"], [href="#${parentCollapse.id}"]`);
+                if (triggerBtn) {
+                    triggerBtn.setAttribute("aria-expanded", "true");
+                    triggerBtn.classList.remove("collapsed");
+                }
+                const grandParent = parentCollapse.parentElement;
+                parentCollapse = grandParent ? grandParent.closest(".collapse") : null;
+            }
+        }
+    });
+
+});
+</script>
+</body>
+</html>

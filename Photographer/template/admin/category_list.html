@@ -1,0 +1,234 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .page-card {
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+        margin: 20px auto;
+        padding: 24px;
+    }
+
+    .page-title {
+        font-weight: 800;
+        color: #0F172A;
+        font-size: 1.35rem;
+    }
+
+    .btn-theme {
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 9px 18px;
+        font-weight: 600;
+        font-size: 0.88rem;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+    .btn-theme:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        color: #ffffff;
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+    }
+
+    .cat-table {
+        margin-bottom: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .cat-table thead th {
+        background: #1a0000;
+        color: #FFFFFF;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 14px 16px;
+        border: none;
+        white-space: nowrap;
+    }
+
+    .cat-table thead th:first-child { border-top-left-radius: 8px; }
+    .cat-table thead th:last-child { border-top-right-radius: 8px; }
+
+    .cat-table tbody td {
+        padding: 14px 16px;
+        vertical-align: middle;
+        font-size: 0.88rem;
+        color: #334155;
+        border-bottom: 1px solid #F1F5F9;
+        white-space: nowrap;
+    }
+
+    .cat-table tbody tr:hover td {
+        background-color: #FFF5F5;
+    }
+
+    .cat-thumb {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #E2E8F0;
+    }
+
+    .action-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        border: 1px solid #CBD5E1;
+        background: #fff;
+        color: #334155;
+        transition: all 0.15s ease;
+        text-decoration: none;
+    }
+
+    .action-btn:hover {
+        background: #EF4444;
+        color: #fff;
+        border-color: #EF4444;
+    }
+
+    .action-btn-danger {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        border: 1px solid #FECACA;
+        background: #FEF2F2;
+        color: #DC2626;
+        transition: all 0.15s ease;
+        text-decoration: none;
+    }
+
+    .action-btn-danger:hover {
+        background: #DC2626;
+        color: #fff;
+        border-color: #DC2626;
+    }
+
+    .empty-box {
+        padding: 50px;
+        text-align: center;
+        color: #64748B;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="page-card">
+        <!-- HEADER -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <div>
+                <h3 class="page-title mb-1">
+                    <i class="bi bi-camera-fill me-2 text-danger"></i>
+                    Photography Categories List
+                </h3>
+                <small class="text-muted">Manage active categories displayed in Homepage Explore Section</small>
+            </div>
+
+            <a href="/admin/add-category/" class="btn btn-theme">
+                <i class="bi bi-plus-circle me-1"></i> Add Category
+            </a>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- TABLE -->
+        <div class="table-responsive">
+            <table class="table cat-table align-middle">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">#</th>
+                        <th>Grid Image</th>
+                        <th>Showcase Photo</th>
+                        <th>Category Name</th>
+                        <th>Description</th>
+                        <th class="text-end" style="width: 100px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td class="fw-bold text-muted">{{ forloop.counter }}</td>
+                        <td>
+                            {% if category.category_image %}
+                                <img src="{{ category.category_image.url }}" class="cat-thumb" alt="Grid Image">
+                            {% else %}
+                                <span class="badge bg-light text-muted border">No Image</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if category.detail_image %}
+                                <img src="{{ category.detail_image.url }}" class="cat-thumb" alt="Showcase Image" style="width:90px;height:55px;">
+                            {% elif category.category_image %}
+                                <img src="{{ category.category_image.url }}" class="cat-thumb" alt="Showcase Image (Fallback)" style="width:90px;height:55px;opacity:0.7;">
+                            {% else %}
+                                <span class="badge bg-light text-muted border">No Showcase Img</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="fw-bold text-dark font-size-15">
+                                {{ category.category_name }}
+                            </span>
+                            {% if category.sub_services %}
+                                <div class="mt-1">
+                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle" style="font-size: 11px;">
+                                        <i class="bi bi-check2-circle me-1"></i> Has Sub-Services
+                                    </span>
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td style="max-width: 300px; white-space: normal;">
+                            <small class="text-muted">
+                                {{ category.description|default:"No description provided."|truncatewords:15 }}
+                            </small>
+                        </td>
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end gap-1">
+                                <a href="/admin/edit-category/{{ category.id }}/" class="action-btn" title="Edit Category">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a href="/admin/delete-category/{{ category.id }}/" class="action-btn-danger" title="Delete Category" onclick="return confirm('Are you sure you want to delete this category?');">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">
+                            <div class="empty-box">
+                                <i class="bi bi-camera text-muted" style="font-size:45px;"></i>
+                                <h5 class="mt-3 font-weight-bold">No Categories Found</h5>
+                                <p class="text-muted">Start by adding your first photography category.</p>
+                                <a href="/admin/add-category/" class="btn btn-theme">
+                                    <i class="bi bi-plus-circle me-1"></i> Add Category
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% include "admin/footer.html" %}

@@ -1,0 +1,1575 @@
+{% load static %}
+{% include "website/navbar.html" with active_page='home' %}
+
+
+
+        <!-- Bootstrap 5.3.3 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/static/website/index.css">
+<link rel="stylesheet" href="/static/website/indexs.css">
+<!-- slider Start  -->
+<style>
+
+.home-22-view-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 30px;
+    background: #b2875b;
+    color: #fff;
+    border: 1px solid #b2875b;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.home-22-view-btn:hover {
+    background: #111827;
+    border-color: #111827;
+    color: #fff;
+}
+
+
+
+.home-15-view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 30px;
+    background: #b2875b;
+    color: #ffffff;
+    border: 1px solid #b2875b;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.home-15-view-btn:hover {
+    background: #111827;
+    border-color: #111827;
+    color: #ffffff;
+}
+
+
+.home-13-view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 30px;
+    background: #b2875b;
+    color: #ffffff;
+    border: 1px solid #b2875b;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.home-13-view-btn:hover {
+    background: #111827;
+    border-color: #111827;
+    color: #ffffff;
+}
+
+.home-16-view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 30px;
+    background: #b2875b;
+    color: #ffffff;
+    border: 1px solid #b2875b;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.home-16-view-btn:hover {
+    background: #111827;
+    border-color: #111827;
+    color: #ffffff;
+}
+
+
+
+</style>
+
+
+
+
+<!-- =========================================================
+     HERO SLIDER
+========================================================= -->
+
+<section class="hero-slider"
+         id="heroSlider">
+
+
+    <!-- =====================================================
+         SLIDE 01
+    ====================================================== -->
+
+    {% if sliders %}
+        {% for slide in sliders %}
+            <div class="hero-slide {% if forloop.first %}active{% endif %}">
+                {% if slide.slider_image %}
+                    <img src="{{ slide.slider_image.url }}" alt="{{ slide.tagline }}">
+                {% else %}
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=90" alt="Slider">
+                {% endif %}
+
+                <div class="hero-overlay"></div>
+
+                <div class="hero-content">
+                    <div class="hero-label">
+                        <i class="{{ slide.icon_class }}"></i>
+                        {{ slide.tagline }}
+                    </div>
+
+                    <h1 class="hero-title">
+                        {{ slide.title_line1 }}
+                        <br>
+                        {{ slide.title_line2_prefix }}
+                        <em>{{ slide.title_line2_highlight }}</em>
+                    </h1>
+
+                    {% if slide.description %}
+                        <p class="hero-description">
+                            {{ slide.description }}
+                        </p>
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+
+
+    {% endif %}
+
+    <!-- PREVIOUS BUTTON -->
+    <button class="slider-control slider-prev" id="sliderPrev" aria-label="Previous Slide">
+        <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <!-- NEXT BUTTON -->
+    <button class="slider-control slider-next" id="sliderNext" aria-label="Next Slide">
+        <i class="bi bi-chevron-right"></i>
+    </button>
+
+    <!-- BOTTOM CONTROLS -->
+    <div class="slider-bottom">
+        <!-- DOTS -->
+        <div class="slider-dots" id="sliderDots">
+            {% if sliders %}
+                {% for slide in sliders %}
+                    <button class="slider-dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter }}"></button>
+                {% endfor %}
+            {% else %}
+                <button class="slider-dot active" data-slide="0" aria-label="Slide 1"></button>
+                <button class="slider-dot" data-slide="1" aria-label="Slide 2"></button>
+            {% endif %}
+        </div>
+
+        <!-- COUNTER -->
+        <div class="slide-counter">
+            <span class="current" id="currentSlide">01</span>
+            <span class="counter-line"></span>
+            <span>{% if sliders %}{% if sliders|length < 10 %}0{% endif %}{{ sliders|length }}{% else %}02{% endif %}</span>
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         PROGRESS
+    ====================================================== -->
+
+    <div class="slider-progress">
+
+        <div class="slider-progress-bar"
+             id="progressBar">
+        </div>
+
+    </div>
+
+
+</section>
+
+<!-- =========================================================
+     WHAT WE OFFER SECTION
+========================================================= -->
+<style>
+    .what-we-offer-section {
+        padding: 95px 0 80px;
+        background-color: #FAF8F5;
+    }
+
+    .offer-section-header {
+        text-align: center;
+        max-width: 750px;
+        margin: 0 auto 60px;
+    }
+
+    .offer-small-title {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        color: #b2875b;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+        display: inline-block;
+    }
+
+    .offer-main-title {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 42px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 18px;
+        line-height: 1.22;
+    }
+
+    .offer-section-desc {
+        font-size: 15px;
+        color: #666666;
+        line-height: 1.65;
+        margin: 0 auto;
+    }
+
+    .offer-card {
+        background: #ffffff;
+        border: 1px solid #f0eae1;
+        border-radius: 18px;
+        padding: 42px 24px 36px;
+        text-align: center;
+        transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    .offer-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 35px rgba(178, 135, 91, 0.14);
+        border-color: #f3e5d3;
+    }
+
+    .offer-icon-badge {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background-color: #f6efe7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+        transition: all 0.3s ease;
+    }
+
+    .offer-icon-badge i {
+        font-size: 26px;
+        color: #b2875b;
+        transition: transform 0.3s ease;
+    }
+
+    .offer-card:hover .offer-icon-badge {
+        background-color: #b2875b;
+    }
+
+    .offer-card:hover .offer-icon-badge i {
+        color: #ffffff;
+        transform: scale(1.1);
+    }
+
+    .offer-card-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 19px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 14px;
+        line-height: 1.3;
+    }
+
+    .offer-card-desc {
+        font-size: 14px;
+        color: #777777;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        .what-we-offer-section {
+            padding: 60px 0 40px;
+        }
+
+        .offer-main-title {
+            font-size: 30px;
+        }
+
+        .offer-card {
+            padding: 30px 20px 25px;
+        }
+    }
+</style>
+
+<section class="what-we-offer-section">
+    <div class="container">
+        <!-- HEADER -->
+        <div class="offer-section-header">
+            <div class="offer-small-title">
+                {% if offer_header and offer_header.small_title %}{{ offer_header.small_title }}{% else %}WHAT WE OFFER{% endif %}
+            </div>
+            <h2 class="offer-main-title">
+                {% if offer_header and offer_header.title %}{{ offer_header.title }}{% else %}More Than Just Photography{% endif %}
+            </h2>
+            {% if offer_header and offer_header.description %}
+                <p class="offer-section-desc">
+                    {{ offer_header.description }}
+                </p>
+            {% else %}
+                <p class="offer-section-desc">
+                    We provide complete photography solutions to make your special moments beautiful, memorable and timeless.
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- ITEMS GRID -->
+        <div class="row g-4 justify-content-center">
+            {% if offer_items %}
+                {% for item in offer_items %}
+                    <div class="col-lg-3 col-md-6">
+                        <div class="offer-card">
+                            <div class="offer-icon-badge">
+                                {% if item.icon_image %}
+                                    <img src="{{ item.icon_image.url }}" alt="{{ item.title }}" style="width: 34px; height: 34px; object-fit: contain;">
+                                {% else %}
+                                    <i class="{{ item.icon_class|default:'bi bi-camera' }}"></i>
+                                {% endif %}
+                            </div>
+                            <h3 class="offer-card-title">{{ item.title }}</h3>
+                            <p class="offer-card-desc">{{ item.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <!-- FALLBACK ITEMS -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="offer-card">
+                        <div class="offer-icon-badge">
+                            <i class="bi bi-camera"></i>
+                        </div>
+                        <h3 class="offer-card-title">Professional Photography</h3>
+                        <p class="offer-card-desc">High-quality photography using professional equipment and creative techniques.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="offer-card">
+                        <div class="offer-icon-badge">
+                            <i class="bi bi-camera-reels"></i>
+                        </div>
+                        <h3 class="offer-card-title">Cinematic Videography</h3>
+                        <p class="offer-card-desc">Beautiful cinematic videos that bring your most memorable moments back to life.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="offer-card">
+                        <div class="offer-icon-badge">
+                            <i class="bi bi-image"></i>
+                        </div>
+                        <h3 class="offer-card-title">Professional Editing</h3>
+                        <p class="offer-card-desc">Carefully edited photographs with professional color correction and finishing.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="offer-card">
+                        <div class="offer-icon-badge">
+                            <i class="bi bi-cloud-arrow-down"></i>
+                        </div>
+                        <h3 class="offer-card-title">Digital Delivery</h3>
+                        <p class="offer-card-desc">Receive your beautiful photographs through a convenient online digital gallery.</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- =========================================================
+     11 - HERO
+
+
+ =========================================================
+     12 - ABOUT PHOTOGRAPHER
+========================================================= -->
+
+<section class="home-section-padding">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="home-12-image">
+                    {% if about_data and about_data.about_image %}
+                        <img src="{{ about_data.about_image.url }}" alt="{{ about_data.photographer_name }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?auto=format&fit=crop&w=1000&q=85" alt="Photographer">
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="home-12-content">
+                    <div class="home-small-title">
+                        {% if about_data and about_data.small_title %}{{ about_data.small_title }}{% else %}About Me{% endif %}
+                    </div>
+
+                    <h2>
+                        {% if about_data and about_data.title %}{{ about_data.title }}{% else %}Turning Beautiful Moments Into Timeless Memories{% endif %}
+                    </h2>
+
+                    <p>
+                        {% if about_data and about_data.description_para1 %}
+                            {{ about_data.description_para1 }}
+                        {% else %}
+                            I am a professional photographer passionate about capturing real emotions, natural expressions and beautiful stories.
+                        {% endif %}
+                    </p>
+
+                    {% if about_data and about_data.description_para2 %}
+                        <p>{{ about_data.description_para2 }}</p>
+                    {% elif not about_data %}
+                        <p>
+                            From weddings and pre-weddings to portraits, birthdays and special events, every photograph is created with creativity and attention to detail.
+                        </p>
+                    {% endif %}
+
+                    <div class="home-12-signature">
+                        {% if about_data and about_data.photographer_name %}{{ about_data.photographer_name }}{% else %}Your Photographer{% endif %}
+                    </div>
+
+                    <br>
+
+                    <a href="/website/about/" class="home-gold-btn">
+                        Know More
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========================================================= 
+     13 - SERVICES 
+========================================================= --> 
+ 
+<section class="home-section-padding bg-light"> 
+    <div class="container"> 
+        <div class="home-section-title"> 
+            <div class="home-small-title"> 
+                What We Do 
+            </div> 
+
+            <h2>Photography Services</h2> 
+
+            <p> 
+                Professional photography services for your 
+                most important moments. 
+            </p> 
+        </div> 
+
+        <div class="row g-4"> 
+            {% if services %}
+                {% for service in services %}
+                    <div class="col-lg-3 col-md-6"> 
+                        <div class="home-13-card"> 
+                            <div class="home-13-icon"> 
+                                <i class="{{ service.icon_class }}"></i> 
+                            </div> 
+                            <h3>{{ service.title }}</h3> 
+                            <p>{{ service.description }}</p> 
+                        </div> 
+                    </div> 
+                {% endfor %}
+            {% else %}
+
+            {% endif %}
+        </div>
+
+        <!-- View More Button -->
+        <div class="text-center mt-5">
+            <a href="website/services/" class="btn home-13-view-btn">
+                View More
+                <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div> 
+</section>
+
+
+
+<!-- =========================================================
+     14 - FEATURED WORK
+========================================================= -->
+
+<section class="home-section-padding">
+    <div class="container">
+        <div class="home-section-title">
+            <div class="home-small-title">
+                Featured Work
+            </div>
+
+            <h2>Our Best Photography</h2>
+
+            <p>
+                A collection of some of our favourite
+                photography moments.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            {% if featured_works %}
+                {% for item in featured_works %}
+                    <div class="col-lg-6">
+                        <div class="home-14-card">
+                            {% if item.work_image %}
+                                <img src="{{ item.work_image.url }}" alt="{{ item.title }}">
+                            {% else %}
+                                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=85" alt="Featured Work">
+                            {% endif %}
+                            <div class="home-14-overlay">
+                                <div>
+                                    <h3>{{ item.title }}</h3>
+                                    <p>{{ item.category_name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+   
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+
+<!-- =========================================================
+     15 - CATEGORIES
+========================================================= -->
+
+<section class="home-section-padding bg-light">
+    <div class="container">
+        <div class="home-section-title">
+            <div class="home-small-title">
+                Explore
+            </div>
+
+            <h2>Photography Categories</h2>
+        </div>
+
+        <div class="row g-4">
+            {% if categories %}
+                {% for cat in categories %}
+                    <div class="col-lg-3 col-md-6">
+                        <div class="home-15-card">
+                            {% if cat.category_image %}
+                                <img src="{{ cat.category_image.url }}" alt="{{ cat.category_name }}">
+                            {% else %}
+                                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=85" alt="Category">
+                            {% endif %}
+                            <div class="home-15-overlay">
+                                <h3>{{ cat.category_name }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+
+            {% endif %}
+        </div>
+
+        <!-- View More Button -->
+        <div class="text-center mt-5">
+            <a href="/website/category/" class="btn home-15-view-btn">
+                View More
+                <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- video gallery Page  -->
+
+
+    <style>
+
+        /* =====================================================
+           VIDEO GALLERY SECTION
+        ====================================================== */
+
+        .video-gallery-section {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+
+
+        /* =====================================================
+           SECTION HEADING
+        ====================================================== */
+
+        .video-subtitle {
+            display: inline-block;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            letter-spacing: 2px;
+
+            color: #b08d57;
+
+            margin-bottom: 10px;
+        }
+
+
+        .video-title {
+            font-size: 40px;
+
+            font-weight: 700;
+
+            color: #1f2937;
+
+            margin-bottom: 15px;
+        }
+
+
+        .video-title span {
+            color: #b08d57;
+        }
+
+
+        .video-description {
+            width: 100%;
+
+            margin: 0 auto;
+
+            color: #6b7280;
+
+            font-size: 15px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           VIDEO CARD
+        ====================================================== */
+
+        .video-card {
+            background: #ffffff;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.08);
+
+            transition: all 0.3s ease;
+
+            height: 100%;
+        }
+
+
+        .video-card:hover {
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.14);
+        }
+
+
+        /* =====================================================
+           VIDEO WRAPPER
+        ====================================================== */
+
+        .video-wrapper {
+            position: relative;
+
+            width: 100%;
+
+            height: 300px;
+
+            background: #000000;
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           VIDEO
+        ====================================================== */
+
+        .gallery-video {
+            width: 100%;
+
+            height: 100%;
+
+            display: block;
+
+            background: #000000;
+        }
+
+
+        /* =====================================================
+           VIDEO CONTENT
+        ====================================================== */
+
+        .video-content {
+            padding: 25px;
+        }
+
+
+        .video-category {
+            display: inline-block;
+
+            color: #b08d57;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+
+        .video-content h3 {
+            font-size: 22px;
+
+            font-weight: 700;
+
+            color: #1f2937;
+
+            margin-bottom: 10px;
+        }
+
+
+        .video-content p {
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin-bottom: 0;
+        }
+
+
+        /* =====================================================
+           VIEW MORE BUTTON
+        ====================================================== */
+
+        .video-view-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #1f2937;
+
+            color: #ffffff;
+
+            padding: 13px 28px;
+
+            border-radius: 50px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            transition: all 0.3s ease;
+        }
+
+
+        .video-view-btn:hover {
+            background: #b08d57;
+
+            color: #ffffff;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================================
+           TABLET
+        ====================================================== */
+
+        @media (max-width: 991px) {
+
+            .video-gallery-section {
+                padding: 60px 0;
+            }
+
+            .video-title {
+                font-size: 34px;
+            }
+
+            .video-wrapper {
+                height: 280px;
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 576px) {
+
+            .video-gallery-section {
+                padding: 50px 0;
+            }
+
+            .video-title {
+                font-size: 28px;
+
+                line-height: 1.3;
+            }
+
+            .video-description {
+                font-size: 14px;
+            }
+
+            .video-wrapper {
+                height: 230px;
+            }
+
+            .video-content {
+                padding: 20px;
+            }
+
+            .video-content h3 {
+                font-size: 20px;
+            }
+
+        }
+
+    </style>
+
+
+
+<!-- =========================================================
+     VIDEO GALLERY SECTION
+========================================================= -->
+
+<section class="video-gallery-section">
+    <div class="container">
+        <!-- SECTION HEADING -->
+        <div class="text-center mb-5">
+            <span class="video-subtitle">
+                OUR VIDEO STORIES
+            </span>
+
+            <h2 class="video-title">
+                Beautiful Moments,
+                <span>Beautiful Stories</span>
+            </h2>
+
+            <p class="video-description">
+                Relive your most precious moments through our
+                cinematic photography and videography stories.
+            </p>
+        </div>
+
+        <!-- VIDEO CARDS -->
+        <div class="row g-4">
+            {% if video_stories %}
+                {% for item in video_stories %}
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="video-card">
+                            <div class="video-wrapper">
+                                <video class="gallery-video" controls preload="metadata" playsinline>
+                                    {% if item.video_file %}
+                                        <source src="{{ item.video_file.url }}" type="video/mp4">
+                                    {% elif item.video_url %}
+                                        <source src="{{ item.video_url }}" type="video/mp4">
+                                    {% endif %}
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+
+                            <div class="video-content">
+                                <span class="video-category">
+                                    {{ item.category_tag }}
+                                </span>
+
+                                <h3>
+                                    {{ item.title }}
+                                </h3>
+
+                                <p>
+                                    {{ item.description }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+
+            {% endif %}
+        </div>
+
+        <!-- VIEW MORE -->
+        <div class="text-center mt-5">
+            <a href="/website/gallery/" class="video-view-btn">
+                View More Videos
+                <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- =========================================================
+     16 - RECENT GALLERY
+========================================================= -->
+
+<section class="home-section-padding">
+    <div class="container">
+        <div class="home-section-title">
+            <div class="home-small-title">
+                Latest Work
+            </div>
+
+            <h2>Recent Gallery</h2>
+
+            <p>
+                Explore our latest photography work.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            {% if recent_galleries %}
+                {% for item in recent_galleries %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="home-16-item">
+                            {% if item.gallery_image %}
+                                <img src="{{ item.gallery_image.url }}" alt="{{ item.title|default:'Gallery Image' }}">
+                            {% else %}
+                                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=900&q=85" alt="Gallery Image">
+                            {% endif %}
+                            <div class="home-16-overlay">
+                                <i class="bi bi-plus-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+        </div>
+
+        <!-- View More Button -->
+        <div class="text-center mt-5">
+            <a href="/website/gallery/" class="btn home-16-view-btn">
+                View More
+                <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     17 - WHY CHOOSE US
+========================================================= -->
+
+<section class="home-section-padding home-17-section">
+    <div class="container">
+        <div class="home-section-title">
+            <div class="home-small-title">
+                Why Us
+            </div>
+
+            <h2>Why Choose Our Photography</h2>
+        </div>
+
+        <div class="row g-4">
+            {% if why_us_items %}
+                {% for item in why_us_items %}
+                    <div class="col-lg-3 col-md-6">
+                        <div class="home-17-box">
+                            <div class="home-17-icon">
+                                <i class="{{ item.icon_class }}"></i>
+                            </div>
+                            <h3>{{ item.title }}</h3>
+                            <p>{{ item.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+
+<!-- =========================================================
+     HOW WE WORK / OUR PROCESS SECTION
+========================================================= -->
+<style>
+    .how-we-work-section {
+        padding: 95px 0 90px;
+        background-color: #FAF8F5;
+        position: relative;
+    }
+
+    .process-section-header {
+        text-align: center;
+        max-width: 750px;
+        margin: 0 auto 65px;
+    }
+
+    .process-small-title {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        color: #b2875b;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+        display: inline-block;
+    }
+
+    .process-main-title {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 42px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 18px;
+        line-height: 1.22;
+    }
+
+    .process-section-desc {
+        font-size: 15px;
+        color: #666666;
+        line-height: 1.65;
+        margin: 0 auto;
+    }
+
+    .process-timeline-wrapper {
+        position: relative;
+    }
+
+    /* Horizontal Dotted Connecting Line behind circles on Desktop */
+    .process-timeline-line {
+        position: absolute;
+        top: 30px;
+        left: 12.5%;
+        right: 12.5%;
+        height: 2px;
+        border-top: 2px dotted #e2d2bd;
+        z-index: 1;
+    }
+
+    .process-step-item {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 0 15px;
+    }
+
+    .process-icon-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #1a1a1a;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+    }
+
+    .process-icon-circle i {
+        font-size: 22px;
+        color: #b2875b;
+        transition: transform 0.3s ease;
+    }
+
+    .process-step-item:hover .process-icon-circle {
+        background-color: #b2875b;
+        transform: translateY(-4px);
+    }
+
+    .process-step-item:hover .process-icon-circle i {
+        color: #ffffff;
+        transform: scale(1.1);
+    }
+
+    .process-step-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 19px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 10px;
+        line-height: 1.3;
+    }
+
+    .process-step-desc {
+        font-size: 14px;
+        color: #666666;
+        line-height: 1.6;
+        margin: 0 auto;
+        max-width: 230px;
+    }
+
+    @media (max-width: 991px) {
+        .process-timeline-line {
+            display: none;
+        }
+        .how-we-work-section {
+            padding: 60px 0;
+        }
+        .process-main-title {
+            font-size: 32px;
+        }
+    }
+</style>
+
+<section class="how-we-work-section">
+    <div class="container">
+        <!-- HEADER -->
+        <div class="process-section-header">
+            <div class="process-small-title">
+                {% if process_header and process_header.small_title %}{{ process_header.small_title }}{% else %}OUR PROCESS{% endif %}
+            </div>
+            <h2 class="process-main-title">
+                {% if process_header and process_header.title %}{{ process_header.title }}{% else %}How We Work{% endif %}
+            </h2>
+            {% if process_header and process_header.description %}
+                <p class="process-section-desc">
+                    {{ process_header.description }}
+                </p>
+            {% else %}
+                <p class="process-section-desc">
+                    From the first conversation to the final delivery, we make your photography experience simple and enjoyable.
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- TIMELINE GRID -->
+        <div class="process-timeline-wrapper">
+            <div class="process-timeline-line"></div>
+            <div class="row g-4 justify-content-center">
+                {% if process_steps %}
+                    {% for item in process_steps %}
+                        <div class="col-lg-3 col-md-6">
+                            <div class="process-step-item">
+                                <div class="process-icon-circle">
+                                    {% if item.icon_image %}
+                                        <img src="{{ item.icon_image.url }}" alt="{{ item.title }}" style="width: 28px; height: 28px; object-fit: contain;">
+                                    {% else %}
+                                        <i class="{{ item.icon_class|default:'bi bi-chat-heart' }}"></i>
+                                    {% endif %}
+                                </div>
+                                <h3 class="process-step-title">{{ item.title }}</h3>
+                                <p class="process-step-desc">{{ item.description }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <!-- FALLBACK STEPS MATCHING SCREENSHOT -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="process-step-item">
+                            <div class="process-icon-circle">
+                                <i class="bi bi-chat-heart"></i>
+                            </div>
+                            <h3 class="process-step-title">Consultation</h3>
+                            <p class="process-step-desc">Understand your requirements and photography ideas.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="process-step-item">
+                            <div class="process-icon-circle">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+                            <h3 class="process-step-title">Planning</h3>
+                            <p class="process-step-desc">Plan locations, concepts, outfits and schedule.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="process-step-item">
+                            <div class="process-icon-circle">
+                                <i class="bi bi-camera"></i>
+                            </div>
+                            <h3 class="process-step-title">Photoshoot</h3>
+                            <p class="process-step-desc">Capture natural emotions and beautiful moments.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="process-step-item">
+                            <div class="process-icon-circle">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <h3 class="process-step-title">Delivery</h3>
+                            <p class="process-step-desc">Professionally edited images delivered to you.</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- =========================================================
+     20 - CLIENT STORIES
+========================================================= -->
+
+<section class="home-section-padding bg-light">
+
+    <div class="container">
+
+        <div class="home-section-title">
+
+            <div class="home-small-title">
+                Real Stories
+            </div>
+
+            <h2>Client Stories</h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% if client_stories %}
+                {% for story in client_stories %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="home-20-card">
+                            {% if story.story_image %}
+                                <img src="{{ story.story_image.url }}" alt="{{ story.title }}">
+                            {% endif %}
+
+                            <div class="home-20-content">
+                                <span>{{ story.category }}</span>
+                                <h3>{{ story.title }}</h3>
+                                <p>{{ story.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+<!-- =========================================================
+     21 - TESTIMONIALS
+========================================================= -->
+
+<section class="home-section-padding home-21-testimonial">
+
+    <div class="container">
+
+        <div class="home-section-title">
+
+            <div class="home-small-title">
+                Happy Clients
+            </div>
+
+            <h2>Client Testimonials</h2>
+
+        </div>
+
+
+
+        <div class="row g-4">
+
+            {% if testimonials %}
+                {% for item in testimonials %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="home-21-card">
+                            <div class="home-21-client">
+                                {% if item.client_photo %}
+                                    <img src="{{ item.client_photo.url }}" alt="{{ item.client_name }}">
+                                {% else %}
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=85" alt="{{ item.client_name }}">
+                                {% endif %}
+                                <div>
+                                    <h5>{{ item.client_name }}</h5>
+                                    <div class="home-21-stars">
+                                        {% if item.rating == 5 %}★★★★★
+                                        {% elif item.rating == 4 %}★★★★☆
+                                        {% elif item.rating == 3 %}★★★☆☆
+                                        {% elif item.rating == 2 %}★★☆☆☆
+                                        {% else %}★☆☆☆☆{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <p>"{{ item.review }}"</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     22 - INSTAGRAM GALLERY
+========================================================= -->
+
+<section class="home-section-padding">
+
+    <div class="container">
+
+        <div class="home-section-title">
+
+            <div class="home-small-title">
+                Follow Our Work
+            </div>
+
+            <h2>Instagram Gallery</h2>
+
+        </div>
+
+        <div class="row g-2">
+
+            {% if insta_posts %}
+                {% for item in insta_posts %}
+                    <div class="col-lg-3 col-md-6">
+                        <div class="home-22-item">
+                            {% if item.post_image %}
+                                <img src="{{ item.post_image.url }}" alt="{{ item.title|default:'Instagram Post' }}">
+                            {% endif %}
+
+                            <a href="{{ item.post_url|default:'#' }}" {% if item.post_url and item.post_url != "#" %}target="_blank"{% endif %} class="home-22-overlay text-decoration-none">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+
+        </div>
+
+
+        <!-- View More Button -->
+        <div class="text-center mt-5">
+
+            <a href="#" class="btn home-22-view-btn">
+                View More
+                <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+<!-- =========================================================
+=========================================================
+     24 - BEHIND THE SCENES
+========================================================= -->
+
+
+<!-- =========================================================
+     25 - AWARDS
+========================================================= -->
+
+<section class="home-section-padding bg-light">
+
+    <div class="container">
+
+        <div class="home-section-title">
+
+            <div class="home-small-title">
+                Achievements
+            </div>
+
+            <h2>Awards & Recognition</h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% if awards %}
+                {% for item in awards %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="home-25-card">
+                            <div class="home-25-icon">
+                                <i class="{{ item.icon_class|default:'bi bi-trophy' }}"></i>
+                            </div>
+
+                            <h3>{{ item.title }}</h3>
+
+                            <p>{{ item.subtitle }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     26 - FAQ
+========================================================= -->
+
+
+
+<!-- =========================================================
+     27 - BOOKING CTA
+========================================================= -->
+
+<section class="home-27-cta">
+
+    <div class="container">
+
+        <h2>Have a Moment to Capture?</h2>
+
+        <p>
+            Let's capture your special moments and
+            turn them into memories that last forever.
+        </p>
+
+        <a href="/booking_form/" class="home-gold-btn">
+
+            <i class="bi bi-camera me-2"></i>
+
+            Book a Photoshoot
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+
+<!-- =========================================================
+     29 - NEWSLETTER
+========================================================= -->
+
+
+
+
+<!-- =========================================================
+     30 - FINAL CTA
+========================================================= -->
+
+<section class="home-30-final">
+
+    <div class="container">
+
+        <h2>Let's Create Something Beautiful</h2>
+
+        <p>
+            Your special moments deserve to be remembered.
+            Let's capture them together.
+        </p>
+
+        <a href="#" class="home-gold-btn">
+
+            <i class="bi bi-chat-dots me-2"></i>
+
+            Contact Us
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<!-- slider End  -->
+
+
+
+{% include "website/footer.html" %}

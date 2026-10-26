@@ -1,0 +1,361 @@
+{% include "website/navbar.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Remaining Balance | Booking #BK-{{ booking.id }}890</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --accent-gold: #d97706;
+            --gradient-accent: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #b45309 100%);
+            --card-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #334155;
+            min-height: 100vh;
+        }
+
+        .pay-header {
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 55px 20px 90px;
+            text-align: center;
+        }
+
+        .pay-container {
+            margin-top: -50px;
+            margin-bottom: 80px;
+        }
+
+        .pay-card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .price-box {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .due-badge {
+            background: #fef3c7;
+            color: #b45309;
+            border: 1px solid #fde68a;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .btn-pay-now {
+            background: var(--gradient-accent);
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 14px 36px;
+            border-radius: 14px;
+            border: none;
+            box-shadow: 0 8px 20px rgba(217, 119, 6, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-pay-now:hover {
+            transform: translateY(-2px);
+            color: white;
+            box-shadow: 0 12px 24px rgba(217, 119, 6, 0.4);
+        }
+
+        .receipt-success-header {
+            background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 24px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="pay-header">
+    <div class="container">
+        <h2 class="font-family-serif fw-bold text-white mb-2">
+            Remaining Balance Payment 📸
+        </h2>
+        <p class="text-white-50">Booking Reference: #BK-{{ booking.id }}890 | Customer: {{ booking.full_name }}</p>
+    </div>
+</div>
+
+<div class="container pay-container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="pay-card">
+                
+                {% if payment_success %}
+                <!-- SUCCESS RECEIPT -->
+                <div class="receipt-success-header text-center mb-4">
+                    <i class="bi bi-check-circle-fill display-3 text-warning mb-2"></i>
+                    <h3 class="fw-bold mb-1">Full Payment Received!</h3>
+                    <p class="mb-0">Your photography booking is 100% Paid in Full. Thank you!</p>
+                </div>
+
+                <!-- EXACT SCREENSHOT PDF RECEIPT CARD FORMAT -->
+                <div id="finalReceiptCard" class="bg-white rounded-5 p-4 p-md-5 border shadow-sm mx-auto my-3" style="max-width: 680px; font-family: 'Plus Jakarta Sans', sans-serif; color: #1e293b; border-color: #cbd5e1 !important;">
+                    
+                    <!-- HEADER BRAND NAME -->
+                    <div class="text-center text-secondary small fw-semibold mb-4" style="letter-spacing: 0.5px;">
+                        A2Z Photographer Marketplace
+                    </div>
+
+                    <!-- GREEN CHECKMARK ICON -->
+                    <div class="text-center mb-3">
+                        <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+
+                    <!-- MAIN TITLE & SUBTITLE -->
+                    <h2 class="fw-bold text-center text-dark mb-2" style="font-size: 1.85rem; letter-spacing: -0.5px;">
+                        Booking Confirmed Successfully!
+                    </h2>
+
+                    <p class="text-center text-secondary fs-6 mb-4 px-md-3" style="line-height: 1.6;">
+                        Thank you, <strong class="text-dark">{{ booking.full_name }}</strong>. Your photoshoot reservation for <strong class="text-dark">{{ booking.event_type }}</strong> on <strong class="text-dark">{{ booking.event_date }}</strong> has been received!
+                    </p>
+
+                    <!-- INNER DETAILS BOX -->
+                    <div class="border rounded-4 p-4 bg-white text-start" style="border-color: #e2e8f0 !important;">
+                        
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                            <span class="text-secondary">Booking Reference ID:</span>
+                            <strong class="text-dark fs-6">#BK-{{ booking.id }}890</strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                            <span class="text-secondary">Customer Name:</span>
+                            <strong class="text-dark fs-6">{{ booking.full_name }}</strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                            <span class="text-secondary">Mobile Number:</span>
+                            <strong class="text-dark fs-6">{{ booking.mobile }}</strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                            <span class="text-secondary">Event Location & City:</span>
+                            <strong class="text-dark fs-6">{{ booking.event_location }}, {{ booking.city }}</strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                            <span class="text-secondary">Event Date & Time:</span>
+                            <strong class="text-dark fs-6">{{ booking.event_date }} at {{ booking.event_time }}</strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                            <span class="text-secondary">Selected Package:</span>
+                            <strong class="text-dark fs-6">{{ booking.package|default:"Standard Package" }}</strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                            <span class="text-secondary">Advance Payment Status:</span>
+                            <strong class="text-secondary fw-semibold">Paid (₹{{ advance_paid|floatformat:0 }})</strong>
+                        </div>
+
+                        {% if booking.remaining_amount > 0 or booking.payment_status == 'Full Paid' %}
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                            <span class="text-secondary">Remaining Payment Status:</span>
+                            <strong class="text-success fw-bold">Full Paid (₹{{ booking.remaining_amount|default:remaining_due|floatformat:0 }})</strong>
+                        </div>
+                        {% endif %}
+
+                        <div class="d-flex justify-content-between align-items-center py-2 pt-3">
+                            <span class="text-secondary">Transaction ID:</span>
+                            <strong class="text-dark fs-6">{{ booking.remaining_txn_id|default:booking.transaction_id|default:"TXN474262284" }}</strong>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    {% if whatsapp_url %}
+                    <a href="{{ whatsapp_url }}" target="_blank" class="btn btn-success px-4 py-2 rounded-3 fw-bold shadow-sm">
+                        <i class="bi bi-whatsapp me-2"></i> Send WhatsApp Receipt
+                    </a>
+                    {% endif %}
+                    {% if sms_url %}
+                    <a href="{{ sms_url }}" class="btn btn-info text-white px-4 py-2 rounded-3 fw-bold shadow-sm">
+                        <i class="bi bi-chat-text-fill me-2"></i> Send Text SMS
+                    </a>
+                    {% endif %}
+                    <button onclick="downloadPDFReceipt()" class="btn btn-danger px-4 py-2 rounded-3 fw-bold shadow-sm">
+                        <i class="bi bi-file-earmark-pdf-fill me-2"></i> Download PDF Receipt
+                    </button>
+                    <button onclick="window.print()" class="btn btn-outline-dark px-4 py-2 rounded-3 fw-bold">
+                        <i class="bi bi-printer me-2"></i> Print Final Receipt
+                    </button>
+                    <a href="/" class="btn btn-warning text-white px-4 py-2 rounded-3 fw-bold">
+                        <i class="bi bi-house me-2"></i> Return to Home
+                    </a>
+                </div>
+
+                {% else %}
+                <!-- PAYMENT DUE FORM -->
+                <div class="text-center mb-4">
+                    <h4 class="fw-bold mb-2">Photoshoot Booking Details</h4>
+                    <p class="text-muted">Review your remaining balance details and complete your payment online.</p>
+                </div>
+
+                <div class="price-box mb-4">
+                    <div class="row g-3">
+                        <div class="col-md-6 text-start">
+                            <span class="text-muted d-block small">Customer Name</span>
+                            <strong class="fs-6 text-dark">{{ booking.full_name }}</strong>
+                        </div>
+                        <div class="col-md-6 text-start">
+                            <span class="text-muted d-block small">Event & Date</span>
+                            <strong class="fs-6 text-dark">{{ booking.event_type }} ({{ booking.event_date }})</strong>
+                        </div>
+                        <div class="col-md-6 text-start border-top pt-2">
+                            <span class="text-muted d-block small">Selected Package</span>
+                            <strong class="text-dark">{{ booking.package|default:"Standard Package" }}</strong>
+                        </div>
+                        <div class="col-md-6 text-start border-top pt-2">
+                            <span class="text-muted d-block small">Total Package Price</span>
+                            <strong class="text-dark fs-5">₹{{ total_price|floatformat:2 }}</strong>
+                        </div>
+                        <div class="col-md-6 text-start border-top pt-2">
+                            <span class="text-muted d-block small">Advance Token Paid</span>
+                            <strong class="text-success fs-6">✓ ₹{{ advance_paid|floatformat:2 }} Paid</strong>
+                        </div>
+                        <div class="col-md-6 text-start border-top pt-2">
+                            <div class="due-badge text-center">
+                                <span class="d-block small text-uppercase">Remaining Balance Due</span>
+                                <span class="fs-3 fw-bold">₹{{ remaining_due|floatformat:2 }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if remaining_due <= 0 or booking.payment_status == 'Full Paid' %}
+                    <div class="alert alert-success text-center fw-bold p-3 rounded-4 mb-4">
+                        <i class="bi bi-patch-check-fill me-2 fs-4"></i> This booking is already FULL PAID!
+                    </div>
+                    <div class="text-center">
+                        <a href="/" class="btn btn-dark px-4 py-2 rounded-3 fw-bold">Return to Home</a>
+                    </div>
+                {% else %}
+                    <form method="POST" action="/pay-remaining/{{ booking.id }}/" id="payForm">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4 text-center">
+                            <button type="button" class="btn btn-primary btn-lg w-100 mb-3 fw-bold rounded-4 shadow-sm py-3 text-white" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); border: none;" onclick="payWithRazorpayGateway('{{ remaining_due }}', '{{ booking.full_name }}', '{{ booking.mobile }}', '{{ booking.email }}')">
+                                <i class="bi bi-credit-card-2-front-fill me-2 fs-5"></i> Pay ₹{{ remaining_due|floatformat:2 }} Online via Payment Gateway (UPI / GPay / Cards)
+                            </button>
+                            <p class="text-muted small">Or submit your Transaction ID below if paid via direct QR / PhonePe / Paytm:</p>
+                        </div>
+
+                        <div class="mb-4 text-start">
+                            <label class="form-label fw-bold">Transaction ID / Payment Reference <span class="text-danger">*</span></label>
+                            <input type="text" name="transaction_id" class="form-control form-control-lg rounded-3" placeholder="e.g. TXN987654321 or UPI Ref ID" required>
+                            <small class="text-muted">Direct UPI ID: <strong>photographer@upi</strong></small>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-pay-now">
+                                <i class="bi bi-shield-check me-2"></i> Submit & Verify Payment ₹{{ remaining_due|floatformat:2 }}
+                            </button>
+                        </div>
+                    </form>
+                {% endif %}
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "website/footer.html" %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+function payWithRazorpayGateway(amount, name, mobile, email) {
+    fetch('/api/create-razorpay-order/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: amount })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.success) {
+            var options = {
+                "key": data.key_id,
+                "amount": data.amount * 100,
+                "currency": "INR",
+                "name": "A2Z Photographer Marketplace",
+                "description": "Photoshoot Balance Payment",
+                "order_id": data.order_id,
+                "handler": function (response){
+                    var txnInput = document.querySelector('input[name="transaction_id"]');
+                    if (txnInput) {
+                        txnInput.value = response.razorpay_payment_id || response.razorpay_order_id || ("RZP_" + Date.now());
+                        document.getElementById('payForm').submit();
+                    }
+                },
+                "prefill": {
+                    "name": name,
+                    "email": email || "customer@example.com",
+                    "contact": mobile
+                },
+                "theme": {
+                    "color": "#d97706"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function downloadPDFReceipt() {
+    const element = document.getElementById('finalReceiptCard') || document.querySelector('.pay-card');
+    if (!element) return;
+    
+    const opt = {
+        margin:       10,
+        filename:     'Booking_Receipt_BK-{{ booking.id }}890.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('download_pdf') === '1') {
+        setTimeout(downloadPDFReceipt, 600);
+    }
+});
+</script>
+</body>
+</html>

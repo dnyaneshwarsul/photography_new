@@ -1,0 +1,224 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .process-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .process-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .process-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .process-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+
+    .image-preview-banner {
+        max-height: 180px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid #e2d7c7;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="process-card">
+        <!-- HEADER -->
+        <div class="process-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-grid-3x3-gap-fill me-2 text-danger"></i>
+                Edit Category Hero Banner Section
+            </h4>
+            <a href="/category/" target="_blank" class="btn btn-outline-light btn-sm fw-bold">
+                <i class="bi bi-box-arrow-up-right me-1"></i> Preview Category Page
+            </a>
+        </div>
+
+        <!-- FORM -->
+        <div class="process-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="/admin/category-hero-section/" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- 1. SMALL SECTION NAME / LABEL -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            1. Small Section Name / Badge Text <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="label_text" 
+                               value="{{ hero.label_text|default:'PHOTOGRAPHY CATEGORIES' }}" 
+                               placeholder="e.g. PHOTOGRAPHY CATEGORIES" 
+                               required>
+                        <small class="text-muted">Small badge text displayed above main heading (e.g. PHOTOGRAPHY CATEGORIES)</small>
+                    </div>
+
+                    <!-- 2. MAIN TITLE PARTS -->
+                    <div class="col-md-4">
+                        <label class="form-label">Title Prefix</label>
+                        <input type="text" class="form-control" name="title_prefix" value="{{ hero.title_prefix|default:'Explore Our ' }}" placeholder="e.g. Explore Our ">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Title Highlight Word (Gold Accent)</label>
+                        <input type="text" class="form-control" name="title_highlight" value="{{ hero.title_highlight|default:'Photography' }}" placeholder="e.g. Photography">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Title Suffix</label>
+                        <input type="text" class="form-control" name="title_suffix" value="{{ hero.title_suffix|default:' Categories' }}" placeholder="e.g.  Categories">
+                    </div>
+
+                    <!-- 3. DESCRIPTION (DEC) -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            3. Section Description (DEC) <span class="required">*</span>
+                        </label>
+                        <textarea class="form-control" 
+                                  name="description" 
+                                  rows="3" 
+                                  placeholder="Discover professional photography services for every special moment, occasion and beautiful story you want to preserve forever." 
+                                  style="height: auto;" 
+                                  required>{{ hero.description|default:'' }}</textarea>
+                        <small class="text-muted">Subtitle paragraph text shown under the main title.</small>
+                    </div>
+
+                    <!-- 4. BUTTON TEXT & LINK -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            4. Button Text (BTN) <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="btn_text" 
+                               value="{{ hero.btn_text|default:'Explore Categories' }}" 
+                               placeholder="e.g. Explore Categories" 
+                               required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Button Link Anchor / URL
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="btn_link" 
+                               value="{{ hero.btn_link|default:'#all-categories' }}" 
+                               placeholder="e.g. #all-categories or /booking_form/">
+                    </div>
+
+                    <!-- 5. BACKGROUND PHOTO -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            5. Hero Background Photo
+                        </label>
+                        <input type="file" 
+                               class="form-control" 
+                               id="hero_image"
+                               name="hero_image" 
+                               accept=".jpg,.jpeg,.png,.webp">
+                        <small class="text-muted">Upload high resolution dark background image for the Category Hero Banner.</small>
+                        <div>
+                            {% if hero.hero_image %}
+                                <img id="heroImagePreview" src="{{ hero.hero_image.url }}" class="image-preview-banner" alt="Current Hero Background">
+                            {% else %}
+                                <img id="heroImagePreview" class="image-preview-banner" alt="Preview" style="display:none;">
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- SUBMIT BUTTON -->
+                    <div class="col-12 text-end mt-4 pt-2 border-top">
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-check-circle-fill me-1"></i> Save Category Hero Banner
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const imageInput = document.getElementById("hero_image");
+    const imagePreview = document.getElementById("heroImagePreview");
+    if (imageInput && imagePreview) {
+        imageInput.addEventListener("change", function() {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+});
+</script>
+

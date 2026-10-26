@@ -1,0 +1,191 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .process-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .process-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .process-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .process-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="process-card">
+        <!-- HEADER -->
+        <div class="process-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-geo-alt me-2 text-danger"></i>
+                Edit Contact Info, Address & Google Map
+            </h4>
+            <a href="/contact/" target="_blank" class="btn btn-outline-light btn-sm fw-bold">
+                <i class="bi bi-box-arrow-up-right me-1"></i> Preview Contact Page
+            </a>
+        </div>
+
+        <!-- FORM -->
+        <div class="process-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="/admin/contact-info-section/">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- 1. PHONE NUMBER -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            <i class="bi bi-telephone me-1 text-danger"></i> 1. Contact Phone Number <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="phone" 
+                               value="{{ info.phone|default:'+91 98765 43210' }}" 
+                               placeholder="e.g. +91 98765 43210" 
+                               required>
+                    </div>
+
+                    <!-- 2. SUPPORT EMAIL -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            <i class="bi bi-envelope me-1 text-danger"></i> 2. Support Email Address <span class="required">*</span>
+                        </label>
+                        <input type="email" 
+                               class="form-control" 
+                               name="email" 
+                               value="{{ info.email|default:'info@photostudio.com' }}" 
+                               placeholder="e.g. info@photostudio.com" 
+                               required>
+                    </div>
+
+                    <!-- 3. STUDIO ADDRESS -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            <i class="bi bi-building me-1 text-danger"></i> 3. Studio / Office Address <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="office_address" 
+                               value="{{ info.office_address|default:'Pune, Maharashtra, India' }}" 
+                               placeholder="e.g. Pune, Maharashtra, India" 
+                               required>
+                    </div>
+
+                    <!-- 4. WHATSAPP NUMBER -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            <i class="bi bi-whatsapp me-1 text-success"></i> 4. WhatsApp Number <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="whatsapp_number" 
+                               value="{{ info.whatsapp_number|default:'+91 98765 43210' }}" 
+                               placeholder="e.g. +91 98765 43210" 
+                               required>
+                    </div>
+
+                    <!-- 5. WORKING HOURS -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            <i class="bi bi-clock me-1 text-danger"></i> 5. Studio Working Hours <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="working_hours" 
+                               value="{{ info.working_hours|default:'Mon - Sat : 10:00 AM - 7:00 PM' }}" 
+                               placeholder="e.g. Mon - Sat : 10:00 AM - 7:00 PM" 
+                               required>
+                    </div>
+
+                    <!-- 6. GOOGLE MAP EMBED URL -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            <i class="bi bi-map me-1 text-danger"></i> 6. Google Map Embed URL (iframe src) <span class="required">*</span>
+                        </label>
+                        <textarea class="form-control" 
+                                  name="google_map_url" 
+                                  rows="3" 
+                                  placeholder="Paste Google Maps embed iframe URL src attribute here..." 
+                                  style="height: auto;" 
+                                  required>{{ info.google_map_url|default:'' }}</textarea>
+                        <small class="text-muted">Paste Google Maps embed URL (starts with https://www.google.com/maps/embed...)</small>
+                    </div>
+
+                    <!-- SUBMIT BUTTON -->
+                    <div class="col-12 text-end mt-4 pt-2 border-top">
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-check-circle-fill me-1"></i> Save Contact Info & Address
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include "admin/footer.html" %}

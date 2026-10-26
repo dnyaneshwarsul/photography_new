@@ -1,0 +1,1429 @@
+
+{% include "website/navbar.html"  %}
+<link rel="stylesheet" href="/static/website/about.css">
+
+    <!-- Bootstrap 5.3.3 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            color: #222;
+            background: #fff;
+        }
+
+        :root {
+            --gold: #c49a5a;
+            --gold-light: #dfc18d;
+            --dark: #171717;
+            --gray: #6f6f6f;
+            --light: #f7f5f0;
+            --border: #e9e5dd;
+        }
+
+        /* =====================================================
+           COMMON
+        ===================================================== */
+
+        .about-section {
+            padding: 100px 0;
+        }
+
+        .section-label {
+            display: block;
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-size: 42px;
+            line-height: 1.3;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            color: var(--gold);
+        }
+
+        .section-description {
+            color: var(--gray);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        /* =====================================================
+           01. ABOUT HERO
+        ===================================================== */
+
+        .about-hero {
+            min-height: 650px;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, .40),
+                    rgba(0, 0, 0, .72)
+                ),
+                url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            padding: 30px 20px;
+            color: #fff;
+        }
+
+        .hero-label {
+            font-size: 11px;
+            letter-spacing: 5px;
+            color: var(--gold-light);
+            font-weight: 600;
+            margin-bottom: 18px;
+            display: block;
+        }
+
+        .hero-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold-light);
+            margin: 0 auto 25px;
+        }
+
+        .hero-content h1 {
+            font-size: 60px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 22px;
+        }
+
+        .hero-content h1 span {
+            color: var(--gold-light);
+        }
+
+        .hero-content p {
+            max-width: 680px;
+            margin: auto;
+            font-size: 14px;
+            line-height: 1.9;
+            color: rgba(255,255,255,.88);
+        }
+
+        /* =====================================================
+           02. WHO WE ARE
+        ===================================================== */
+
+        .who-section {
+            background: #fff;
+        }
+
+        .who-image {
+            height: 530px;
+            overflow: hidden;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .who-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .6s ease;
+        }
+
+        .who-image:hover img {
+            transform: scale(1.06);
+        }
+
+        .experience-box {
+            position: absolute;
+            right: 25px;
+            bottom: 25px;
+
+            background: rgba(0,0,0,.80);
+            color: #fff;
+
+            padding: 18px 25px;
+            border-radius: 8px;
+        }
+
+        .experience-box strong {
+            display: block;
+            color: var(--gold-light);
+            font-size: 25px;
+        }
+
+        .experience-box small {
+            font-size: 10px;
+            color: #ddd;
+        }
+
+        .who-content {
+            padding-left: 35px;
+        }
+
+        .who-features {
+            margin-top: 30px;
+        }
+
+        .who-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .who-icon {
+            min-width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f7f1e7;
+            color: var(--gold);
+
+            border-radius: 50%;
+            font-size: 20px;
+        }
+
+        .who-item h5 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .who-item p {
+            margin: 0;
+            color: var(--gray);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* =====================================================
+           03. OUR STORY
+        ===================================================== */
+
+        .story-section {
+            background: var(--light);
+        }
+
+        .story-content {
+            padding-right: 35px;
+        }
+
+        .story-image {
+            height: 520px;
+            overflow: hidden;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .6s ease;
+        }
+
+        .story-image:hover img {
+            transform: scale(1.06);
+        }
+
+        .story-year {
+            position: absolute;
+            left: 25px;
+            bottom: 25px;
+
+            background: #fff;
+            padding: 17px 23px;
+
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.15);
+        }
+
+        .story-year strong {
+            display: block;
+            color: var(--gold);
+            font-size: 24px;
+        }
+
+        .story-year span {
+            font-size: 10px;
+            color: #666;
+        }
+
+        .timeline {
+            margin-top: 30px;
+            padding-left: 25px;
+            border-left: 1px solid #d5bb91;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+            background: var(--gold);
+
+            left: -30px;
+            top: 5px;
+        }
+
+        .timeline-item h5 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item p {
+            margin: 0;
+            color: var(--gray);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* =====================================================
+           04. WHAT WE DO
+        ===================================================== */
+
+        .what-section {
+            background: #fff;
+        }
+
+        .section-heading {
+            max-width: 700px;
+            margin: 0 auto 55px;
+            text-align: center;
+        }
+
+        .service-card {
+            height: 100%;
+            overflow: hidden;
+
+            border: 1px solid var(--border);
+            border-radius: 14px;
+
+            background: #fff;
+
+            transition: .35s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 18px 40px rgba(0,0,0,.10);
+        }
+
+        .service-image {
+            height: 230px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .6s ease;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.08);
+        }
+
+        .service-body {
+            padding: 24px;
+        }
+
+        .service-icon {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #f7f1e7;
+            color: var(--gold);
+
+            font-size: 19px;
+
+            margin-bottom: 15px;
+        }
+
+        .service-body h4 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        .service-body p {
+            color: var(--gray);
+            font-size: 11px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* =====================================================
+           05. OUR MISSION
+        ===================================================== */
+
+        .mission-section {
+            min-height: 550px;
+
+            display: flex;
+            align-items: center;
+
+            position: relative;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    rgba(10,10,10,.70),
+                    rgba(10,10,10,.82)
+                ),
+                url("https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .mission-content {
+            max-width: 850px;
+            margin: auto;
+            padding: 70px 20px;
+            color: #fff;
+        }
+
+        .mission-content .section-label {
+            color: var(--gold-light);
+        }
+
+        .mission-content h2 {
+            color: #fff;
+            font-size: 45px;
+        }
+
+        .mission-text {
+            max-width: 700px;
+            margin: 0 auto 35px;
+
+            font-size: 16px;
+            font-style: italic;
+            line-height: 1.9;
+
+            color: rgba(255,255,255,.88);
+        }
+
+        .mission-points {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        .mission-point {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 11px;
+        }
+
+        .mission-point i {
+            color: var(--gold-light);
+        }
+
+        /* =====================================================
+           06. OUR VISION
+        ===================================================== */
+
+        .vision-section {
+            background: var(--light);
+        }
+
+        .vision-image {
+            height: 500px;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .vision-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .6s ease;
+        }
+
+        .vision-image:hover img {
+            transform: scale(1.06);
+        }
+
+        .vision-content {
+            padding-left: 35px;
+        }
+
+        .vision-box {
+            margin: 25px 0;
+
+            background: #fff;
+
+            border-left: 3px solid var(--gold);
+
+            padding: 22px 25px;
+
+            border-radius: 0 8px 8px 0;
+        }
+
+        .vision-box p {
+            margin: 0;
+
+            color: #555;
+
+            font-size: 14px;
+            line-height: 1.9;
+            font-style: italic;
+        }
+
+        .vision-values {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .vision-value {
+            background: #fff;
+            border: 1px solid var(--border);
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            font-size: 11px;
+            color: #555;
+        }
+
+        .vision-value i {
+            color: var(--gold);
+            margin-right: 7px;
+        }
+
+        /* =====================================================
+           07. WHY CHOOSE US
+        ===================================================== */
+
+        .why-section {
+            background: #fff;
+        }
+
+        .why-card {
+            height: 100%;
+
+            padding: 30px 25px;
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            background: #fff;
+
+            transition: .35s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-7px);
+
+            border-color: var(--gold);
+
+            box-shadow: 0 15px 35px rgba(0,0,0,.08);
+        }
+
+        .why-icon {
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f7f1e7;
+            color: var(--gold);
+
+            border-radius: 50%;
+
+            font-size: 22px;
+
+            margin-bottom: 20px;
+        }
+
+        .why-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .why-card p {
+            margin: 0;
+
+            color: var(--gray);
+
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        /* =====================================================
+           08. OUR NUMBERS
+        ===================================================== */
+
+        .numbers-section {
+            background: #171717;
+            padding: 85px 0;
+        }
+
+        .numbers-heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .numbers-heading .section-label {
+            color: var(--gold-light);
+        }
+
+        .numbers-heading h2 {
+            color: #fff;
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .numbers-heading p {
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .number-box {
+            text-align: center;
+            padding: 20px;
+            border-right: 1px solid #333;
+        }
+
+        .number-box:last-child {
+            border-right: none;
+        }
+
+        .number-box i {
+            color: var(--gold-light);
+            font-size: 27px;
+            margin-bottom: 15px;
+        }
+
+        .number-box h3 {
+            color: #fff;
+            font-size: 38px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .number-box span {
+            color: #aaa;
+            font-size: 11px;
+        }
+
+        /* =====================================================
+           09. PHOTOGRAPHER TESTIMONIALS
+        ===================================================== */
+
+        .testimonial-section {
+            background: var(--light);
+        }
+
+        .testimonial-card {
+            height: 100%;
+
+            background: #fff;
+
+            padding: 35px 28px;
+
+            border-radius: 13px;
+
+            border: 1px solid var(--border);
+
+            position: relative;
+
+            transition: .35s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,.08);
+        }
+
+        .quote-icon {
+            color: var(--gold);
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-text {
+            color: #666;
+            font-size: 12px;
+            line-height: 1.9;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .photographer {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .photographer img {
+            width: 52px;
+            height: 52px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+        }
+
+        .photographer h5 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .photographer span {
+            color: var(--gold);
+            font-size: 10px;
+        }
+
+        /* =====================================================
+           10. START YOUR STORY CTA
+        ===================================================== */
+
+        .story-cta {
+            min-height: 500px;
+
+            display: flex;
+            align-items: center;
+
+            text-align: center;
+
+            position: relative;
+
+            background:
+                linear-gradient(
+                    rgba(0,0,0,.48),
+                    rgba(0,0,0,.76)
+                ),
+                url("https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: auto;
+            color: #fff;
+        }
+
+        .cta-content .section-label {
+            color: var(--gold-light);
+        }
+
+        .cta-content h2 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .cta-content p {
+            max-width: 650px;
+
+            margin: 0 auto 30px;
+
+            color: rgba(255,255,255,.85);
+
+            font-size: 13px;
+
+            line-height: 1.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #fff;
+
+            border: 1px solid var(--gold);
+
+            padding: 12px 25px;
+
+            font-size: 11px;
+
+            font-weight: 500;
+
+            letter-spacing: .5px;
+
+            border-radius: 4px;
+
+            transition: .3s ease;
+        }
+
+        .btn-gold:hover {
+            background: #aa8044;
+            border-color: #aa8044;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-light-custom {
+            background: transparent;
+
+            color: #fff;
+
+            border: 1px solid rgba(255,255,255,.7);
+
+            padding: 12px 25px;
+
+            font-size: 11px;
+
+            border-radius: 4px;
+
+            transition: .3s ease;
+        }
+
+        .btn-outline-light-custom:hover {
+            background: #fff;
+            color: #222;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 991px) {
+
+            .about-section {
+                padding: 75px 0;
+            }
+
+            .hero-content h1 {
+                font-size: 48px;
+            }
+
+            .section-title {
+                font-size: 35px;
+            }
+
+            .who-content,
+            .story-content,
+            .vision-content {
+                padding-left: 0;
+                padding-right: 0;
+                margin-top: 20px;
+            }
+
+            .number-box {
+                border-right: none;
+                border-bottom: 1px solid #333;
+            }
+
+            .number-box:last-child {
+                border-bottom: none;
+            }
+
+            .mission-content h2 {
+                font-size: 38px;
+            }
+
+            .cta-content h2 {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .about-section {
+                padding: 60px 15px;
+            }
+
+            .about-hero {
+                min-height: 520px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-content p {
+                font-size: 12px;
+            }
+
+            .section-title {
+                font-size: 30px;
+            }
+
+            .who-image,
+            .story-image,
+            .vision-image {
+                height: 360px;
+            }
+
+            .service-image {
+                height: 220px;
+            }
+
+            .mission-section {
+                min-height: 500px;
+            }
+
+            .mission-content h2 {
+                font-size: 31px;
+            }
+
+            .mission-text {
+                font-size: 13px;
+            }
+
+            .mission-points {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .vision-values {
+                grid-template-columns: 1fr;
+            }
+
+            .numbers-heading h2 {
+                font-size: 31px;
+            }
+
+            .number-box h3 {
+                font-size: 32px;
+            }
+
+            .cta-content h2 {
+                font-size: 32px;
+            }
+
+            .cta-content p {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .hero-content h1 {
+                font-size: 30px;
+            }
+
+            .section-title {
+                font-size: 27px;
+            }
+
+            .who-image,
+            .story-image,
+            .vision-image {
+                height: 290px;
+            }
+
+            .cta-content h2 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+
+
+
+<!-- =====================================================
+     01. ABOUT HERO
+===================================================== -->
+<section class="about-hero" {% if about_data and about_data.hero_image %}style="background: linear-gradient(rgba(0, 0, 0, .40), rgba(0, 0, 0, .72)), url('/media/{{ about_data.hero_image }}'); background-size: cover; background-position: center;"{% elif about_data and about_data.about_image %}style="background: linear-gradient(rgba(0, 0, 0, .40), rgba(0, 0, 0, .72)), url('/media/{{ about_data.about_image }}'); background-size: cover; background-position: center;"{% endif %}>
+    <div class="container">
+        <div class="hero-content mx-auto">
+            <span class="hero-label">
+                {{ about_data.hero_label|default:"ABOUT ME" }}
+            </span>
+            <div class="hero-line"></div>
+            <h1>
+                {{ about_data.hero_title|default:"Turning Beautiful Moments Into Timeless Memories" }}
+            </h1>
+            <p>
+                {{ about_data.hero_description|default:"I am a professional photographer passionate about capturing real emotions, natural expressions and beautiful stories." }}
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     02. WHO WE ARE
+===================================================== -->
+<section class="about-section who-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="who-image">
+                    <img src="{% if about_data and about_data.about_image %}/media/{{ about_data.about_image }}{% else %}https://images.unsplash.com/photo-1554048612-b6a482bc67e5?auto=format&fit=crop&w=1200&q=90{% endif %}" alt="Professional Photographer">
+                    <div class="experience-box">
+                        <strong>{{ about_data.experience_years|default:"10+" }}</strong>
+                        <small>{{ about_data.experience_text|default:"Years of Photography Experience" }}</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="who-content">
+                    <span class="section-label">
+                        {{ about_data.small_title|default:"ABOUT ME" }}
+                    </span>
+                    <h2 class="section-title">
+                        {{ about_data.title|default:"Turning Beautiful Moments Into Timeless Memories" }}
+                    </h2>
+                    <p class="section-description">
+                        {% if about_data and about_data.description_para1 %}
+                            {{ about_data.description_para1 }}
+                        {% else %}
+                            I am a professional photographer passionate about capturing real emotions, natural expressions and beautiful stories.
+                        {% endif %}
+                    </p>
+                    {% if about_data and about_data.description_para2 %}
+                    <p class="section-description">
+                        {{ about_data.description_para2 }}
+                    </p>
+                    {% endif %}
+
+                    <div class="who-features">
+                        <div class="who-item">
+                            <div class="who-icon"><i class="{{ about_data.feature1_icon|default:'bi bi-camera' }}"></i></div>
+                            <div>
+                                <h5>{{ about_data.feature1_title|default:"Professional Photographers" }}</h5>
+                                <p>{{ about_data.feature1_desc|default:"Skilled photographers with creative experience and unique styles." }}</p>
+                            </div>
+                        </div>
+                        <div class="who-item">
+                            <div class="who-icon"><i class="{{ about_data.feature2_icon|default:'bi bi-stars' }}"></i></div>
+                            <div>
+                                <h5>{{ about_data.feature2_title|default:"Creative Photography" }}</h5>
+                                <p>{{ about_data.feature2_desc|default:"Creative ideas that turn ordinary moments into beautiful memories." }}</p>
+                            </div>
+                        </div>
+                        <div class="who-item">
+                            <div class="who-icon"><i class="{{ about_data.feature3_icon|default:'bi bi-heart' }}"></i></div>
+                            <div>
+                                <h5>{{ about_data.feature3_title|default:"Genuine Emotions" }}</h5>
+                                <p>{{ about_data.feature3_desc|default:"Natural emotions captured in authentic and meaningful frames." }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     03. OUR STORY
+===================================================== -->
+<section class="about-section story-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="story-content">
+                    <span class="section-label">{% if our_story_data and our_story_data.small_title %}{{ our_story_data.small_title }}{% else %}{{ about_data.story_small_title|default:"OUR STORY" }}{% endif %}</span>
+                    <h2 class="section-title">
+                        {% if our_story_data and our_story_data.title %}{{ our_story_data.title }}{% else %}{{ about_data.story_title|default:"Turning Beautiful Moments Into Timeless Memories" }}{% endif %}
+                    </h2>
+                    <p class="section-description">
+                        {% if our_story_data and our_story_data.description_para1 %}
+                            {{ our_story_data.description_para1 }}
+                        {% elif about_data and about_data.story_desc1 %}
+                            {{ about_data.story_desc1 }}
+                        {% elif about_data and about_data.description_para1 %}
+                            {{ about_data.description_para1 }}
+                        {% else %}
+                            I am a professional photographer passionate about capturing real emotions, natural expressions and beautiful stories.
+                        {% endif %}
+                    </p>
+                    {% if our_story_data and our_story_data.description_para2 %}
+                    <p class="section-description">
+                        {{ our_story_data.description_para2 }}
+                    </p>
+                    {% elif about_data and about_data.story_desc2 %}
+                    <p class="section-description">
+                        {{ about_data.story_desc2 }}
+                    </p>
+                    {% elif about_data and about_data.description_para2 %}
+                    <p class="section-description">
+                        {{ about_data.description_para2 }}
+                    </p>
+                    {% endif %}
+
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h5>Consultation</h5>
+                            <p>Understand your requirements and photography ideas.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5>Planning</h5>
+                            <p>Plan locations, concepts, outfits and schedule.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5>Photoshoot</h5>
+                            <p>Capture natural emotions and beautiful moments.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5>Delivery</h5>
+                            <p>Professionally edited images delivered to you.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="story-image">
+                    <img src="{% if our_story_data and our_story_data.story_image %}/media/{{ our_story_data.story_image }}{% elif about_data and about_data.story_image %}/media/{{ about_data.story_image }}{% elif about_data and about_data.about_image %}/media/{{ about_data.about_image }}{% else %}https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=90{% endif %}" alt="Our Photography Story">
+                    <div class="story-year">
+                        <strong>{% if our_story_data and our_story_data.photographer_name %}{{ our_story_data.photographer_name }}{% else %}{{ about_data.story_badge_title|default:"Your Photographer" }}{% endif %}</strong>
+                        <span>{% if our_story_data and our_story_data.badge_subtitle %}{{ our_story_data.badge_subtitle }}{% else %}{{ about_data.story_badge_subtitle|default:"The Journey Begins" }}{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     04. WHAT WE DO
+===================================================== -->
+<section class="about-section what-section">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-label">{{ about_data.what_we_do_label|default:"WHAT WE DO" }}</span>
+            <h2 class="section-title">
+                {{ about_data.what_we_do_title|default:"Photography For Every Special Moment" }}
+            </h2>
+            <p class="section-description">
+                {{ about_data.what_we_do_desc|default:"From intimate portraits to grand celebrations, we help you discover photography services that match your occasion and style." }}
+            </p>
+        </div>
+
+        <div class="row g-4">
+            {% if services %}
+                {% for s in services %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-body">
+                            <div class="service-icon">
+                                <i class="{{ s.icon_class|default:'bi bi-camera' }}"></i>
+                            </div>
+                            <h4>{{ s.title }}</h4>
+                            <p>{{ s.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-body">
+                            <div class="service-icon"><i class="bi bi-heart-fill"></i></div>
+                            <h4>Wedding Photography</h4>
+                            <p>Wedding, Haldi, Mehendi, Reception and all the beautiful moments of your special day.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-body">
+                            <div class="service-icon"><i class="bi bi-person"></i></div>
+                            <h4>Portrait Photography</h4>
+                            <p>Individual, Couple and Family portraits with natural expressions.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-body">
+                            <div class="service-icon"><i class="bi bi-camera2"></i></div>
+                            <h4>Pre-Wedding Photography</h4>
+                            <p>Romantic couple shoots, creative concepts and beautiful locations.</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     05. OUR MISSION
+===================================================== -->
+<section class="mission-section" {% if about_data and about_data.mission_bg_image %}style="background: linear-gradient(rgba(10,10,10,.70), rgba(10,10,10,.82)), url('/media/{{ about_data.mission_bg_image }}'); background-size: cover; background-position: center;"{% endif %}>
+    <div class="container">
+        <div class="mission-content">
+            <span class="section-label">{{ about_data.mission_small_title|default:"OUR MISSION" }}</span>
+            <h2>{{ about_data.mission_title|default:"Capturing Emotion in Every Frame" }}</h2>
+            <p class="mission-text">
+                "{{ about_data.mission_quote|default:'Our mission is to connect people with passionate photographers who transform precious life events into timeless visual art.' }}"
+            </p>
+            <div class="mission-points">
+                <div class="mission-point"><i class="bi bi-check-circle-fill"></i> {{ about_data.mission_point1|default:"100% Quality Focused" }}</div>
+                <div class="mission-point"><i class="bi bi-check-circle-fill"></i> {{ about_data.mission_point2|default:"Creative Excellence" }}</div>
+                <div class="mission-point"><i class="bi bi-check-circle-fill"></i> {{ about_data.mission_point3|default:"Customer Satisfaction" }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     06. OUR VISION
+===================================================== -->
+<section class="about-section vision-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="vision-image">
+                    <img src="{% if about_data and about_data.vision_image %}/media/{{ about_data.vision_image }}{% else %}https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6EDC58GDAPdIkGC3tnJWMmKJTMcAOTXa1EdhEWFvAbg&s{% endif %}" alt="Our Vision">
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="vision-content">
+                    <span class="section-label">{{ about_data.vision_small_title|default:"OUR VISION" }}</span>
+                    <h2 class="section-title">
+                        {{ about_data.vision_title_line1|default:"Creating A Better" }} <span>{{ about_data.vision_title_highlight|default:"Photography Experience" }}</span>
+                    </h2>
+                    <p class="section-description">
+                        {{ about_data.vision_description|default:"We envision a future where finding the perfect photographer is simple, transparent and inspiring." }}
+                    </p>
+
+                    <div class="vision-box">
+                        <p>
+                            “{{ about_data.vision_quote|default:"To become a trusted photography platform where every special moment finds the perfect photographer." }}”
+                        </p>
+                    </div>
+
+                    <div class="vision-values">
+                        <div class="vision-value"><i class="{{ about_data.vision_val1_icon|default:'bi bi-lightbulb' }}"></i> {{ about_data.vision_val1|default:"Creative" }}</div>
+                        <div class="vision-value"><i class="{{ about_data.vision_val2_icon|default:'bi bi-award' }}"></i> {{ about_data.vision_val2|default:"Professional" }}</div>
+                        <div class="vision-value"><i class="{{ about_data.vision_val3_icon|default:'bi bi-shield-check' }}"></i> {{ about_data.vision_val3|default:"Trusted" }}</div>
+                        <div class="vision-value"><i class="{{ about_data.vision_val4_icon|default:'bi bi-people' }}"></i> {{ about_data.vision_val4|default:"Accessible" }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     07. WHY CHOOSE US
+===================================================== -->
+<section class="about-section why-section">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-label">WHY CHOOSE US</span>
+            <h2 class="section-title">
+                Why People <span>Choose Us</span>
+            </h2>
+            <p class="section-description">
+                We focus on making every step of your photography experience simple, reliable and memorable.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            {% if why_us_items %}
+                {% for item in why_us_items %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="why-card">
+                        <div class="why-icon">
+                            <i class="{{ item.icon_class|default:'bi bi-patch-check' }}"></i>
+                        </div>
+                        <h4>{{ item.title }}</h4>
+                        <p>{{ item.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     08. OUR NUMBERS
+===================================================== -->
+<section class="numbers-section">
+    <div class="container">
+        <div class="numbers-heading">
+            <span class="section-label">{{ about_data.numbers_small_title|default:"OUR NUMBERS" }}</span>
+            <h2>{{ about_data.numbers_title|default:"Growing Together Through Photography" }}</h2>
+            <p>{{ about_data.numbers_desc|default:"Our growing photography community continues to capture beautiful stories." }}</p>
+        </div>
+
+        <div class="row g-0">
+            <div class="col-lg-3 col-6">
+                <div class="number-box">
+                    <i class="{{ about_data.stat1_icon|default:'bi bi-people' }}"></i>
+                    <h3 class="counter-value" data-target="{{ about_data.stat1_count|default:'500+' }}">{{ about_data.stat1_count|default:"500+" }}</h3>
+                    <span>{{ about_data.stat1_title|default:"Happy Clients" }}</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="number-box">
+                    <i class="{{ about_data.stat2_icon|default:'bi bi-camera' }}"></i>
+                    <h3 class="counter-value" data-target="{{ about_data.stat2_count|default:'150+' }}">{{ about_data.stat2_count|default:"150+" }}</h3>
+                    <span>{{ about_data.stat2_title|default:"Professional Photographers" }}</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="number-box">
+                    <i class="{{ about_data.stat3_icon|default:'bi bi-calendar-heart' }}"></i>
+                    <h3 class="counter-value" data-target="{{ about_data.stat3_count|default:'1000+' }}">{{ about_data.stat3_count|default:"1000+" }}</h3>
+                    <span>{{ about_data.stat3_title|default:"Events Captured" }}</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="number-box">
+                    <i class="{{ about_data.stat4_icon|default:'bi bi-grid' }}"></i>
+                    <h3 class="counter-value" data-target="{{ about_data.stat4_count|default:'25+' }}">{{ about_data.stat4_count|default:"25+" }}</h3>
+                    <span>{{ about_data.stat4_title|default:"Photography Categories" }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     10. START YOUR STORY CTA
+===================================================== -->
+<section class="story-cta" {% if about_data and about_data.cta_bg_image %}style="background: linear-gradient(rgba(0,0,0,.48), rgba(0,0,0,.76)), url('/media/{{ about_data.cta_bg_image }}'); background-size: cover; background-position: center;"{% endif %}>
+    <div class="container">
+        <div class="cta-content">
+            <span class="section-label">{{ about_data.cta_small_title|default:"START YOUR STORY" }}</span>
+            <h2>{{ about_data.cta_title|default:"Your Story Deserves To Be Captured." }}</h2>
+            <p>{{ about_data.cta_desc|default:"Whether it is your wedding, a special celebration, a family moment or a personal milestone — find the right photographer to capture it beautifully." }}</p>
+            <div class="cta-buttons">
+                <a href="{{ about_data.cta_btn1_link|default:'/booking_form/' }}" class="btn btn-gold">
+                    {{ about_data.cta_btn1_text|default:"Book a Photographer" }} <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+                <a href="{{ about_data.cta_btn2_link|default:'/category/' }}" class="btn btn-outline-light-custom">
+                    {{ about_data.cta_btn2_text|default:"Explore Categories" }}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const counterElements = document.querySelectorAll(".counter-value");
+    let animated = false;
+
+    function startCounters() {
+        const numbersSection = document.querySelector(".numbers-section");
+        if (!numbersSection) return;
+
+        const sectionPos = numbersSection.getBoundingClientRect().top;
+        const screenPos = window.innerHeight / 1.2;
+
+        if (sectionPos < screenPos && !animated) {
+            animated = true;
+            counterElements.forEach(el => {
+                const targetText = el.getAttribute("data-target") || el.innerText;
+                const match = targetText.match(/(\d+)/);
+                if (!match) return;
+                const targetNum = parseInt(match[1]);
+                const suffix = targetText.replace(match[1], "");
+                let count = 0;
+                const speed = Math.max(1, Math.floor(targetNum / 40));
+                
+                const updateCount = () => {
+                    count += speed;
+                    if (count < targetNum) {
+                        el.innerText = count + suffix;
+                        setTimeout(updateCount, 25);
+                    } else {
+                        el.innerText = targetNum + suffix;
+                    }
+                };
+                updateCount();
+            });
+        }
+    }
+
+    window.addEventListener("scroll", startCounters);
+    startCounters();
+});
+</script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+
+</html>
+
+{% include "website/footer.html" %}

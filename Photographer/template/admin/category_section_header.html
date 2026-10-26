@@ -1,0 +1,199 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .process-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .process-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .process-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .process-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="process-card">
+        <!-- HEADER -->
+        <div class="process-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-grid-3x3-gap-fill me-2 text-danger"></i>
+                Edit All Photography Categories Section Header
+            </h4>
+            <a href="/category/#all-categories" target="_blank" class="btn btn-outline-light btn-sm fw-bold">
+                <i class="bi bi-box-arrow-up-right me-1"></i> Preview Section on Category Page
+            </a>
+        </div>
+
+        <!-- FORM -->
+        <div class="process-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="/admin/category-section-header/">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- 1. SMALL TITLE / BADGE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            1. Small Section Tagline / Subtitle <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="small_title" 
+                               value="{{ header.small_title|default:'BROWSE CATEGORIES' }}" 
+                               placeholder="e.g. BROWSE CATEGORIES" 
+                               required>
+                        <small class="text-muted">Small gold badge title shown above section heading.</small>
+                    </div>
+
+                    <!-- 2. MAIN HEADING -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            2. Main Section Heading <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="title" 
+                               value="{{ header.title|default:'All Photography Categories' }}" 
+                               placeholder="e.g. All Photography Categories" 
+                               required>
+                        <small class="text-muted">Main section title heading.</small>
+                    </div>
+
+                    <!-- 3. DESCRIPTION (DEC) -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            3. Section Description (DEC) <span class="required">*</span>
+                        </label>
+                        <textarea class="form-control" 
+                                  name="description" 
+                                  rows="3" 
+                                  placeholder="Choose the photography style that matches your occasion and discover the perfect photographer for your needs." 
+                                  style="height: auto;" 
+                                  required>{{ header.description|default:'' }}</textarea>
+                        <small class="text-muted">Paragraph text displayed under the main heading.</small>
+                    </div>
+
+                    <div class="col-12 mt-4 pt-2 border-top">
+                        <h5 class="fw-bold text-dark mb-3">
+                            <i class="bi bi-filter-circle me-1 text-danger"></i> Quick Filter Category Dropdown Settings
+                        </h5>
+                    </div>
+
+                    <!-- 4. DROPDOWN BADGE TEXT -->
+                    <div class="col-md-4">
+                        <label class="form-label">
+                            4. Dropdown Badge Label <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="dropdown_badge" 
+                               value="{{ header.dropdown_badge|default:'QUICK FILTER CATEGORY DROPDOWN' }}" 
+                               placeholder="e.g. QUICK FILTER CATEGORY DROPDOWN" 
+                               required>
+                    </div>
+
+                    <!-- 5. DROPDOWN DEFAULT OPTION TEXT -->
+                    <div class="col-md-4">
+                        <label class="form-label">
+                            5. Dropdown Initial Option Text <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="dropdown_default_option" 
+                               value="{{ header.dropdown_default_option|default:'✨ Show All Photography Categories' }}" 
+                               placeholder="e.g. ✨ Show All Photography Categories" 
+                               required>
+                    </div>
+
+                    <!-- 6. DROPDOWN BUTTON TEXT -->
+                    <div class="col-md-4">
+                        <label class="form-label">
+                            6. Dropdown Action Button Text <span class="required">*</span>
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               name="dropdown_btn_text" 
+                               value="{{ header.dropdown_btn_text|default:'Book Category' }}" 
+                               placeholder="e.g. Book Category" 
+                               required>
+                    </div>
+
+                    <!-- SUBMIT BUTTON -->
+                    <div class="col-12 text-end mt-4 pt-2 border-top">
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-check-circle-fill me-1"></i> Save Section Header Changes
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include "admin/footer.html" %}

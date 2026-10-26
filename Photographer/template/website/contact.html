@@ -1,0 +1,1624 @@
+{% include "website/navbar.html" %}
+
+    <!-- Bootstrap 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #222;
+            background: #fff;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* =========================================
+           COMMON
+        ========================================= */
+
+        .section-padding {
+            padding: 90px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .section-title .small-title {
+            color: #b28b5e;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .section-title h2 {
+            font-size: 44px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            max-width: 680px;
+            margin: auto;
+            color: #777;
+            line-height: 1.8;
+        }
+
+        .gold-btn {
+            display: inline-block;
+            background: #b28b5e;
+            color: #fff;
+            padding: 13px 28px;
+            border: 1px solid #b28b5e;
+            border-radius: 4px;
+            transition: 0.3s ease;
+            font-weight: 500;
+        }
+
+        .gold-btn:hover {
+            background: #947148;
+            border-color: #947148;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* =========================================
+           CONTACT HERO
+        ========================================= */
+
+        .contact-hero {
+            min-height: 560px;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.63),
+                    rgba(0, 0, 0, 0.63)
+                ),
+                url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85")
+                center center / cover no-repeat;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .contact-hero-content {
+            max-width: 850px;
+            padding: 30px 20px;
+        }
+
+        .contact-hero-content .hero-small {
+            color: #e2bd8a;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .contact-hero h1 {
+            font-size: 70px;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .contact-hero p {
+            max-width: 700px;
+            margin: auto;
+            color: #eee;
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        .hero-buttons {
+            margin-top: 30px;
+        }
+
+        /* =========================================
+           CONTACT INFORMATION
+        ========================================= */
+
+        .contact-info-section {
+            background: #faf9f7;
+        }
+
+        .info-card {
+            background: #fff;
+            padding: 35px 25px;
+            text-align: center;
+            height: 100%;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            transition: 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #f4ede5;
+            color: #b28b5e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+        }
+
+        .info-card h4 {
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .info-card p {
+            color: #777;
+            line-height: 1.8;
+            margin-bottom: 5px;
+        }
+
+        .info-card a {
+            color: #b28b5e;
+            font-weight: 500;
+        }
+
+        /* =========================================
+           CONTACT FORM SECTION
+        ========================================= */
+
+        .contact-form-wrapper {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .form-left {
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.68),
+                    rgba(0, 0, 0, 0.68)
+                ),
+                url("https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=85")
+                center / cover no-repeat;
+
+            min-height: 650px;
+            padding: 50px 40px;
+            color: #fff;
+
+            display: flex;
+            align-items: center;
+        }
+
+        .form-left-content {
+            max-width: 450px;
+        }
+
+        .form-left .small-title {
+            color: #e2bd8a;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-left h2 {
+            font-size: 42px;
+            margin: 15px 0 20px;
+        }
+
+        .form-left p {
+            color: #ddd;
+            line-height: 1.9;
+        }
+
+        .form-contact-list {
+            margin-top: 35px;
+        }
+
+        .form-contact-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 22px;
+            align-items: flex-start;
+        }
+
+        .form-contact-item i {
+            color: #e2bd8a;
+            font-size: 21px;
+        }
+
+        .form-contact-item h6 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .form-contact-item p {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .form-right {
+            padding: 50px 45px;
+        }
+
+        .form-right h3 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .form-right .form-intro {
+            color: #777;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 50px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 12px 15px;
+            font-size: 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #b28b5e;
+            box-shadow: 0 0 0 0.15rem rgba(178, 139, 94, 0.15);
+        }
+
+        textarea.form-control {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .required {
+            color: #c0392b;
+        }
+
+        /* =========================================
+           BUSINESS HOURS
+        ========================================= */
+
+        .hours-box {
+            background: #111;
+            color: #fff;
+            padding: 45px;
+            border-radius: 10px;
+            height: 100%;
+        }
+
+        .hours-box h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .hours-box p {
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        .hours-list {
+            margin-top: 25px;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .hours-row span:last-child {
+            color: #e2bd8a;
+        }
+
+        /* =========================================
+           MAP
+        ========================================= */
+
+        .map-wrapper {
+            height: 450px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* =========================================
+           FAQ
+        ========================================= */
+
+        .faq-section {
+            background: #faf9f7;
+        }
+
+        .accordion-item {
+            border: 1px solid #e8e8e8;
+            margin-bottom: 12px;
+            border-radius: 6px !important;
+            overflow: hidden;
+        }
+
+        .accordion-button {
+            font-weight: 600;
+            font-size: 15px;
+            padding: 20px;
+            color: #222;
+            background: #fff;
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: #b28b5e;
+            background: #fff;
+            box-shadow: none;
+        }
+
+        .accordion-button:focus {
+            box-shadow: none;
+        }
+
+        .accordion-body {
+            color: #777;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        /* =========================================
+           SOCIAL MEDIA
+        ========================================= */
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #b28b5e;
+            border-color: #b28b5e;
+            color: #fff;
+            transform: translateY(-4px);
+        }
+
+        /* =========================================
+           CTA
+        ========================================= */
+
+        .contact-cta {
+            padding: 100px 20px;
+            text-align: center;
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.72),
+                    rgba(0, 0, 0, 0.72)
+                ),
+                url("https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=2000&q=85")
+                center / cover no-repeat;
+        }
+
+        .contact-cta h2 {
+            font-size: 52px;
+            margin-bottom: 15px;
+        }
+
+        .contact-cta p {
+            color: #ddd;
+            max-width: 650px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 991px) {
+
+            .contact-hero {
+                min-height: 500px;
+            }
+
+            .contact-hero h1 {
+                font-size: 55px;
+            }
+
+            .section-title h2 {
+                font-size: 38px;
+            }
+
+            .form-left {
+                min-height: 500px;
+            }
+
+            .form-right {
+                padding: 40px 30px;
+            }
+
+            .contact-cta h2 {
+                font-size: 44px;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .section-padding {
+                padding: 65px 0;
+            }
+
+            .contact-hero {
+                min-height: 500px;
+            }
+
+            .contact-hero h1 {
+                font-size: 43px;
+            }
+
+            .contact-hero p {
+                font-size: 14px;
+            }
+
+            .section-title {
+                margin-bottom: 35px;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+
+            .form-left {
+                min-height: auto;
+                padding: 45px 30px;
+            }
+
+            .form-left h2 {
+                font-size: 35px;
+            }
+
+            .form-right {
+                padding: 40px 25px;
+            }
+
+            .hours-box {
+                padding: 35px 25px;
+            }
+
+            .map-wrapper {
+                height: 350px;
+            }
+
+            .contact-cta {
+                padding: 75px 20px;
+            }
+
+            .contact-cta h2 {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .contact-hero h1 {
+                font-size: 36px;
+            }
+
+            .contact-hero-content {
+                padding: 20px 15px;
+            }
+
+            .contact-hero-content .hero-small {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .info-card {
+                padding: 30px 20px;
+            }
+
+            .form-left {
+                padding: 35px 20px;
+            }
+
+            .form-right {
+                padding: 35px 20px;
+            }
+
+            .form-right h3 {
+                font-size: 28px;
+            }
+
+            .hours-row {
+                font-size: 13px;
+            }
+
+            .map-wrapper {
+                height: 300px;
+            }
+
+            .contact-cta h2 {
+                font-size: 32px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     1. CONTACT HERO
+========================================================= -->
+
+<section class="contact-hero" style="background: linear-gradient(rgba(0, 0, 0, 0.63), rgba(0, 0, 0, 0.63)), url('{% if contact_hero.hero_image %}{{ contact_hero.hero_image.url }}{% else %}https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85{% endif %}') center center / cover no-repeat;">
+
+    <div class="contact-hero-content">
+
+        <div class="hero-small">
+            {{ contact_hero.small_title|default:"LET'S CREATE SOMETHING BEAUTIFUL" }}
+        </div>
+
+        <h1>{{ contact_hero.title|default:"Contact Us" }}</h1>
+
+        <p>
+            {{ contact_hero.description|default:"Have a special moment that you want to capture? We'd love to hear your story and create beautiful memories that you can cherish forever." }}
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#contactForm" class="gold-btn">
+                <i class="bi bi-chat-dots me-2"></i>
+                Get In Touch
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     2. CONTACT INFORMATION
+========================================================= -->
+
+<section class="section-padding contact-info-section">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="small-title">
+                Contact Information
+            </div>
+
+            <h2>We'd Love To Hear From You</h2>
+
+            <p>
+                Whether you're planning a wedding, pre-wedding shoot,
+                birthday, event or portrait session, feel free to contact us.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- PHONE -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        <i class="bi bi-telephone"></i>
+                    </div>
+
+                    <h4>Call Us</h4>
+
+                    <p>
+                        Monday - Saturday
+                    </p>
+
+                    <a href="tel:{{ contact_info.phone|default:'+919876543210' }}">
+                        {{ contact_info.phone|default:'+91 98765 43210' }}
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+
+                    <h4>Email Us</h4>
+
+                    <p>
+                        Send us your enquiry
+                    </p>
+
+                    <a href="mailto:{{ contact_info.email|default:'info@photostudio.com' }}">
+                        {{ contact_info.email|default:'info@photostudio.com' }}
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+
+                    <h4>Our Studio</h4>
+
+                    <p>
+                        {{ contact_info.office_address|default:'Pune, Maharashtra, India' }}
+                    </p>
+
+                    <a href="#map">
+                        View Location
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- WHATSAPP -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        <i class="bi bi-whatsapp"></i>
+                    </div>
+
+                    <h4>WhatsApp</h4>
+
+                    <p>
+                        Chat with us
+                    </p>
+
+                    <a href="https://wa.me/{{ contact_info.whatsapp_number|default:'+919876543210' }}" target="_blank">
+                        Start Chat
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     3. CONTACT FORM
+========================================================= -->
+
+<section class="section-padding" id="contactForm">
+
+    <div class="container">
+
+        <div class="contact-form-wrapper">
+
+            <div class="row g-0">
+
+
+                <!-- LEFT -->
+
+                <div class="col-lg-5">
+
+                    <div class="form-left">
+
+                        <div class="form-left-content">
+
+                            <div class="small-title">
+                                Let's Talk
+                            </div>
+
+                            <h2>
+                                Tell Us About Your Special Moment
+                            </h2>
+
+                            <p>
+                                Fill out the form and tell us about your
+                                photography requirements. Our team will
+                                get back to you as soon as possible.
+                            </p>
+
+
+                            <div class="form-contact-list">
+
+
+                                <div class="form-contact-item">
+
+                                    <i class="bi bi-telephone"></i>
+
+                                    <div>
+
+                                        <h6>Phone</h6>
+
+                                        <p>
+                                            {{ contact_info.phone|default:'+91 98765 43210' }}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-contact-item">
+
+                                    <i class="bi bi-envelope"></i>
+
+                                    <div>
+
+                                        <h6>Email</h6>
+
+                                        <p>
+                                            {{ contact_info.email|default:'info@photostudio.com' }}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-contact-item">
+
+                                    <i class="bi bi-geo-alt"></i>
+
+                                    <div>
+
+                                        <h6>Studio</h6>
+
+                                        <p>
+                                            {{ contact_info.office_address|default:'Pune, Maharashtra, India' }}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-contact-item">
+
+                                    <i class="bi bi-clock"></i>
+
+                                    <div>
+
+                                        <h6>Working Hours</h6>
+
+                                        <p>
+                                            {{ contact_info.working_hours|default:'Mon - Sat : 10:00 AM - 7:00 PM' }}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RIGHT FORM -->
+
+                <div class="col-lg-7">
+
+                    <div class="form-right">
+
+                        <h3>Send Us A Message</h3>
+
+                        <p class="form-intro">
+                            Please fill in the details below and we'll
+                            contact you shortly.
+                        </p>
+
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+
+                        <form action="/contact/#contactForm" method="POST">
+                            {% csrf_token %}
+
+
+                            <!-- NAME -->
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        Full Name
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="full_name"
+                                        class="form-control"
+                                        placeholder="Enter your name"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <!-- EMAIL -->
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        Email Address
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        class="form-control"
+                                        placeholder="Enter your email"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PHONE + SERVICE -->
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        Phone Number
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        class="form-control"
+                                        placeholder="+91 XXXXX XXXXX"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        Photography Service
+                                    </label>
+
+                                    <select class="form-select" name="service">
+
+                                        <option value="" selected>
+                                            Select Service
+                                        </option>
+
+                                        <option value="Wedding Photography">
+                                            Wedding Photography
+                                        </option>
+
+                                        <option value="Pre-Wedding Photography">
+                                            Pre-Wedding Photography
+                                        </option>
+
+                                        <option value="Portrait Photography">
+                                            Portrait Photography
+                                        </option>
+
+                                        <option value="Birthday Photography">
+                                            Birthday Photography
+                                        </option>
+
+                                        <option value="Baby & Kids Photography">
+                                            Baby & Kids Photography
+                                        </option>
+
+                                        <option value="Event Photography">
+                                            Event Photography
+                                        </option>
+
+                                        <option value="Fashion Photography">
+                                            Fashion Photography
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- DATE -->
+
+                            <div class="row">
+
+                                <div class="col-md-12 mb-3">
+
+                                    <label class="form-label">
+                                        Event Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        name="event_date"
+                                        class="form-control"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- MESSAGE -->
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Your Message
+                                    <span class="required">*</span>
+                                </label>
+
+                                <textarea
+                                    class="form-control"
+                                    name="message"
+                                    placeholder="Tell us about your photography requirements..."
+                                    required
+                                ></textarea>
+
+                            </div>
+
+
+                            <!-- CHECKBOX -->
+
+                            <div class="form-check mb-4">
+
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="agree"
+                                    required
+                                >
+
+                                <label
+                                    class="form-check-label"
+                                    for="agree"
+                                >
+                                    I agree to be contacted regarding my enquiry.
+                                </label>
+
+                            </div>
+
+
+                            <!-- BUTTON -->
+
+                            <button
+                                type="submit"
+                                class="gold-btn border-0"
+                            >
+
+                                <i class="bi bi-send me-2"></i>
+
+                                Send Inquiry
+
+                            </button>
+
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     4. BUSINESS HOURS
+========================================================= -->
+
+<section class="section-padding bg-light">
+
+    <div class="container">
+
+        <div class="row g-4 align-items-stretch">
+
+
+            <!-- HOURS -->
+
+            <div class="col-lg-6">
+
+                <div class="hours-box">
+
+                    <h3>Studio Working Hours</h3>
+
+                    <p>
+                        Our studio is available during the following
+                        hours. For wedding and event bookings, advance
+                        appointments are recommended.
+                    </p>
+
+
+                    <div class="hours-list">
+
+
+                        <div class="hours-row">
+
+                            <span>Monday</span>
+
+                            <span>10:00 AM - 7:00 PM</span>
+
+                        </div>
+
+
+                        <div class="hours-row">
+
+                            <span>Tuesday</span>
+
+                            <span>10:00 AM - 7:00 PM</span>
+
+                        </div>
+
+
+                        <div class="hours-row">
+
+                            <span>Wednesday</span>
+
+                            <span>10:00 AM - 7:00 PM</span>
+
+                        </div>
+
+
+                        <div class="hours-row">
+
+                            <span>Thursday</span>
+
+                            <span>10:00 AM - 7:00 PM</span>
+
+                        </div>
+
+
+                        <div class="hours-row">
+
+                            <span>Friday</span>
+
+                            <span>10:00 AM - 7:00 PM</span>
+
+                        </div>
+
+
+                        <div class="hours-row">
+
+                            <span>Saturday</span>
+
+                            <span>10:00 AM - 7:00 PM</span>
+
+                        </div>
+
+
+                        <div class="hours-row">
+
+                            <span>Sunday</span>
+
+                            <span>By Appointment</span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SOCIAL -->
+
+            <div class="col-lg-6">
+
+                <div class="bg-white rounded-3 p-5 h-100 text-center">
+
+                    <div class="info-icon">
+
+                        <i class="bi bi-camera"></i>
+
+                    </div>
+
+                    <h3 class="mb-3">
+                        Follow Our Journey
+                    </h3>
+
+                    <p class="text-secondary">
+                        Follow us on social media to see our latest
+                        photography work, behind-the-scenes moments
+                        and upcoming projects.
+                    </p>
+
+
+                    <div class="social-links">
+
+                        <a href="#" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+
+                        <a href="#" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+
+                        <a href="#" aria-label="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+
+                        <a href="#" aria-label="Pinterest">
+                            <i class="bi bi-pinterest"></i>
+                        </a>
+
+                        <a href="#" aria-label="WhatsApp">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     5. GOOGLE MAP
+========================================================= -->
+
+<section class="section-padding" id="map">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="small-title">
+                Find Us
+            </div>
+
+            <h2>Visit Our Studio</h2>
+
+            <p>
+                Come visit our studio and let's discuss your
+                photography requirements over a cup of coffee.
+            </p>
+
+        </div>
+
+
+        <div class="map-wrapper">
+
+            <iframe
+                src="{{ contact_info.google_map_url|default:'https://www.google.com/maps?q=Pune,Maharashtra,India&output=embed' }}"
+                loading="lazy"
+                allowfullscreen>
+            </iframe>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     6. FAQ
+========================================================= -->
+
+<section class="section-padding faq-section">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <div class="small-title">
+                Need Help?
+            </div>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <p>
+                Here are some common questions about our
+                photography services.
+            </p>
+
+        </div>
+
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9">
+
+
+                <div class="accordion" id="faqAccordion">
+
+
+                    <!-- FAQ 1 -->
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button
+                                class="accordion-button"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faqOne"
+                            >
+
+                                How far in advance should I book?
+
+                            </button>
+
+                        </h2>
+
+                        <div
+                            id="faqOne"
+                            class="accordion-collapse collapse show"
+                            data-bs-parent="#faqAccordion"
+                        >
+
+                            <div class="accordion-body">
+
+                                We recommend booking wedding and
+                                pre-wedding photography at least
+                                2-3 months in advance. For other
+                                events, earlier booking is always
+                                recommended based on availability.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FAQ 2 -->
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faqTwo"
+                            >
+
+                                What photography services do you provide?
+
+                            </button>
+
+                        </h2>
+
+                        <div
+                            id="faqTwo"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faqAccordion"
+                        >
+
+                            <div class="accordion-body">
+
+                                We provide wedding, pre-wedding,
+                                portrait, birthday, baby & kids,
+                                fashion and event photography services.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FAQ 3 -->
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faqThree"
+                            >
+
+                                Do you travel outside Pune?
+
+                            </button>
+
+                        </h2>
+
+                        <div
+                            id="faqThree"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faqAccordion"
+                        >
+
+                            <div class="accordion-body">
+
+                                Yes. We provide photography services
+                                across Maharashtra and can also travel
+                                to other locations depending on the
+                                project requirements.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FAQ 4 -->
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faqFour"
+                            >
+
+                                How can I get a quotation?
+
+                            </button>
+
+                        </h2>
+
+                        <div
+                            id="faqFour"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faqAccordion"
+                        >
+
+                            <div class="accordion-body">
+
+                                Simply fill out the contact form with
+                                your event details. Our team will contact
+                                you and provide a customized quotation.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FAQ 5 -->
+
+                    <div class="accordion-item">
+
+                        <h2 class="accordion-header">
+
+                            <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faqFive"
+                            >
+
+                                Can I customize my photography package?
+
+                            </button>
+
+                        </h2>
+
+                        <div
+                            id="faqFive"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faqAccordion"
+                        >
+
+                            <div class="accordion-body">
+
+                                Yes. We can customize photography
+                                packages based on your event,
+                                requirements, duration and budget.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     7. CTA
+========================================================= -->
+
+<section class="contact-cta">
+
+    <div class="container">
+
+        <h2>
+            Let's Capture Your Story
+        </h2>
+
+        <p>
+            Every moment is special. Let us turn your precious
+            moments into beautiful memories that last forever.
+        </p>
+
+        <a href="#contactForm" class="gold-btn">
+
+            <i class="bi bi-camera me-2"></i>
+
+            Book A Photoshoot
+
+        </a>
+
+    </div>
+
+</section>
+
+{% include "website/footer.html" %}
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- =========================================================
+     FORM DEMO
+========================================================= -->
+
+<script>
+
+    document.querySelector("form").addEventListener("submit", function(e) {
+
+        e.preventDefault();
+
+        alert("Thank you! Your inquiry has been submitted successfully.");
+
+        this.reset();
+
+    });
+
+</script>
+

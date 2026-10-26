@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard | A2Z Photographer Marketplace</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --sidebar-width: 270px;
+            --sidebar-bg: #0f172a;
+            --sidebar-active-bg: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            --topbar-height: 70px;
+            --bg-light: #f8fafc;
+            --card-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #334155;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* SIDEBAR STYLING */
+        .cust-sidebar {
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 1050;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .cust-sidebar-brand {
+            padding: 22px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .cust-sidebar-brand img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid #f59e0b;
+        }
+
+        .cust-brand-text {
+            color: #ffffff;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            line-height: 1.2;
+        }
+
+        .cust-brand-text em {
+            color: #f59e0b;
+            font-style: italic;
+        }
+
+        .cust-sidebar-nav {
+            padding: 20px 14px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .cust-nav-heading {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            font-weight: 700;
+            padding: 10px 14px 6px;
+        }
+
+        .cust-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            margin-bottom: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .cust-nav-link:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .cust-nav-link.active {
+            color: #ffffff;
+            background: var(--sidebar-active-bg);
+            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+        }
+
+        .cust-nav-link i {
+            font-size: 1.15rem;
+        }
+
+        /* TOPBAR STYLING */
+        .cust-topbar {
+            height: var(--topbar-height);
+            background: #ffffff;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: var(--sidebar-width);
+            z-index: 1040;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .user-avatar-circle {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+        }
+
+        /* MAIN WRAPPER */
+        .cust-main-content {
+            margin-left: var(--sidebar-width);
+            margin-top: var(--topbar-height);
+            padding: 32px;
+            min-height: calc(100vh - var(--topbar-height));
+        }
+
+        /* METRIC CARDS */
+        .stat-card-admin {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.25s ease;
+        }
+
+        .stat-card-admin:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.1);
+        }
+
+        .stat-icon-admin {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+
+        /* BOOKING CARDS */
+        .booking-card-admin {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #e2e8f0;
+            padding: 28px;
+            margin-bottom: 24px;
+            transition: all 0.25s ease;
+        }
+
+        .booking-card-admin:hover {
+            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.12);
+        }
+
+        .id-pill {
+            background: #0f172a;
+            color: #f59e0b;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+        }
+
+        .meta-box-admin {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px 20px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .meta-label-admin {
+            font-size: 0.78rem;
+            color: #64748b;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .meta-value-admin {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 0.95rem;
+        }
+
+        .action-bar-admin {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 14px;
+            padding: 18px 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-gold-pay {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            color: white;
+            font-weight: 800;
+            border-radius: 10px;
+            padding: 10px 22px;
+            border: none;
+            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-gold-pay:hover {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(217, 119, 6, 0.4);
+        }
+
+        .btn-pdf-dl {
+            background: #ef4444;
+            color: white;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 10px 20px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-pdf-dl:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-wa-support {
+            background: #10b981;
+            color: white;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 10px 20px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-wa-support:hover {
+            background: #059669;
+            color: white;
+        }
+
+        @media (max-width: 991px) {
+            .cust-sidebar {
+                transform: translateX(-100%);
+            }
+            .cust-sidebar.show {
+                transform: translateX(0);
+            }
+            .cust-topbar {
+                left: 0;
+            }
+            .cust-main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SIDEBAR NAVIGATION -->
+<aside class="cust-sidebar" id="custSidebar">
+    <a href="/my-bookings/" class="cust-sidebar-brand">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-Arzc-y8TMxOjk4AWObxiMZEglLFHryokUUJ4LdDGZg&s" alt="Logo">
+        <div class="cust-brand-text">
+            A2Z <em>Photographers</em>
+            <div style="font-size: 0.7rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Customer Portal</div>
+        </div>
+    </a>
+
+    <div class="cust-sidebar-nav">
+        <div class="cust-nav-heading">Main Navigation</div>
+
+        <a href="/my-bookings/" class="cust-nav-link active">
+            <i class="bi bi-grid-1x2-fill"></i>
+            <span>Dashboard / Bookings</span>
+        </a>
+
+        <div class="cust-nav-heading mt-4">Account</div>
+
+        <a href="/customer-logout/" class="cust-nav-link text-danger">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+
+    <div class="p-3 border-top border-secondary text-center small text-muted">
+        Logged in as:<br>
+        <strong class="text-light">{{ customer_email }}</strong>
+    </div>
+</aside>
+
+<!-- TOPBAR NAVIGATION -->
+<header class="cust-topbar">
+    <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-light d-lg-none" type="button" onclick="document.getElementById('custSidebar').classList.toggle('show')">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+        <div>
+            <h5 class="fw-bold text-dark mb-0">Customer Portal Dashboard</h5>
+            <small class="text-muted d-none d-md-block">Manage your photoshoot reservations, balance payments, and PDF receipts.</small>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+        <a href="/booking_form/" class="btn btn-warning btn-sm fw-bold px-3 py-2 text-dark rounded-3">
+            <i class="bi bi-plus-circle me-1"></i> New Booking
+        </a>
+
+        <div class="d-flex align-items-center gap-2 border-start ps-3">
+            <div class="user-avatar-circle">
+                {{ customer_name|slice:":2"|upper }}
+            </div>
+            <div class="d-none d-md-block text-start">
+                <strong class="d-block text-dark small lh-1">{{ customer_name }}</strong>
+                <small class="text-muted" style="font-size: 0.75rem;">+91 {{ customer_mobile }}</small>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN CONTENT WRAPPER -->
+<main class="cust-main-content">
+
+    <!-- METRICS OVERVIEW CARDS -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="stat-card-admin">
+                <div class="stat-icon-admin bg-primary-subtle text-primary">
+                    <i class="bi bi-camera-reels-fill"></i>
+                </div>
+                <div>
+                    <span class="text-muted small fw-bold d-block">Total Photoshoot Sessions</span>
+                    <strong class="fs-3 text-dark">{{ total_bookings_count }}</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card-admin">
+                <div class="stat-icon-admin bg-success-subtle text-success">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <div>
+                    <span class="text-muted small fw-bold d-block">Total Amount Paid</span>
+                    <strong class="fs-3 text-success">₹{{ total_paid_sum|floatformat:0 }}</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card-admin">
+                <div class="stat-icon-admin bg-warning-subtle text-warning">
+                    <i class="bi bi-wallet2"></i>
+                </div>
+                <div>
+                    <span class="text-muted small fw-bold d-block">Total Balance Due</span>
+                    <strong class="fs-3 text-danger">₹{{ total_remaining_due_sum|floatformat:0 }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESERVATIONS HEADING -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold text-dark mb-0">
+            <i class="bi bi-journal-bookmark-fill me-2 text-warning"></i> My Active Photoshoot Reservations
+        </h4>
+        <span class="badge bg-white text-dark border px-3 py-2 rounded-3 fw-bold shadow-sm">
+            Total {{ bookings|length }} Reservations
+        </span>
+    </div>
+
+    <!-- BOOKINGS LIST -->
+    {% for b in bookings %}
+    <div class="booking-card-admin">
+        <div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-3 mb-3 gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <span class="id-pill">#BK-{{ b.id }}890</span>
+                <h5 class="fw-bold text-dark mb-0 ms-1">{{ b.event_type }}</h5>
+            </div>
+            <div>
+                {% if b.booking_status == 'Completed' or b.payment_status == 'Full Paid' %}
+                    <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-3 fw-bold"><i class="bi bi-patch-check-fill me-1"></i> Completed & Full Paid</span>
+                {% elif b.booking_status == 'Confirmed' %}
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-3 fw-bold"><i class="bi bi-calendar-check-fill me-1"></i> Booking Confirmed</span>
+                {% else %}
+                    <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2 rounded-3 fw-bold"><i class="bi bi-clock-history me-1"></i> Pending Approval</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- METADATA GRID -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="meta-box-admin">
+                    <div class="meta-label-admin"><i class="bi bi-calendar3 me-1"></i> Event Date & Time</div>
+                    <div class="meta-value-admin">{{ b.event_date }} at {{ b.event_time }}</div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="meta-box-admin">
+                    <div class="meta-label-admin"><i class="bi bi-geo-alt me-1"></i> Venue Location</div>
+                    <div class="meta-value-admin text-truncate" title="{{ b.event_location }}">{{ b.event_location }}, {{ b.city }}</div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="meta-box-admin">
+                    <div class="meta-label-admin"><i class="bi bi-box-seam me-1"></i> Selected Package</div>
+                    <div class="meta-value-admin">{{ b.package|default:"Standard Package" }}</div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="meta-box-admin">
+                    <div class="meta-label-admin"><i class="bi bi-currency-rupee me-1"></i> Package Total Price</div>
+                    <div class="meta-value-admin text-dark fs-6">₹{{ b.get_calculated_total_price|floatformat:0 }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAYMENT STATUS BAR & ACTIONS -->
+        <div class="action-bar-admin d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div class="d-flex align-items-center gap-4">
+                <div>
+                    <span class="text-muted small fw-bold d-block">Advance Paid</span>
+                    <strong class="text-success fs-6"><i class="bi bi-check-circle-fill me-1"></i> ₹{{ b.advance_amount|floatformat:0 }}</strong>
+                </div>
+
+                <div class="border-start ps-4">
+                    <span class="text-muted small fw-bold d-block">Remaining Due Balance</span>
+                    {% if b.get_remaining_due <= 0 or b.payment_status == 'Full Paid' %}
+                        <strong class="text-success fs-6"><i class="bi bi-patch-check-fill me-1"></i> ₹0 (FULL PAID ✅)</strong>
+                    {% else %}
+                        <strong class="text-danger fs-6"><i class="bi bi-exclamation-circle-fill me-1"></i> ₹{{ b.get_remaining_due|floatformat:0 }}</strong>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="d-flex flex-wrap gap-2">
+                {% if b.get_remaining_due > 0 and b.payment_status != 'Full Paid' %}
+                <a href="/pay-remaining/{{ b.id }}/" class="btn-gold-pay">
+                    <i class="bi bi-credit-card-fill"></i> Pay Remaining (₹{{ b.get_remaining_due|floatformat:0 }})
+                </a>
+                {% endif %}
+
+                <a href="/download-pdf-receipt/{{ b.id }}/" target="_blank" class="btn-pdf-dl">
+                    <i class="bi bi-file-earmark-pdf-fill"></i> Download PDF Receipt
+                </a>
+
+                <a href="https://api.whatsapp.com/send?phone=919579911059&text=Hello%20A2Z%20Photography,%20I%20have%20a%20query%20regarding%20my%20booking%20%23BK-{{ b.id }}890" target="_blank" class="btn-wa-support">
+                    <i class="bi bi-whatsapp"></i> Support
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="text-center py-5 bg-white rounded-4 shadow-sm border">
+        <i class="bi bi-journal-x text-muted" style="font-size: 55px;"></i>
+        <h4 class="fw-bold mt-3 text-dark">No Active Photoshoots Found</h4>
+        <p class="text-muted">You haven't booked any photoshoot sessions yet.</p>
+        <a href="/booking_form/" class="btn btn-gold-pay px-4 py-2 mt-2">
+            <i class="bi bi-plus-circle me-1"></i> Book a Photoshoot Session Now
+        </a>
+    </div>
+    {% endfor %}
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .about-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .about-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .about-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .about-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        height: 46px;
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+    }
+
+    textarea.form-control {
+        height: auto;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .image-preview {
+        max-width: 220px;
+        max-height: 220px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #E2E8F0;
+        display: none;
+        margin-top: 12px;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="about-card">
+        <!-- HEADER -->
+        <div class="about-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-person-badge-fill me-2 text-danger"></i>
+                Add Home Page About Me Content
+            </h4>
+            <a href="/admin/home-about-list/" class="btn btn-outline-light btn-sm font-weight-bold">
+                <i class="bi bi-list-ul me-1"></i> View Home About List
+            </a>
+        </div>
+
+        <!-- FORM -->
+        <div class="about-body">
+            <form method="POST" action="/admin/add-home-about/" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- PHOTOGRAPHER IMAGE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Photographer / Section Image <span class="required">*</span>
+                        </label>
+                        <input type="file" class="form-control" id="about_image" name="about_image" accept=".jpg,.jpeg,.png,.webp" required>
+                        <small class="text-muted">Recommended: High quality portrait photo.</small>
+                        <div>
+                            <img id="aboutImagePreview" class="image-preview" alt="About Image Preview">
+                        </div>
+                    </div>
+
+                    <!-- PHOTOGRAPHER NAME / SIGNATURE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Photographer Signature Name <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" name="photographer_name" value="Your Photographer" placeholder="e.g. Dnyaneshwar Sul or Your Photographer" required>
+                    </div>
+
+                    <!-- SMALL TITLE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Section Sub-Title (Small Badge Title) <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" name="small_title" value="About Me" placeholder="e.g. About Me or Who We Are" required>
+                    </div>
+
+                    <!-- MAIN TITLE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Main Heading Title <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" name="title" value="Turning Beautiful Moments Into Timeless Memories" placeholder="e.g. Turning Beautiful Moments Into Timeless Memories" required>
+                    </div>
+
+                    <!-- DESCRIPTION PARAGRAPH 1 -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            Description Paragraph 1 <span class="required">*</span>
+                        </label>
+                        <textarea class="form-control" name="description_para1" rows="3" placeholder="Enter first paragraph..." required>I am a professional photographer passionate about capturing real emotions, natural expressions and beautiful stories.</textarea>
+                    </div>
+
+                    <!-- DESCRIPTION PARAGRAPH 2 -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            Description Paragraph 2
+                        </label>
+                        <textarea class="form-control" name="description_para2" rows="3" placeholder="Enter second paragraph...">From weddings and pre-weddings to portraits, birthdays and special events, every photograph is created with creativity and attention to detail.</textarea>
+                    </div>
+
+                    <!-- BUTTONS -->
+                    <div class="col-12 text-end mt-4 pt-2 border-top">
+                        <button type="reset" class="btn btn-light me-2 border font-weight-bold">
+                            <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+                        </button>
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-check-circle me-1"></i> Save Home About Me
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const aboutImageInput = document.getElementById("about_image");
+    const aboutImagePreview = document.getElementById("aboutImagePreview");
+    if (aboutImageInput && aboutImagePreview) {
+        aboutImageInput.addEventListener("change", function() {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                aboutImagePreview.src = e.target.result;
+                aboutImagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+});
+</script>
+
+{% include "admin/footer.html" %}

@@ -1,0 +1,195 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .offer-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .offer-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .offer-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .offer-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .icon-preview-badge {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #FDF8F3;
+        border: 1px solid #E8D0B5;
+        color: #B2875B;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        margin-top: 8px;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="offer-card">
+        <!-- HEADER -->
+        <div class="offer-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-pencil-square me-2 text-danger"></i>
+                Edit What We Offer Item
+            </h4>
+            <a href="/admin/what-we-offer-list/" class="btn btn-outline-light btn-sm font-weight-bold">
+                <i class="bi bi-list-ul me-1"></i> View Offer List
+            </a>
+        </div>
+
+        <!-- FORM -->
+        <div class="offer-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="/admin/edit-what-we-offer/{{ item.id }}/" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- ICON IMAGE UPLOAD (OPTIONAL) -->
+                <div class="mb-4">
+                    <label class="form-label">
+                        Upload Custom Icon Image (Optional)
+                    </label>
+                    {% if item.icon_image %}
+                        <div class="mb-2">
+                            <img src="{{ item.icon_image.url }}" alt="{{ item.title }}" style="width: 44px; height: 44px; object-fit: contain;" class="rounded border p-1">
+                            <span class="small text-muted ms-2">Current Icon Image</span>
+                        </div>
+                    {% endif %}
+                    <input type="file" class="form-control" name="icon_image" accept="image/*">
+                    <div class="form-text text-muted">Upload a new PNG/SVG/JPG icon image to replace the current icon.</div>
+                </div>
+
+                <!-- ICON CLASS -->
+                <div class="mb-4">
+                    <label class="form-label">
+                        Icon Class (Bootstrap Icon)
+                    </label>
+                    <div class="row align-items-center">
+                        <div class="col-md-9">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="iconInput"
+                                   name="icon_class" 
+                                   value="{{ item.icon_class|default:'' }}" 
+                                   placeholder="e.g. bi bi-camera" 
+                                   oninput="updateIconPreview(this.value)">
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="icon-preview-badge" id="iconPreview">
+                                <i class="{{ item.icon_class|default:'bi bi-camera' }}"></i>
+                            </div>
+                            <div class="small text-muted mt-1">Live Preview</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TITLE -->
+                <div class="mb-4">
+                    <label class="form-label">
+                        Title <span class="required">*</span>
+                    </label>
+                    <input type="text" 
+                           class="form-control" 
+                           name="title" 
+                           value="{{ item.title }}" 
+                           placeholder="e.g. Professional Photography" 
+                           required>
+                </div>
+
+                <!-- DESCRIPTION -->
+                <div class="mb-4">
+                    <label class="form-label">
+                        Description <span class="required">*</span>
+                    </label>
+                    <textarea class="form-control" 
+                              name="description" 
+                              rows="4" 
+                              required>{{ item.description }}</textarea>
+                </div>
+
+                <div class="d-flex justify-content-end gap-3 mt-4">
+                    <a href="/admin/what-we-offer-list/" class="btn btn-outline-secondary px-4 rounded-3 fw-bold">Cancel</a>
+                    <button type="submit" class="btn btn-save">
+                        <i class="bi bi-check-circle-fill me-1"></i> Update Offer Item
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateIconPreview(val) {
+        const preview = document.getElementById('iconPreview');
+        if (val.trim() !== '') {
+            preview.innerHTML = '<i class="' + val + '"></i>';
+        } else {
+            preview.innerHTML = '<i class="bi bi-camera"></i>';
+        }
+    }
+</script>

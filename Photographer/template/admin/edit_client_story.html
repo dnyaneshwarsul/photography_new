@@ -1,0 +1,177 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .story-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .story-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .story-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .story-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control, .form-select {
+        height: 46px;
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+    }
+
+    textarea.form-control {
+        height: auto;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .image-preview {
+        max-width: 100%;
+        max-height: 220px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #E2E8F0;
+        margin-top: 12px;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="story-card">
+        <!-- HEADER -->
+        <div class="story-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-pencil-square me-2 text-danger"></i>
+                Edit Real Client Story
+            </h4>
+            <a href="/admin/client-story-list/" class="btn btn-outline-light btn-sm font-weight-bold">
+                <i class="bi bi-list-ul me-1"></i> View Stories List
+            </a>
+        </div>
+
+        <!-- FORM -->
+        <div class="story-body">
+            <form method="POST" action="/admin/edit-client-story/{{ story.id }}/" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- IMAGE -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            Story Photo (Leave blank to keep existing image)
+                        </label>
+                        <input type="file" class="form-control" id="story_image" name="story_image" accept=".jpg,.jpeg,.png,.webp">
+                        <div>
+                            {% if story.story_image %}
+                                <img id="storyImagePreview" class="image-preview" src="{{ story.story_image.url }}" alt="Story Image Preview">
+                            {% else %}
+                                <img id="storyImagePreview" class="image-preview" style="display:none;" alt="Story Image Preview">
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- CATEGORY -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Category / Tag <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" name="category" value="{{ story.category }}" required>
+                    </div>
+
+                    <!-- TITLE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Client / Story Title <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" name="title" value="{{ story.title }}" required>
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            Story Description <span class="required">*</span>
+                        </label>
+                        <textarea class="form-control" name="description" rows="3" required>{{ story.description }}</textarea>
+                    </div>
+
+                    <!-- BUTTONS -->
+                    <div class="col-12 text-end mt-4 pt-2 border-top">
+                        <a href="/admin/client-story-list/" class="btn btn-light me-2 border font-weight-bold">
+                            <i class="bi bi-x-circle me-1"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-check-circle me-1"></i> Update Story
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const imageInput = document.getElementById("story_image");
+    const imagePreview = document.getElementById("storyImagePreview");
+    if (imageInput && imagePreview) {
+        imageInput.addEventListener("change", function() {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+});
+</script>
+
+{% include "admin/footer.html" %}

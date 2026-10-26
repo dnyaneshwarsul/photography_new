@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Receipt #BK-{{ booking.id }}890 | A2Z Photographers</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1e293b;
+            padding: 30px 15px;
+            min-height: 100vh;
+        }
+
+        .receipt-wrapper-card {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid #cbd5e1;
+            padding: 45px;
+            max-width: 680px;
+            margin: 0 auto;
+            box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.08);
+        }
+
+        .check-icon-circle {
+            width: 60px;
+            height: 60px;
+            background: #d1fae5;
+            color: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 16px;
+        }
+
+        .details-table-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            background: #ffffff;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .action-bar-top {
+            max-width: 680px;
+            margin: 0 auto 20px;
+        }
+
+        @media print {
+            .action-bar-top {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            .receipt-wrapper-card {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 20px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- CONTROL ACTION BUTTONS TOP -->
+<div class="action-bar-top d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <div>
+        <a href="javascript:history.back()" class="btn btn-outline-secondary btn-sm rounded-3 fw-bold">
+            <i class="bi bi-arrow-left me-1"></i> Back
+        </a>
+    </div>
+    <div class="d-flex gap-2">
+        <button onclick="downloadPDFReceipt()" class="btn btn-danger btn-sm rounded-3 fw-bold px-3 shadow-sm">
+            <i class="bi bi-file-earmark-pdf-fill me-1"></i> Download PDF Receipt
+        </button>
+        <button onclick="window.print()" class="btn btn-dark btn-sm rounded-3 fw-bold px-3">
+            <i class="bi bi-printer me-1"></i> Print
+        </button>
+    </div>
+</div>
+
+<!-- DEDICATED CLEAN PDF RECEIPT CARD (MATCHING SCREENSHOT EXACTLY) -->
+<div id="finalReceiptCard" class="receipt-wrapper-card text-start">
+    
+    <!-- BRAND NAME HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
+        <div>
+            <h4 class="fw-bold text-dark mb-0">A2Z Photographer Marketplace</h4>
+            <small class="text-secondary">Official Customer Booking & Order Form</small>
+        </div>
+        <div class="text-end">
+            <span class="badge bg-dark px-3 py-2 fs-6">Booking ID: #BK-{{ booking.id }}890</span>
+            <div class="small text-muted mt-1">{{ booking.created_at|date:"d M Y, h:i A" }}</div>
+        </div>
+    </div>
+
+    <!-- MAIN TITLE -->
+    <h3 class="fw-bold text-center text-dark mb-4" style="font-size: 1.5rem;">
+        📸 Complete Customer Booking Form Details
+    </h3>
+
+    <!-- INNER DETAILS TABLE BOX -->
+    <div class="details-table-box">
+        
+        <!-- SECTION 1: CUSTOMER DETAILS -->
+        <div class="fw-bold text-uppercase text-primary small border-bottom pb-1 mb-2">
+            1. Customer Personal Details
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">1. Full Name:</span>
+            <strong class="text-dark">{{ booking.full_name }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">2. Mobile Number:</span>
+            <strong class="text-dark">+91 {{ booking.mobile }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">3. Email Address:</span>
+            <strong class="text-dark">{{ booking.email }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">4. City:</span>
+            <strong class="text-dark">{{ booking.city }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">5. Password:</span>
+            <strong class="text-dark bg-light px-2 py-1 border rounded">{{ booking.password|default:"N/A" }}</strong>
+        </div>
+
+        <!-- SECTION 2: EVENT DETAILS -->
+        <div class="fw-bold text-uppercase text-warning border-bottom pb-1 mt-4 mb-2">
+            2. Event & Schedule Information
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">6. Event Type:</span>
+            <strong class="text-dark">{{ booking.event_type }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">7. Event Date:</span>
+            <strong class="text-dark">{{ booking.event_date }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">8. Event Start Time:</span>
+            <strong class="text-dark">{{ booking.event_time }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">9. Event Location / Venue:</span>
+            <strong class="text-dark">{{ booking.event_location }}, {{ booking.city }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">10. Expected Number of Guests:</span>
+            <strong class="text-dark">{{ booking.guests|default:1 }} Guests</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">11. Event Duration:</span>
+            <strong class="text-dark">{{ booking.duration|default:"Full Day / Standard" }}</strong>
+        </div>
+
+        <!-- SECTION 3: SERVICE & PACKAGE SELECTION -->
+        <div class="fw-bold text-uppercase text-success border-bottom pb-1 mt-4 mb-2">
+            3. Service, Package & Upload Details
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">12. Service Type:</span>
+            <strong class="text-dark">{{ booking.service|default:"Photography" }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">13. Package Selection:</span>
+            <strong class="text-dark">{{ booking.package|default:"Standard Package" }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">14. Upload Reference Photo / Sample:</span>
+            {% if booking.reference_image %}
+            <a href="{{ booking.reference_image.url }}" target="_blank" class="fw-bold text-primary">
+                📸 View Reference Image
+            </a>
+            {% else %}
+            <span class="text-muted">No reference photo uploaded</span>
+            {% endif %}
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">15. Special Requirements or Notes:</span>
+            <span class="text-dark fw-medium text-end" style="max-width: 60%;">
+                {{ booking.requirements|default:"None mentioned" }}
+            </span>
+        </div>
+
+        <!-- SECTION 4: PAYMENT & ADVANCE RECEIPT -->
+        <div class="fw-bold text-uppercase text-danger border-bottom pb-1 mt-4 mb-2">
+            4. Payment & Billing Details
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">Total Package Price:</span>
+            <strong class="text-dark">₹{{ total_price|floatformat:0 }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">Advance Paid Token:</span>
+            <strong class="text-success">✓ ₹{{ advance_paid|floatformat:0 }}</strong>
+        </div>
+        <div class="detail-row">
+            <span class="text-secondary">Remaining Due Balance:</span>
+            {% if booking.payment_status == 'Full Paid' or remaining_due <= 0 %}
+                <strong class="text-success fw-bold">₹0 (FULL PAID ✅)</strong>
+            {% else %}
+                <strong class="text-danger fw-bold">₹{{ remaining_due|floatformat:0 }} (DUE)</strong>
+            {% endif %}
+        </div>
+        <div class="detail-row pt-2">
+            <span class="text-secondary">Transaction Ref ID:</span>
+            <strong class="text-dark">{{ booking.remaining_txn_id|default:booking.transaction_id|default:"TXN_DIRECT" }}</strong>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function downloadPDFReceipt() {
+    const element = document.getElementById('finalReceiptCard');
+    if (!element) return;
+    const opt = {
+        margin:       10,
+        filename:     'Booking_Receipt_BK-{{ booking.id }}890.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto download PDF receipt on load
+    setTimeout(downloadPDFReceipt, 600);
+});
+</script>
+</body>
+</html>

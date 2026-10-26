@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>A2Z Photographer Marketplace</title>
+
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500;600&display=swap"
+          rel="stylesheet">
+<link rel="stylesheet" href="/static/website/navbar.css">
+    <nav class="site-nav">
+
+
+        <div class="nav-inner">
+
+
+            <!-- =================================================
+                 LOGO
+            ================================================== -->
+
+            <a href="#" class="brand">
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-Arzc-y8TMxOjk4AWObxiMZEglLFHryokUUJ4LdDGZg&s"
+                    alt="A2Z Photographers Logo"
+                >
+
+                <span class="brand-word">
+                    A2Z <em>Photographers</em>
+                </span>
+
+            </a>
+
+
+            <!-- =================================================
+                 MOBILE MENU
+            ================================================== -->
+
+            <div class="mobile-menu" id="mobileMenu">
+
+
+                <!-- =============================================
+                     NAV LINKS
+                ============================================== -->
+
+                <ul class="nav-links" id="navLinks">
+
+
+                    <li>
+                        <a href="/" class="{% if active_page == 'home' %}active{% endif %}">
+                            Home
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="/about/" class="{% if active_page == 'about' %}active{% endif %}">
+                            About
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="/services/" class="{% if active_page == 'services' %}active{% endif %}">
+                            Services
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="/category/" class="{% if active_page == 'category' %}active{% endif %}">
+                            Categories
+                        </a>
+                    </li>
+
+
+              
+
+
+
+                    <li>
+                        <a href="/gallery/" class="{% if active_page == 'gallery' %}active{% endif %}">
+                            Gallery
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="/contact/" class="{% if active_page == 'contact' %}active{% endif %}">
+                            Contact
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/customer-login/" class="btn-login-nav {% if active_page == 'customer_login' %}active{% endif %}">
+                            <i class="bi bi-person-circle me-1"></i> Client Login
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/booking_form/" class="btn-register-nav {% if active_page == 'booking_form' %}active{% endif %}">
+                            <i class="bi bi-person-plus-fill me-1"></i> Registration
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- =================================================
+                 HAMBURGER
+            ================================================== -->
+
+            <button
+                type="button"
+                class="nav-toggle"
+                id="navToggle"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="mobileMenu"
+            >
+
+                <span></span>
+
+            </button>
+
+
+        </div>
+
+
+    </nav>
+

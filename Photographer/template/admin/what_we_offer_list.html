@@ -1,0 +1,158 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .offer-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .offer-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .offer-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .offer-body {
+        padding: 32px;
+    }
+
+    .table {
+        vertical-align: middle;
+    }
+
+    .icon-badge {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #FDF8F3;
+        border: 1px solid #E8D0B5;
+        color: #B2875B;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+    }
+
+    .btn-add-new {
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #ffffff;
+        font-weight: 700;
+        border-radius: 8px;
+        padding: 8px 18px;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+    }
+
+    .btn-add-new:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        color: #ffffff;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="offer-card">
+        <!-- HEADER -->
+        <div class="offer-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-box-seam me-2 text-danger"></i>
+                What We Offer List Items
+            </h4>
+            <div class="d-flex gap-2">
+                <a href="/admin/what-we-offer-header/" class="btn btn-outline-light btn-sm font-weight-bold">
+                    <i class="bi bi-gear-fill me-1"></i> Header Settings
+                </a>
+                <a href="/admin/add-what-we-offer/" class="btn btn-add-new btn-sm">
+                    <i class="bi bi-plus-lg me-1"></i> Add Offer Item
+                </a>
+            </div>
+        </div>
+
+        <!-- BODY / TABLE -->
+        <div class="offer-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if offer_items %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle border">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 70px;">#</th>
+                                <th style="width: 90px;" class="text-center">Icon</th>
+                                <th style="width: 240px;">Title</th>
+                                <th>Description</th>
+                                <th style="width: 150px;" class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in offer_items %}
+                                <tr>
+                                    <td class="fw-bold text-muted">{{ forloop.counter }}</td>
+                                    <td class="text-center">
+                                        <div class="icon-badge">
+                                            {% if item.icon_image %}
+                                                <img src="{{ item.icon_image.url }}" alt="{{ item.title }}" style="width: 28px; height: 28px; object-fit: contain;">
+                                            {% else %}
+                                                <i class="{{ item.icon_class|default:'bi bi-camera' }}"></i>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong class="text-dark fs-6">{{ item.title }}</strong>
+                                        {% if item.icon_image %}
+                                            <div class="small text-success font-monospace"><i class="bi bi-image me-1"></i>Custom Image</div>
+                                        {% else %}
+                                            <div class="small text-muted font-monospace">{{ item.icon_class }}</div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-secondary small">
+                                        {{ item.description|linebreaksbr }}
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="/admin/edit-what-we-offer/{{ item.id }}/" 
+                                           class="btn btn-sm btn-outline-primary me-1" 
+                                           title="Edit Item">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </a>
+                                        <a href="/admin/delete-what-we-offer/{{ item.id }}/" 
+                                           class="btn btn-sm btn-outline-danger" 
+                                           onclick="return confirm('Are you sure you want to delete this offer item?');" 
+                                           title="Delete Item">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-inbox fs-1 text-muted"></i>
+                    <h5 class="mt-3 text-secondary">No Offer Items Added Yet</h5>
+                    <p class="text-muted">Click the button below to add your first item to the "What We Offer" section.</p>
+                    <a href="/admin/add-what-we-offer/" class="btn btn-add-new mt-2">
+                        <i class="bi bi-plus-lg me-1"></i> Add Offer Item
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

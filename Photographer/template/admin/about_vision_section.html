@@ -1,0 +1,350 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .vision-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+        border: 1px solid #E2E8F0;
+        overflow: hidden;
+    }
+
+    .vision-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 24px 32px;
+    }
+
+    .vision-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.35rem;
+        letter-spacing: 0.3px;
+    }
+
+    .vision-header p {
+        margin: 6px 0 0 0;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    .vision-body {
+        padding: 32px;
+        background: #F8FAFC;
+    }
+
+    .form-section-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 24px;
+        border: 1px solid #E2E8F0;
+        margin-bottom: 24px;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+    }
+
+    .section-card-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #0F172A;
+        margin-bottom: 18px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #F1F5F9;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .section-card-title i {
+        color: #DC2626;
+        font-size: 1.1rem;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #1E293B;
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+    }
+
+    .form-label .badge-tag {
+        background: #F1F5F9;
+        color: #475569;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-left: 6px;
+    }
+
+    .form-control {
+        height: 46px;
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+
+    textarea.form-control {
+        height: auto;
+    }
+
+    .form-control:focus {
+        border-color: #DC2626;
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+    }
+
+    .feature-item-card {
+        background: #F8FAFC;
+        border-radius: 10px;
+        padding: 16px;
+        border: 1px solid #E2E8F0;
+        height: 100%;
+    }
+
+    .feature-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: #FEF2F2;
+        color: #DC2626;
+        font-weight: 700;
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+    }
+
+    .btn-save {
+        padding: 12px 36px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 18px rgba(220, 38, 38, 0.4);
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    .image-preview-container {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: 12px;
+        padding: 12px;
+        background: #F1F5F9;
+        border-radius: 10px;
+    }
+
+    .image-preview {
+        width: 140px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 2px solid #ffffff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="vision-card">
+        <!-- HEADER -->
+        <div class="vision-header d-flex justify-content-between align-items-center">
+            <div>
+                <h4>
+                    <i class="bi bi-eye-fill me-2 text-danger"></i>
+                    OUR VISION Section Form
+                </h4>
+                <p>Manage Small Title (OUR VISION), Main Title, Subtitle, Quote Paragraph, 4 Core Titles (Title 1 to 4) & Side Image.</p>
+            </div>
+            <div>
+                <a href="/about/" target="_blank" class="btn btn-outline-light btn-sm fw-bold">
+                    <i class="bi bi-eye me-1"></i> Preview on About Page
+                </a>
+            </div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mx-4 mt-3" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i> {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- BODY FORM -->
+        <div class="vision-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- GROUP 1: SECTION TITLES -->
+                <div class="form-section-card">
+                    <div class="section-card-title">
+                        <i class="bi bi-fonts"></i>
+                        1. Section Titles & Headings
+                    </div>
+
+                    <div class="row g-3">
+                        <!-- SMALL TITLE / NAME -->
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Section Name / Small Label
+                                <span class="badge-tag">OUR VISION</span>
+                            </label>
+                            <input type="text" name="vision_small_title" class="form-control"
+                                value="{{ about.vision_small_title|default:'OUR VISION' }}" placeholder="OUR VISION">
+                        </div>
+
+                        <!-- HEADING LINE 1 -->
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Main Title (Line 1)
+                                <span class="badge-tag">Heading</span>
+                            </label>
+                            <input type="text" name="vision_title_line1" class="form-control"
+                                value="{{ about.vision_title_line1|default:'Creating A Better' }}" placeholder="Creating A Better">
+                        </div>
+
+                        <!-- HEADING HIGHLIGHT -->
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Main Title Highlight (Golden Part)
+                            </label>
+                            <input type="text" name="vision_title_highlight" class="form-control"
+                                value="{{ about.vision_title_highlight|default:'Photography Experience' }}" placeholder="Photography Experience">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GROUP 2: PARAGRAPH & QUOTE -->
+                <div class="form-section-card">
+                    <div class="section-card-title">
+                        <i class="bi bi-text-paragraph"></i>
+                        2. Section Subtitle & Paragraph / Quote
+                    </div>
+
+                    <div class="row g-3">
+                        <!-- SUBTITLE / DESCRIPTION -->
+                        <div class="col-12">
+                            <label class="form-label">
+                                Section Subtitle Description
+                            </label>
+                            <textarea name="vision_description" class="form-control" rows="2"
+                                placeholder="We envision a future where finding the perfect photographer is simple, transparent and inspiring.">{{ about.vision_description|default:'We envision a future where finding the perfect photographer is simple, transparent and inspiring.' }}</textarea>
+                        </div>
+
+                        <!-- QUOTE / PARAGRAPH BOX -->
+                        <div class="col-12">
+                            <label class="form-label">
+                                Highlighted Paragraph / Quote Box
+                                <span class="badge-tag">Quote Box</span>
+                            </label>
+                            <textarea name="vision_quote" class="form-control" rows="2"
+                                placeholder="To become a trusted photography platform where every special moment finds the perfect photographer.">{{ about.vision_quote|default:'To become a trusted photography platform where every special moment finds the perfect photographer.' }}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GROUP 3: 4 FEATURE TITLES (Title 1, 2, 3, 4) -->
+                <div class="form-section-card">
+                    <div class="section-card-title">
+                        <i class="bi bi-grid-2x2-fill"></i>
+                        3. Four Feature Titles (title_1, title_2, title_3, title_4)
+                    </div>
+
+                    <div class="row g-3">
+                        <!-- TITLE 1 -->
+                        <div class="col-md-3">
+                            <div class="feature-item-card">
+                                <div class="feature-badge">01</div>
+                                <label class="form-label">Title 1 (Name)</label>
+                                <input type="text" name="vision_val1" class="form-control mb-2" value="{{ about.vision_val1|default:'Creative' }}" placeholder="Creative">
+                                <label class="form-label">Title 1 Icon Class</label>
+                                <input type="text" name="vision_val1_icon" class="form-control" value="{{ about.vision_val1_icon|default:'bi bi-lightbulb' }}" placeholder="bi bi-lightbulb">
+                            </div>
+                        </div>
+
+                        <!-- TITLE 2 -->
+                        <div class="col-md-3">
+                            <div class="feature-item-card">
+                                <div class="feature-badge">02</div>
+                                <label class="form-label">Title 2 (Name)</label>
+                                <input type="text" name="vision_val2" class="form-control mb-2" value="{{ about.vision_val2|default:'Professional' }}" placeholder="Professional">
+                                <label class="form-label">Title 2 Icon Class</label>
+                                <input type="text" name="vision_val2_icon" class="form-control" value="{{ about.vision_val2_icon|default:'bi bi-award' }}" placeholder="bi bi-award">
+                            </div>
+                        </div>
+
+                        <!-- TITLE 3 -->
+                        <div class="col-md-3">
+                            <div class="feature-item-card">
+                                <div class="feature-badge">03</div>
+                                <label class="form-label">Title 3 (Name)</label>
+                                <input type="text" name="vision_val3" class="form-control mb-2" value="{{ about.vision_val3|default:'Trusted' }}" placeholder="Trusted">
+                                <label class="form-label">Title 3 Icon Class</label>
+                                <input type="text" name="vision_val3_icon" class="form-control" value="{{ about.vision_val3_icon|default:'bi bi-shield-check' }}" placeholder="bi bi-shield-check">
+                            </div>
+                        </div>
+
+                        <!-- TITLE 4 -->
+                        <div class="col-md-3">
+                            <div class="feature-item-card">
+                                <div class="feature-badge">04</div>
+                                <label class="form-label">Title 4 (Name)</label>
+                                <input type="text" name="vision_val4" class="form-control mb-2" value="{{ about.vision_val4|default:'Accessible' }}" placeholder="Accessible">
+                                <label class="form-label">Title 4 Icon Class</label>
+                                <input type="text" name="vision_val4_icon" class="form-control" value="{{ about.vision_val4_icon|default:'bi bi-people' }}" placeholder="bi bi-people">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GROUP 4: SIDE IMAGE UPLOAD -->
+                <div class="form-section-card">
+                    <div class="section-card-title">
+                        <i class="bi bi-image"></i>
+                        4. Vision Section Side Image
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label">Upload New Side Image</label>
+                            <input type="file" name="vision_image" class="form-control" accept="image/*">
+
+                            {% if about and about.vision_image %}
+                                <div class="image-preview-container">
+                                    <img src="/media/{{ about.vision_image }}" class="image-preview" alt="Vision Image">
+                                    <div>
+                                        <h6 class="fw-bold mb-1 text-dark">Current Uploaded Image</h6>
+                                        <small class="text-muted">Path: /media/{{ about.vision_image }}</small>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBMIT BUTTON -->
+                <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-save">
+                        <i class="bi bi-check-circle-fill me-2"></i> Save OUR VISION Changes
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include "admin/footer.html" %}

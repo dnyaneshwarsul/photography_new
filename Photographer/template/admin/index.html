@@ -1,0 +1,122 @@
+{% include "admin/navbar.html" %}
+
+<div class="container-fluid">
+  <!-- Stats Section -->
+  <div class="row g-4 mb-4">
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon bg-red">
+          <i class="bi bi-camera-fill"></i>
+        </div>
+        <div class="stat-label">Total Photographers</div>
+        <div class="stat-value">{{ total_photographers|default:"0" }}</div>
+        <div class="stat-trend {% if photographers_trend >= 0 %}up{% else %}down{% endif %}">
+          <i class="bi bi-arrow-{% if photographers_trend >= 0 %}up{% else %}down{% endif %}-short"></i> {% if photographers_trend >= 0 %}+{% endif %}{{ photographers_trend }}%
+          <span class="trend-note">vs last month</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon bg-dark">
+          <i class="bi bi-person-vcard-fill"></i>
+        </div>
+        <div class="stat-label">Active Clients</div>
+        <div class="stat-value">{{ active_clients|default:"0" }}</div>
+        <div class="stat-trend {% if clients_trend >= 0 %}up{% else %}down{% endif %}">
+          <i class="bi bi-arrow-{% if clients_trend >= 0 %}up{% else %}down{% endif %}-short"></i> {% if clients_trend >= 0 %}+{% endif %}{{ clients_trend }}%
+          <span class="trend-note">vs last month</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon bg-green">
+          <i class="bi bi-bag-check-fill"></i>
+        </div>
+        <div class="stat-label">Completed Bookings</div>
+        <div class="stat-value">{{ completed_bookings|default:"0" }}</div>
+        <div class="stat-trend {% if bookings_trend >= 0 %}up{% else %}down{% endif %}">
+          <i class="bi bi-arrow-{% if bookings_trend >= 0 %}up{% else %}down{% endif %}-short"></i> {% if bookings_trend >= 0 %}+{% endif %}{{ bookings_trend }}%
+          <span class="trend-note">vs last month</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon bg-orange">
+          <i class="bi bi-currency-dollar"></i>
+        </div>
+        <div class="stat-label">Total Revenue</div>
+        <div class="stat-value">₹{{ total_revenue|floatformat:0 }}</div>
+        <div class="stat-trend {% if revenue_trend >= 0 %}up{% else %}down{% endif %}">
+          <i class="bi bi-arrow-{% if revenue_trend >= 0 %}up{% else %}down{% endif %}-short"></i> {% if revenue_trend >= 0 %}+{% endif %}{{ revenue_trend }}%
+          <span class="trend-note">vs last month</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    <!-- Recent Activity Table -->
+    <div class="col-lg-12">
+      <div class="panel-card">
+        <div class="panel-header">
+          <h5>Recent Registrations & Bookings</h5>
+          <a href="/admin/booking-list/" class="btn-view-all">View All</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table activity-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Role / Event</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in recent_activities %}
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <img src="https://ui-avatars.com/api/?name={{ item.name|urlencode }}&background=random&bold=true" alt="{{ item.name }}">
+                    <div>
+                      <span class="user-name">{{ item.name }}</span>
+                      <span class="user-role">{{ item.sub_detail }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>{{ item.role }}</td>
+                <td>
+                  {% if item.status == 'Active' or item.status == 'Confirmed' or item.status == 'Completed' or item.status == 'Paid' %}
+                    <span class="status-badge success">{{ item.status }}</span>
+                  {% elif item.status == 'Pending' %}
+                    <span class="status-badge pending">Pending</span>
+                  {% else %}
+                    <span class="status-badge danger">{{ item.status }}</span>
+                  {% endif %}
+                </td>
+                <td><span class="text-date">{{ item.date_str }}</span></td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="4" class="text-center py-4 text-muted">
+                  <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                  No recent registrations or bookings found.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include "admin/footer.html" %}

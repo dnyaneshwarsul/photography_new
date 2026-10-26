@@ -1,0 +1,219 @@
+{% include "admin/navbar.html" %}
+
+<div class="main-content">
+  <div class="container-fluid">
+    
+    <!-- PAGE HEADER -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+      <div>
+        <h3 class="fw-bold text-dark mb-1">
+          <i class="bi bi-clock-history text-warning me-2"></i> Customer Booking History
+        </h3>
+        <p class="text-muted small mb-0">View full photoshoot reservation history, total revenue, and payment receipts grouped by customer.</p>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-dark px-3 py-2 fs-6 rounded-3">Total Customers: {{ total_customers_count }}</span>
+      </div>
+    </div>
+
+    <!-- SEARCH & FILTER BAR -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+      <div class="card-body p-3">
+        <form method="GET" action="/admin/customer-booking-history/">
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-search"></i></span>
+            <input type="text" name="q" class="form-control border-start-0 ps-2" placeholder="Search customer by name, email, mobile number or city..." value="{{ search_q }}">
+            <button class="btn btn-dark px-4 fw-bold" type="submit">Search Customer</button>
+            {% if search_q %}
+            <a href="/admin/customer-booking-history/" class="btn btn-outline-secondary px-3">Clear Search</a>
+            {% endif %}
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- CUSTOMERS TABLE -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th class="ps-4">Customer Details</th>
+              <th>Contact Info</th>
+              <th class="text-center">Total Bookings</th>
+              <th class="text-end">Total Revenue</th>
+              <th class="text-end">Total Amount Paid</th>
+              <th class="text-end">Balance Due</th>
+              <th class="text-center pe-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in customer_list %}
+            <tr>
+              <td class="ps-4">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="avatar-circle bg-warning text-dark fw-bold rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; font-size: 1.1rem;">
+                    {{ c.name|slice:":2"|upper }}
+                  </div>
+                  <div>
+                    <strong class="d-block text-dark fs-6">{{ c.name }}</strong>
+                    <small class="text-muted"><i class="bi bi-geo-alt me-1"></i>{{ c.city|default:"City N/A" }}</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="small">
+                  <span class="d-block text-dark fw-semibold"><i class="bi bi-telephone text-primary me-1"></i>+91 {{ c.mobile }}</span>
+                  <span class="text-muted"><i class="bi bi-envelope text-secondary me-1"></i>{{ c.email }}</span>
+                </div>
+              </td>
+              <td class="text-center">
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-3 fs-6 fw-bold">
+                  {{ c.total_bookings }} Booking{% if c.total_bookings > 1 %}s{% endif %}
+                </span>
+              </td>
+              <td class="text-end fw-bold text-dark">
+                ₹{{ c.total_price_sum|floatformat:0 }}
+              </td>
+              <td class="text-end fw-bold text-success">
+                ✓ ₹{{ c.total_paid_sum|floatformat:0 }}
+              </td>
+              <td class="text-end fw-bold">
+                {% if c.total_due_sum > 0 %}
+                <span class="text-danger">₹{{ c.total_due_sum|floatformat:0 }}</span>
+                {% else %}
+                <span class="text-success"><i class="bi bi-patch-check-fill me-1"></i>Full Paid</span>
+                {% endif %}
+              </td>
+              <td class="text-center pe-4">
+                <div class="d-flex justify-content-center gap-2">
+                  <!-- VIEW HISTORY MODAL BUTTON -->
+                  <button type="button" class="btn btn-sm btn-dark fw-bold px-3 py-2 rounded-3" data-bs-toggle="modal" data-bs-target="#customerHistoryModal{{ forloop.counter }}">
+                    <i class="bi bi-eye-fill me-1"></i> View Full History
+                  </button>
+
+                  <a href="https://api.whatsapp.com/send?phone=91{{ c.mobile }}&text=Hello%20{{ c.name }},%20regarding%20your%20photography%20booking%20history..." target="_blank" class="btn btn-sm btn-success text-white fw-bold px-3 py-2 rounded-3" title="WhatsApp Customer">
+                    <i class="bi bi-whatsapp"></i>
+                  </a>
+                </div>
+
+                <!-- MODAL FOR FULL BOOKING HISTORY -->
+                <div class="modal fade text-start" id="customerHistoryModal{{ forloop.counter }}" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content rounded-4 border-0 shadow">
+                      <div class="modal-header bg-dark text-white p-4">
+                        <div>
+                          <h5 class="modal-title fw-bold">
+                            <i class="bi bi-person-lines-fill text-warning me-2"></i> Full Booking History for {{ c.name }}
+                          </h5>
+                          <small class="text-white-50">Mobile: +91 {{ c.mobile }} | Email: {{ c.email }}</small>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+
+                      <div class="modal-body p-4 bg-light">
+                        <!-- SUMMARY BOX -->
+                        <div class="row g-3 mb-4">
+                          <div class="col-md-4">
+                            <div class="p-3 bg-white rounded-3 border">
+                              <span class="text-muted small d-block">Total Reservations</span>
+                              <strong class="fs-4 text-dark">{{ c.total_bookings }} Photoshoots</strong>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="p-3 bg-white rounded-3 border">
+                              <span class="text-muted small d-block">Total Paid Amount</span>
+                              <strong class="fs-4 text-success">₹{{ c.total_paid_sum|floatformat:0 }}</strong>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="p-3 bg-white rounded-3 border">
+                              <span class="text-muted small d-block">Total Due Balance</span>
+                              <strong class="fs-4 text-danger">₹{{ c.total_due_sum|floatformat:0 }}</strong>
+                            </div>
+                          </div>
+                        </div>
+
+                        <h6 class="fw-bold mb-3 text-dark"><i class="bi bi-list-stars me-1 text-warning"></i> Reservation Timeline</h6>
+
+                        <div class="table-responsive bg-white rounded-3 border">
+                          <table class="table table-hover align-middle mb-0">
+                            <thead class="table-secondary small text-uppercase fw-bold">
+                              <tr>
+                                <th class="ps-3">Booking ID</th>
+                                <th>Event Type</th>
+                                <th>Event Date & Time</th>
+                                <th>Venue</th>
+                                <th>Package & Price</th>
+                                <th>Advance Paid</th>
+                                <th>Due Balance</th>
+                                <th>Status</th>
+                                <th class="text-end pe-3">Receipt</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for b in c.bookings %}
+                              <tr>
+                                <td class="ps-3 fw-bold text-dark">#BK-{{ b.id }}890</td>
+                                <td class="fw-semibold text-dark">{{ b.event_type }}</td>
+                                <td class="small">{{ b.event_date }} at {{ b.event_time }}</td>
+                                <td class="small">{{ b.event_location }}</td>
+                                <td class="fw-bold text-dark">₹{{ b.get_calculated_total_price|floatformat:0 }}</td>
+                                <td class="text-success fw-bold">✓ ₹{{ b.advance_amount|floatformat:0 }}</td>
+                                <td class="fw-bold">
+                                  {% if b.get_remaining_due <= 0 or b.payment_status == 'Full Paid' %}
+                                  <span class="text-success">₹0 (FULL PAID)</span>
+                                  {% else %}
+                                  <span class="text-danger">₹{{ b.get_remaining_due|floatformat:0 }}</span>
+                                  {% endif %}
+                                </td>
+                                <td>
+                                  {% if b.booking_status == 'Completed' or b.payment_status == 'Full Paid' %}
+                                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">Completed</span>
+                                  {% elif b.booking_status == 'Confirmed' %}
+                                  <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1">Confirmed</span>
+                                  {% else %}
+                                  <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-2 py-1">Pending</span>
+                                  {% endif %}
+                                </td>
+                                <td class="text-end pe-3">
+                                  <a href="/download-pdf-receipt/{{ b.id }}/" target="_blank" class="btn btn-sm btn-outline-danger fw-bold">
+                                    <i class="bi bi-file-earmark-pdf-fill me-1"></i> PDF
+                                  </a>
+                                </td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div class="modal-footer bg-white border-top">
+                        <button type="button" class="btn btn-secondary fw-bold px-4" data-bs-dismiss="modal">Close History</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="7" class="text-center py-5 text-muted">
+                <i class="bi bi-journal-x fs-1 d-block mb-2"></i>
+                No customer booking history records found matching your search.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

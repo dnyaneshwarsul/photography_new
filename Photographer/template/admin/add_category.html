@@ -1,0 +1,181 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .cat-card {
+        width: 100%;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+    }
+
+    .cat-header {
+        background: linear-gradient(135deg, #1a0000 0%, #2d0000 60%, #450a0a 100%);
+        color: white;
+        padding: 22px 28px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .cat-header h4 {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .cat-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        height: 46px;
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        font-size: 0.9rem;
+    }
+
+    .form-control:focus {
+        border-color: #EF4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-save {
+        padding: 11px 32px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+        color: #fff;
+    }
+
+    .image-preview {
+        max-width: 220px;
+        max-height: 220px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #E2E8F0;
+        display: none;
+        margin-top: 12px;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="cat-card">
+        <!-- HEADER -->
+        <div class="cat-header d-flex justify-content-between align-items-center">
+            <h4>
+                <i class="bi bi-camera-fill me-2 text-danger"></i>
+                Add Photography Category
+            </h4>
+            <a href="/admin/category-list/" class="btn btn-outline-light btn-sm font-weight-bold">
+                <i class="bi bi-list-ul me-1"></i> View Category List
+            </a>
+        </div>
+
+        <!-- FORM -->
+        <div class="cat-body">
+            <form method="POST" action="/admin/add-category/" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row g-4">
+                    <!-- CATEGORY NAME -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Category Name <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-control" name="category_name" placeholder="e.g. Wedding, Pre-Wedding, Portrait, Birthday, Events" required>
+                    </div>
+
+                    <!-- CATEGORY MAIN IMAGE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Category Photo / Grid Image <span class="required">*</span>
+                        </label>
+                        <input type="file" class="form-control" id="category_image" name="category_image" accept=".jpg,.jpeg,.png,.webp" required>
+                        <small class="text-muted">Recommended: High quality square or portrait photo.</small>
+                        <div>
+                            <img id="catImagePreview" class="image-preview" alt="Category Preview">
+                        </div>
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            Category Description
+                        </label>
+                        <textarea class="form-control" name="description" rows="3" placeholder="Brief summary of what this photography category offers..." style="height: auto;"></textarea>
+                    </div>
+
+                    <!-- SUB SERVICES LIST -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Sub-Services Included (One per line)
+                        </label>
+                        <textarea class="form-control" name="sub_services" rows="4" placeholder="e.g.&#10;Candid Wedding Photography&#10;Traditional Drone Coverage&#10;Pre-Wedding Outdoor Shoot" style="height: auto;"></textarea>
+                        <small class="text-muted">Enter each feature/sub-service on a separate line.</small>
+                    </div>
+
+                    <!-- DETAIL SHOWCASE IMAGE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Detail Showcase Image (Large Showcase Banner)
+                        </label>
+                        <input type="file" class="form-control" id="detail_image" name="detail_image" accept=".jpg,.jpeg,.png,.webp">
+                        <small class="text-muted">Optional detailed showcase image for featured section.</small>
+                    </div>
+
+                    <!-- BUTTONS -->
+                    <div class="col-12 text-end mt-4 pt-2 border-top">
+                        <button type="reset" class="btn btn-light me-2 border font-weight-bold">
+                            <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+                        </button>
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-check-circle me-1"></i> Save Category
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const imageInput = document.getElementById("category_image");
+    const imagePreview = document.getElementById("catImagePreview");
+    if (imageInput && imagePreview) {
+        imageInput.addEventListener("change", function() {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+});
+</script>
+
+{% include "admin/footer.html" %}

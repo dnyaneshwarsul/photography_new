@@ -1,0 +1,972 @@
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            color: #222;
+            background: #fff;
+        }
+
+        :root {
+            --gold: #c49a5a;
+            --gold-light: #dfc18d;
+            --dark: #171717;
+            --gray: #6f6f6f;
+            --light: #f7f5f0;
+            --border: #e9e5dd;
+        }
+
+        /* =====================================================
+           COMMON
+        ===================================================== */
+
+        .about-section {
+            padding: 100px 0;
+        }
+
+        .section-label {
+            display: block;
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-size: 42px;
+            line-height: 1.3;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            color: var(--gold);
+        }
+
+        .section-description {
+            color: var(--gray);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        /* =====================================================
+           01. ABOUT HERO
+        ===================================================== */
+
+        .about-hero {
+            min-height: 650px;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, .40),
+                    rgba(0, 0, 0, .72)
+                ),
+                url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            padding: 30px 20px;
+            color: #fff;
+        }
+
+        .hero-label {
+            font-size: 11px;
+            letter-spacing: 5px;
+            color: var(--gold-light);
+            font-weight: 600;
+            margin-bottom: 18px;
+            display: block;
+        }
+
+        .hero-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold-light);
+            margin: 0 auto 25px;
+        }
+
+        .hero-content h1 {
+            font-size: 60px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 22px;
+        }
+
+        .hero-content h1 span {
+            color: var(--gold-light);
+        }
+
+        .hero-content p {
+            max-width: 680px;
+            margin: auto;
+            font-size: 14px;
+            line-height: 1.9;
+            color: rgba(255,255,255,.88);
+        }
+
+        /* =====================================================
+           02. WHO WE ARE
+        ===================================================== */
+
+        .who-section {
+            background: #fff;
+        }
+
+        .who-image {
+            height: 530px;
+            overflow: hidden;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .who-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .6s ease;
+        }
+
+        .who-image:hover img {
+            transform: scale(1.06);
+        }
+
+        .experience-box {
+            position: absolute;
+            right: 25px;
+            bottom: 25px;
+
+            background: rgba(0,0,0,.80);
+            color: #fff;
+
+            padding: 18px 25px;
+            border-radius: 8px;
+        }
+
+        .experience-box strong {
+            display: block;
+            color: var(--gold-light);
+            font-size: 25px;
+        }
+
+        .experience-box small {
+            font-size: 10px;
+            color: #ddd;
+        }
+
+        .who-content {
+            padding-left: 35px;
+        }
+
+        .who-features {
+            margin-top: 30px;
+        }
+
+        .who-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .who-icon {
+            min-width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f7f1e7;
+            color: var(--gold);
+
+            border-radius: 50%;
+            font-size: 20px;
+        }
+
+        .who-item h5 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .who-item p {
+            margin: 0;
+            color: var(--gray);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* =====================================================
+           03. OUR STORY
+        ===================================================== */
+
+        .story-section {
+            background: var(--light);
+        }
+
+        .story-content {
+            padding-right: 35px;
+        }
+
+        .story-image {
+            height: 520px;
+            overflow: hidden;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .6s ease;
+        }
+
+        .story-image:hover img {
+            transform: scale(1.06);
+        }
+
+        .story-year {
+            position: absolute;
+            left: 25px;
+            bottom: 25px;
+
+            background: #fff;
+            padding: 17px 23px;
+
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.15);
+        }
+
+        .story-year strong {
+            display: block;
+            color: var(--gold);
+            font-size: 24px;
+        }
+
+        .story-year span {
+            font-size: 10px;
+            color: #666;
+        }
+
+        .timeline {
+            margin-top: 30px;
+            padding-left: 25px;
+            border-left: 1px solid #d5bb91;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+            background: var(--gold);
+
+            left: -30px;
+            top: 5px;
+        }
+
+        .timeline-item h5 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item p {
+            margin: 0;
+            color: var(--gray);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* =====================================================
+           04. WHAT WE DO
+        ===================================================== */
+
+        .what-section {
+            background: #fff;
+        }
+
+        .section-heading {
+            max-width: 700px;
+            margin: 0 auto 55px;
+            text-align: center;
+        }
+
+        .service-card {
+            height: 100%;
+            overflow: hidden;
+
+            border: 1px solid var(--border);
+            border-radius: 14px;
+
+            background: #fff;
+
+            transition: .35s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 18px 40px rgba(0,0,0,.10);
+        }
+
+        .service-image {
+            height: 230px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .6s ease;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.08);
+        }
+
+        .service-body {
+            padding: 24px;
+        }
+
+        .service-icon {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #f7f1e7;
+            color: var(--gold);
+
+            font-size: 19px;
+
+            margin-bottom: 15px;
+        }
+
+        .service-body h4 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        .service-body p {
+            color: var(--gray);
+            font-size: 11px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* =====================================================
+           05. OUR MISSION
+        ===================================================== */
+
+        .mission-section {
+            min-height: 550px;
+
+            display: flex;
+            align-items: center;
+
+            position: relative;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    rgba(10,10,10,.70),
+                    rgba(10,10,10,.82)
+                ),
+                url("https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .mission-content {
+            max-width: 850px;
+            margin: auto;
+            padding: 70px 20px;
+            color: #fff;
+        }
+
+        .mission-content .section-label {
+            color: var(--gold-light);
+        }
+
+        .mission-content h2 {
+            color: #fff;
+            font-size: 45px;
+        }
+
+        .mission-text {
+            max-width: 700px;
+            margin: 0 auto 35px;
+
+            font-size: 16px;
+            font-style: italic;
+            line-height: 1.9;
+
+            color: rgba(255,255,255,.88);
+        }
+
+        .mission-points {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        .mission-point {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 11px;
+        }
+
+        .mission-point i {
+            color: var(--gold-light);
+        }
+
+        /* =====================================================
+           06. OUR VISION
+        ===================================================== */
+
+        .vision-section {
+            background: var(--light);
+        }
+
+        .vision-image {
+            height: 500px;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .vision-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .6s ease;
+        }
+
+        .vision-image:hover img {
+            transform: scale(1.06);
+        }
+
+        .vision-content {
+            padding-left: 35px;
+        }
+
+        .vision-box {
+            margin: 25px 0;
+
+            background: #fff;
+
+            border-left: 3px solid var(--gold);
+
+            padding: 22px 25px;
+
+            border-radius: 0 8px 8px 0;
+        }
+
+        .vision-box p {
+            margin: 0;
+
+            color: #555;
+
+            font-size: 14px;
+            line-height: 1.9;
+            font-style: italic;
+        }
+
+        .vision-values {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .vision-value {
+            background: #fff;
+            border: 1px solid var(--border);
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            font-size: 11px;
+            color: #555;
+        }
+
+        .vision-value i {
+            color: var(--gold);
+            margin-right: 7px;
+        }
+
+        /* =====================================================
+           07. WHY CHOOSE US
+        ===================================================== */
+
+        .why-section {
+            background: #fff;
+        }
+
+        .why-card {
+            height: 100%;
+
+            padding: 30px 25px;
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            background: #fff;
+
+            transition: .35s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-7px);
+
+            border-color: var(--gold);
+
+            box-shadow: 0 15px 35px rgba(0,0,0,.08);
+        }
+
+        .why-icon {
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f7f1e7;
+            color: var(--gold);
+
+            border-radius: 50%;
+
+            font-size: 22px;
+
+            margin-bottom: 20px;
+        }
+
+        .why-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .why-card p {
+            margin: 0;
+
+            color: var(--gray);
+
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        /* =====================================================
+           08. OUR NUMBERS
+        ===================================================== */
+
+        .numbers-section {
+            background: #171717;
+            padding: 85px 0;
+        }
+
+        .numbers-heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .numbers-heading .section-label {
+            color: var(--gold-light);
+        }
+
+        .numbers-heading h2 {
+            color: #fff;
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .numbers-heading p {
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .number-box {
+            text-align: center;
+            padding: 20px;
+            border-right: 1px solid #333;
+        }
+
+        .number-box:last-child {
+            border-right: none;
+        }
+
+        .number-box i {
+            color: var(--gold-light);
+            font-size: 27px;
+            margin-bottom: 15px;
+        }
+
+        .number-box h3 {
+            color: #fff;
+            font-size: 38px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .number-box span {
+            color: #aaa;
+            font-size: 11px;
+        }
+
+        /* =====================================================
+           09. PHOTOGRAPHER TESTIMONIALS
+        ===================================================== */
+
+        .testimonial-section {
+            background: var(--light);
+        }
+
+        .testimonial-card {
+            height: 100%;
+
+            background: #fff;
+
+            padding: 35px 28px;
+
+            border-radius: 13px;
+
+            border: 1px solid var(--border);
+
+            position: relative;
+
+            transition: .35s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,.08);
+        }
+
+        .quote-icon {
+            color: var(--gold);
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-text {
+            color: #666;
+            font-size: 12px;
+            line-height: 1.9;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .photographer {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .photographer img {
+            width: 52px;
+            height: 52px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+        }
+
+        .photographer h5 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .photographer span {
+            color: var(--gold);
+            font-size: 10px;
+        }
+
+        /* =====================================================
+           10. START YOUR STORY CTA
+        ===================================================== */
+
+        .story-cta {
+            min-height: 500px;
+
+            display: flex;
+            align-items: center;
+
+            text-align: center;
+
+            position: relative;
+
+            background:
+                linear-gradient(
+                    rgba(0,0,0,.48),
+                    rgba(0,0,0,.76)
+                ),
+                url("https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: auto;
+            color: #fff;
+        }
+
+        .cta-content .section-label {
+            color: var(--gold-light);
+        }
+
+        .cta-content h2 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .cta-content p {
+            max-width: 650px;
+
+            margin: 0 auto 30px;
+
+            color: rgba(255,255,255,.85);
+
+            font-size: 13px;
+
+            line-height: 1.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #fff;
+
+            border: 1px solid var(--gold);
+
+            padding: 12px 25px;
+
+            font-size: 11px;
+
+            font-weight: 500;
+
+            letter-spacing: .5px;
+
+            border-radius: 4px;
+
+            transition: .3s ease;
+        }
+
+        .btn-gold:hover {
+            background: #aa8044;
+            border-color: #aa8044;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-light-custom {
+            background: transparent;
+
+            color: #fff;
+
+            border: 1px solid rgba(255,255,255,.7);
+
+            padding: 12px 25px;
+
+            font-size: 11px;
+
+            border-radius: 4px;
+
+            transition: .3s ease;
+        }
+
+        .btn-outline-light-custom:hover {
+            background: #fff;
+            color: #222;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 991px) {
+
+            .about-section {
+                padding: 75px 0;
+            }
+
+            .hero-content h1 {
+                font-size: 48px;
+            }
+
+            .section-title {
+                font-size: 35px;
+            }
+
+            .who-content,
+            .story-content,
+            .vision-content {
+                padding-left: 0;
+                padding-right: 0;
+                margin-top: 20px;
+            }
+
+            .number-box {
+                border-right: none;
+                border-bottom: 1px solid #333;
+            }
+
+            .number-box:last-child {
+                border-bottom: none;
+            }
+
+            .mission-content h2 {
+                font-size: 38px;
+            }
+
+            .cta-content h2 {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .about-section {
+                padding: 60px 15px;
+            }
+
+            .about-hero {
+                min-height: 520px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-content p {
+                font-size: 12px;
+            }
+
+            .section-title {
+                font-size: 30px;
+            }
+
+            .who-image,
+            .story-image,
+            .vision-image {
+                height: 360px;
+            }
+
+            .service-image {
+                height: 220px;
+            }
+
+            .mission-section {
+                min-height: 500px;
+            }
+
+            .mission-content h2 {
+                font-size: 31px;
+            }
+
+            .mission-text {
+                font-size: 13px;
+            }
+
+            .mission-points {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .vision-values {
+                grid-template-columns: 1fr;
+            }
+
+            .numbers-heading h2 {
+                font-size: 31px;
+            }
+
+            .number-box h3 {
+                font-size: 32px;
+            }
+
+            .cta-content h2 {
+                font-size: 32px;
+            }
+
+            .cta-content p {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .hero-content h1 {
+                font-size: 30px;
+            }
+
+            .section-title {
+                font-size: 27px;
+            }
+
+            .who-image,
+            .story-image,
+            .vision-image {
+                height: 290px;
+            }
+
+            .cta-content h2 {
+                font-size: 28px;
+            }
+
+        }
+
+

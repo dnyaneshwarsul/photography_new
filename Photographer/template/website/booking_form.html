@@ -1,0 +1,1124 @@
+{% include "website/navbar.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Photographer | Premium Photography Service</title>
+
+    <!-- Bootstrap 5 & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --accent-gold: #d97706;
+            --accent-gold-hover: #b45309;
+            --gradient-accent: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #b45309 100%);
+            --bg-glass: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(15, 23, 42, 0.05);
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #334155;
+            min-height: 100vh;
+        }
+
+        .booking-hero-header {
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 65px 20px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-hero-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(217, 119, 6, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-title span {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .booking-container {
+            margin-top: -60px;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .booking-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: var(--card-shadow);
+            padding: 45px;
+        }
+
+        @media (max-width: 768px) {
+            .booking-card {
+                padding: 25px 20px;
+            }
+            .hero-title { font-size: 2rem; }
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(217, 119, 6, 0.1);
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            margin-bottom: 12px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-top: 35px;
+            margin-bottom: 22px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .section-header i {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.925rem;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .form-label span.req {
+            color: #ef4444;
+        }
+
+        /* Chrome/Safari/Edge Autofill Override to prevent blue background */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            -webkit-text-fill-color: #0f172a !important;
+            -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+            box-shadow: 0 0 0px 1000px #ffffff inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        .form-control, .form-select {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            color: #0f172a;
+            background-color: #fff !important;
+            transition: all 0.25s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.15);
+            background-color: #fff !important;
+        }
+
+        /* Unified Input Group Focus Styling */
+        .input-group {
+            border-radius: 12px;
+            transition: all 0.25s ease;
+        }
+
+        .input-group:focus-within {
+            box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.15);
+            border-radius: 12px;
+        }
+
+        .input-group-text {
+            border: 1.5px solid #e2e8f0;
+            border-right: none;
+            background: #f8fafc;
+            border-radius: 12px 0 0 12px;
+            color: #64748b;
+            padding: 12px 16px;
+            transition: all 0.25s ease;
+        }
+
+        .input-group:focus-within .input-group-text {
+            border-color: var(--accent-gold);
+            background-color: #fff;
+            color: var(--accent-gold);
+        }
+
+        .input-group .form-control {
+            border: 1.5px solid #e2e8f0;
+            border-left: none;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .input-group:focus-within .form-control {
+            border-color: var(--accent-gold);
+            box-shadow: none;
+        }
+
+        .input-group .btn-eye-toggle {
+            border: 1.5px solid #e2e8f0;
+            border-left: none;
+            background: #f8fafc;
+            border-radius: 0 12px 12px 0;
+            color: #64748b;
+            padding: 0 16px;
+            transition: all 0.25s ease;
+        }
+
+        .input-group:focus-within .btn-eye-toggle {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            background: #fff;
+        }
+
+        .input-group:has(.btn-eye-toggle) .form-control {
+            border-radius: 0 !important;
+            border-right: none !important;
+        }
+
+        /* Payment Option Cards */
+        .payment-option-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #fff;
+        }
+
+        .payment-option-card:hover {
+            border-color: rgba(217, 119, 6, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.05);
+        }
+
+        .payment-option-card.active {
+            border-color: var(--accent-gold);
+            background: rgba(217, 119, 6, 0.04);
+            box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.2);
+        }
+
+        .payment-option-card input[type="radio"] {
+            accent-color: var(--accent-gold);
+            width: 18px;
+            height: 18px;
+        }
+
+        .pay-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+        }
+
+        .payment-option-card.active .pay-icon-box {
+            background: var(--gradient-accent);
+            color: #fff;
+        }
+
+        /* Action Button */
+        .btn-submit-booking {
+            background: var(--gradient-accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 16px 40px;
+            border-radius: 14px;
+            border: none;
+            box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-submit-booking:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(217, 119, 6, 0.5);
+            color: #fff;
+        }
+
+        /* Success Card Modal & Alert */
+        .success-box {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #dcfce7;
+            color: #16a34a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+        }
+
+        /* QR Code Modal Styling */
+        .qr-card {
+            background: #ffffff;
+            border: 2px dashed #cbd5e1;
+            border-radius: 18px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .qr-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+
+        .summary-box {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        /* PRINT STYLING */
+        @media print {
+            body {
+                background: #fff !important;
+            }
+            .booking-hero-header, .no-print, nav, footer, header {
+                display: none !important;
+            }
+            .booking-container {
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+            }
+            #bookingReceiptCard {
+                box-shadow: none !important;
+                border: 1px solid #cbd5e1 !important;
+                padding: 20px !important;
+            }
+        }
+    </style>
+    <!-- HTML2PDF CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+
+<!-- HERO HEADER -->
+<div class="booking-hero-header">
+    <div class="container">
+        <div class="step-badge">
+            <i class="bi bi-camera-reels"></i> Reserve Your Date
+        </div>
+        <h1 class="hero-title">Book Your <span>Photographer</span></h1>
+        <p class="hero-subtitle">
+            Capture your priceless moments with our award-winning photography services. Complete your details & secure your date instantly.
+        </p>
+    </div>
+</div>
+
+<!-- MAIN BOOKING CONTAINER -->
+<div class="container booking-container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            {% if booking_success %}
+            <!-- SUCCESS CONFIRMATION DISPLAY -->
+            <!-- EXACT SCREENSHOT PDF RECEIPT CARD FORMAT -->
+            <div id="bookingReceiptCard" class="bg-white rounded-5 p-4 p-md-5 border shadow-sm mx-auto my-4 text-start" style="max-width: 680px; font-family: 'Plus Jakarta Sans', sans-serif; color: #1e293b; border-color: #cbd5e1 !important;">
+                
+                <!-- HEADER BRAND NAME -->
+                <div class="text-center text-secondary small fw-semibold mb-4" style="letter-spacing: 0.5px;">
+                    A2Z Photographer Marketplace
+                </div>
+
+                <!-- GREEN CHECKMARK ICON -->
+                <div class="text-center mb-3">
+                    <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+
+                <!-- MAIN TITLE & SUBTITLE -->
+                <h2 class="fw-bold text-center text-dark mb-2" style="font-size: 1.85rem; letter-spacing: -0.5px;">
+                    Booking Confirmed Successfully!
+                </h2>
+
+                <p class="text-center text-secondary fs-6 mb-4 px-md-3" style="line-height: 1.6;">
+                    Thank you, <strong class="text-dark">{{ booking.full_name }}</strong>. Your photoshoot reservation for <strong class="text-dark">{{ booking.event_type }}</strong> on <strong class="text-dark">{{ booking.event_date }}</strong> has been received!
+                </p>
+
+                <!-- INNER DETAILS BOX -->
+                <div class="border rounded-4 p-4 bg-white text-start" style="border-color: #e2e8f0 !important;">
+                    
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <span class="text-secondary">Booking Reference ID:</span>
+                        <strong class="text-dark fs-6">#BK-{{ booking.id }}890</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <span class="text-secondary">Customer Name:</span>
+                        <strong class="text-dark fs-6">{{ booking.full_name }}</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <span class="text-secondary">Mobile Number:</span>
+                        <strong class="text-dark fs-6">{{ booking.mobile }}</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <span class="text-secondary">Event Location & City:</span>
+                        <strong class="text-dark fs-6">{{ booking.event_location }}, {{ booking.city }}</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <span class="text-secondary">Event Date & Time:</span>
+                        <strong class="text-dark fs-6">{{ booking.event_date }} at {{ booking.event_time }}</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <span class="text-secondary">Selected Package:</span>
+                        <strong class="text-dark fs-6">{{ booking.package|default:"Standard Package" }}</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <span class="text-secondary">Advance Payment Status:</span>
+                        <strong class="text-secondary fw-semibold">Paid (₹{{ booking.advance_amount|floatformat:0 }})</strong>
+                    </div>
+
+                    {% if booking.transaction_id %}
+                    <div class="d-flex justify-content-between align-items-center py-2 pt-3">
+                        <span class="text-secondary">Transaction ID:</span>
+                        <strong class="text-dark fs-6">{{ booking.transaction_id }}</strong>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+                <div class="d-flex flex-wrap justify-content-center gap-3 no-print mt-4">
+                    {% if whatsapp_url %}
+                    <a href="{{ whatsapp_url }}" target="_blank" class="btn btn-success px-4 py-2 rounded-3 fw-bold shadow-sm">
+                        <i class="bi bi-whatsapp me-2"></i> Send WhatsApp Confirmation
+                    </a>
+                    {% endif %}
+                    {% if sms_url %}
+                    <a href="{{ sms_url }}" class="btn btn-info text-white px-4 py-2 rounded-3 fw-bold shadow-sm">
+                        <i class="bi bi-chat-text-fill me-2"></i> Send Text SMS
+                    </a>
+                    {% endif %}
+                    <button onclick="downloadPDFReceipt()" class="btn btn-danger px-4 py-2 rounded-3 fw-bold shadow-sm">
+                        <i class="bi bi-file-earmark-pdf-fill me-2"></i> Download PDF Receipt
+                    </button>
+                    <button onclick="window.print()" class="btn btn-outline-dark px-4 py-2 rounded-3 fw-bold">
+                        <i class="bi bi-printer me-2"></i> Print Receipt
+                    </button>
+                    <a href="/" class="btn btn-warning text-white px-4 py-2 rounded-3 fw-bold shadow-sm">
+                        <i class="bi bi-house me-2"></i> Return to Home
+                    </a>
+                </div>
+            </div>
+
+            {% else %}
+
+            {% if date_error %}
+            <div class="alert alert-danger alert-dismissible fade show rounded-4 shadow-sm mb-4 border border-danger p-3" role="alert">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-exclamation-triangle-fill fs-3 text-danger me-2"></i>
+                    <div>
+                        <strong class="fs-5 d-block text-dark">Date Already Booked!</strong>
+                        <span>{{ date_error }}</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+
+            <!-- FORM CARD -->
+            <div class="booking-card">
+
+                <form id="bookingForm" method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- SECTION 1: CUSTOMER DETAILS -->
+                    <div class="section-header">
+                        <i class="bi bi-person-bounding-box"></i> Customer Details
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name <span class="req">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" name="full_name" class="form-control" placeholder="e.g. Dnyaneshwar Sul" value="{{ form_data.full_name|default:'' }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Mobile Number <span class="req">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input type="tel" name="mobile" class="form-control" placeholder="10-digit mobile number" pattern="[0-9]{10}" value="{{ form_data.mobile|default:'' }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Email Address <span class="req">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input type="email" name="email" class="form-control" placeholder="name@example.com" value="{{ form_data.email|default:'' }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">City <span class="req">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                <input type="text" name="city" class="form-control" placeholder="e.g. Pune, Mumbai" value="{{ form_data.city|default:'' }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label">Create Account Password <span class="req">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                                <input type="password" name="password" id="formPasswordInput" class="form-control" placeholder="Create a password for logging in to view your bookings & receipts" required>
+                                <button type="button" class="btn btn-eye-toggle" onclick="toggleFormPasswordVisibility()" title="Toggle Password">
+                                    <i class="bi bi-eye" id="formEyeIcon"></i>
+                                </button>
+                            </div>
+                            <small class="text-muted"><i class="bi bi-shield-check me-1 text-success"></i> You will use your Email Address & this Password to login to your Customer Portal.</small>
+                        </div>
+                    </div>
+
+
+                    <!-- SECTION 2: EVENT DETAILS -->
+                    <div class="section-header">
+                        <i class="bi bi-calendar-event"></i> Event & Shoot Details
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Event Type <span class="req">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-stars"></i></span>
+                                <select name="event_type" id="eventTypeSelect" class="form-select" required onchange="updatePackagesByServiceOrEvent()">
+                                    <option value="">Select Event Type</option>
+                                    <option value="Weddings" {% if prefilled_service and 'wedding' in prefilled_service.lower and 'pre' not in prefilled_service.lower %}selected{% endif %}>Weddings (Wedding Photography)</option>
+                                    <option value="Pre-Wedding Shoot" {% if prefilled_service and 'pre' in prefilled_service.lower %}selected{% endif %}>Pre-Wedding Shoot</option>
+                                    <option value="Portrait Photography" {% if prefilled_service and 'portrait' in prefilled_service.lower %}selected{% endif %}>Portrait Photography</option>
+                                    <option value="Engagement Ceremony">Engagement Ceremony</option>
+                                    <option value="Birthday Party">Birthday Party</option>
+                                    <option value="Baby & Maternity Shoot">Baby & Maternity Shoot</option>
+                                    <option value="Corporate Event">Corporate Event</option>
+                                    <option value="Fashion & Portfolio">Fashion & Portfolio</option>
+                                    <option value="Other Photography">Other Photography</option>
+                                </select>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Event Date <span class="req">*</span></label>
+                            <input type="date" name="event_date" id="eventDateInput" class="form-control" required onchange="checkDateAvailability(this.value)">
+                            <div id="dateFeedback"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Event Start Time <span class="req">*</span></label>
+                            <input type="time" name="event_time" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Event Location / Venue <span class="req">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-pin-map"></i></span>
+                                <input type="text" name="event_location" class="form-control" placeholder="Venue name or full location address" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Event Duration</label>
+                            <select name="duration" class="form-select">
+                                <option value="Half Day (4 Hours)">Half Day (4 Hours)</option>
+                                <option value="Full Day (8 Hours)" selected>Full Day (8 Hours)</option>
+                                <option value="2 Days Package">2 Days Package</option>
+                                <option value="3+ Days Multiple Events">3+ Days Multiple Events</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <!-- SECTION 3: SERVICES & REQUIREMENTS -->
+                    <div class="section-header">
+                        <i class="bi bi-camera"></i> Photography Services & Budget
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Service Type</label>
+                            <select name="service" id="serviceSelect" class="form-select" onchange="updatePackagesByServiceOrEvent()">
+                                <option value="Candid Photography + Cinematography">Candid Photography + Cinematography</option>
+                                <option value="Traditional Photography + Videography">Traditional Photography + Videography</option>
+                                <option value="Drone & Aerial Coverage">Drone & Aerial Coverage</option>
+                                <option value="Pre-Wedding Concept Shoot">Pre-Wedding Concept Shoot</option>
+                                <option value="Complete Deluxe Coverage">Complete Deluxe Coverage</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Package Selection</label>
+                            <select name="package" id="packageSelect" class="form-select" onchange="calculateAdvanceAmount()">
+                                <option value="Basic Package (₹15,000)">Basic Package (₹15,000)</option>
+                                <option value="Standard Package (₹30,000)" selected>Standard Package (₹30,000)</option>
+                                <option value="Premium Package (₹60,000)">Premium Package (₹60,000)</option>
+                                <option value="Luxury Royal Package (₹1,00,000+)">Luxury Royal Package (₹1,00,000+)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Special Requirements or Notes</label>
+                            <textarea name="requirements" class="form-control" rows="3" placeholder="Tell us any specific requirements, album style, video preference, etc."></textarea>
+                        </div>
+                    </div>
+
+
+                    <!-- SECTION 4: PAYMENT DETAILS & GATEWAY SELECTION -->
+                    <div class="section-header">
+                        <i class="bi bi-wallet2"></i> Advance Payment & Payment Gateway
+                    </div>
+
+                    <p class="text-muted small mb-3">
+                        To lock your booking slot, an advance token amount (minimum 20% of package) is required. Select your preferred payment method below.
+                    </p>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="payment-option-card active" onclick="selectPaymentMethod('UPI', this)">
+                                <input type="radio" name="payment_method" value="UPI" checked>
+                                <div class="pay-icon-box">
+                                    <i class="bi bi-qr-code-scan"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">UPI / QR Code</div>
+                                    <div class="small text-muted">GPay, PhonePe, Paytm</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="payment-option-card" onclick="selectPaymentMethod('Credit/Debit Card', this)">
+                                <input type="radio" name="payment_method" value="Credit/Debit Card">
+                                <div class="pay-icon-box">
+                                    <i class="bi bi-credit-card-2-front"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Cards</div>
+                                    <div class="small text-muted">Visa, Mastercard, RuPay</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="payment-option-card" onclick="selectPaymentMethod('Net Banking', this)">
+                                <input type="radio" name="payment_method" value="Net Banking">
+                                <div class="pay-icon-box">
+                                    <i class="bi bi-bank"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Net Banking</div>
+                                    <div class="small text-muted">All Indian Banks</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advance Amount Summary Box -->
+                    <div class="summary-box mb-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="fw-bold text-dark fs-5">Token Advance Payable Now:</span>
+                                <div class="text-muted small">Guarantees date slot lock for your event</div>
+                            </div>
+                            <div class="text-end">
+                                <span class="fs-3 fw-bold text-warning" id="displayAdvanceAmount">₹3,000</span>
+                                <input type="hidden" name="advance_amount" id="advanceAmountInput" value="3000">
+                                <input type="hidden" name="transaction_id" id="transactionIdInput" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBMIT BUTTON -->
+                    <div class="mt-4">
+                        <button type="button" class="btn-submit-booking" onclick="openPaymentGatewayModal()">
+                            <i class="bi bi-lock-fill me-2"></i> Proceed to Pay Advance & Complete Booking
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+
+<!-- REAL-TIME PAYMENT GATEWAY MODAL -->
+<div class="modal fade" id="paymentGatewayModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
+            <div class="modal-header bg-dark text-white border-0 rounded-top-4 py-3">
+                <h5 class="modal-title fw-bold" id="paymentModalTitle">
+                    <i class="bi bi-shield-lock-fill text-warning me-2"></i> Secure Payment Gateway
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+
+                <!-- PAYMENT AMOUNT SUMMARY -->
+                <div class="text-center mb-4">
+                    <div class="text-muted small">Total Advance Amount Payable</div>
+                    <div class="fs-2 fw-bold text-dark" id="modalPayableAmount">₹3,000</div>
+                    <span class="badge bg-success-subtle text-success px-3 py-1 border border-success">
+                        <i class="bi bi-shield-check"></i> 256-Bit Encrypted Transaction
+                    </span>
+                </div>
+
+                <!-- UPI QR SECTION -->
+                <div id="upiPaymentSection" class="qr-card mb-3">
+                    <div class="fw-bold mb-2 text-dark">Scan QR Code using GPay / PhonePe / Paytm</div>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=photographer@upi%26pn=A2Z%20Photographer%20Marketplace%20Booking" class="qr-image shadow-sm mb-2" alt="UPI Payment QR Code">
+                    <div class="small text-muted fw-bold">UPI ID: <code>photographer@upi</code></div>
+                </div>
+
+                <!-- CARD / NET BANKING SECTION (Simulated) -->
+                <div id="cardPaymentSection" class="d-none">
+                    <div class="mb-3">
+                        <label class="form-label small">Card Number</label>
+                        <input type="text" class="form-control" placeholder="4111 2222 3333 4444" maxlength="19">
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small">Expiry Date</label>
+                            <input type="text" class="form-control" placeholder="MM/YY" maxlength="5">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small">CVV</label>
+                            <input type="password" class="form-control" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRANSACTION ID / UTR CONFIRMATION -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold small text-dark">Transaction Reference / UTR No.</label>
+                    <input type="text" id="utrInput" class="form-control form-control-sm" placeholder="Auto-generated or enter UTR / Ref No.">
+                    <div class="form-text">Click "Simulate & Confirm Payment" to test instant payment verification.</div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="button" class="btn btn-warning text-white fw-bold py-3 rounded-3" onclick="confirmPaymentAndSubmit()">
+                        <i class="bi bi-check-circle-fill me-2"></i> Simulate & Confirm Payment
+                    </button>
+                    <button type="button" class="btn btn-light text-muted fw-semibold py-2" data-bs-dismiss="modal">
+                        Cancel Transaction
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function toggleFormPasswordVisibility() {
+        const pwdInput = document.getElementById('formPasswordInput');
+        const eyeIcon = document.getElementById('formEyeIcon');
+        if (pwdInput.type === 'password') {
+            pwdInput.type = 'text';
+            eyeIcon.classList.remove('bi-eye');
+            eyeIcon.classList.add('bi-eye-slash');
+        } else {
+            pwdInput.type = 'password';
+            eyeIcon.classList.remove('bi-eye-slash');
+            eyeIcon.classList.add('bi-eye');
+        }
+    }
+
+    let selectedPayment = 'UPI';
+
+    function selectPaymentMethod(method, element) {
+        selectedPayment = method;
+        document.querySelectorAll('.payment-option-card').forEach(card => card.classList.remove('active'));
+        element.classList.add('active');
+        element.querySelector('input[type="radio"]').checked = true;
+
+        if (method === 'UPI') {
+            document.getElementById('upiPaymentSection').classList.remove('d-none');
+            document.getElementById('cardPaymentSection').classList.add('d-none');
+        } else {
+            document.getElementById('upiPaymentSection').classList.add('d-none');
+            document.getElementById('cardPaymentSection').classList.remove('d-none');
+        }
+    }
+
+    const servicePackagesMap = {
+        'Candid Photography + Cinematography': [
+            { text: 'Standard Candid + Cinema Package (₹45,000)', advance: 8000 },
+            { text: 'Premium Candid Cinema Package (₹85,000)', advance: 15000, selected: true },
+            { text: 'Luxury Royal Candid Shoot (₹1,50,000)', advance: 25000 }
+        ],
+        'Traditional Photography + Videography': [
+            { text: 'Basic Traditional Package (₹20,000)', advance: 4000 },
+            { text: 'Standard Traditional Combo (₹35,000)', advance: 7000, selected: true },
+            { text: 'Deluxe Traditional Full Coverage (₹55,000)', advance: 10000 }
+        ],
+        'Drone & Aerial Coverage': [
+            { text: 'Half Day Drone Coverage (₹10,000)', advance: 2000 },
+            { text: 'Full Day 4K Drone Shoot (₹22,000)', advance: 4500, selected: true },
+            { text: 'Multi-Drone Aerial Cinema Coverage (₹40,000)', advance: 8000 }
+        ],
+        'Pre-Wedding Concept Shoot': [
+            { text: 'Outdoor Concept Shoot (₹18,000)', advance: 3500 },
+            { text: 'Cinematic Storytelling Shoot (₹38,000)', advance: 7500, selected: true },
+            { text: 'Royal Destination Shoot (₹80,000)', advance: 16000 }
+        ],
+        'Complete Deluxe Coverage': [
+            { text: 'All-Inclusive Deluxe Package (₹65,000)', advance: 12000 },
+            { text: 'Grand VIP Deluxe Coverage (₹1,30,000)', advance: 25000, selected: true },
+            { text: 'Royal Platinum Complete Coverage (₹2,00,000+)', advance: 40000 }
+        ]
+    };
+
+    const eventPackagesMap = {
+        'Wedding Photography': [
+            { text: 'Basic Wedding Package (₹30,000)', advance: 5000 },
+            { text: 'Standard Deluxe Wedding (₹60,000)', advance: 10000, selected: true },
+            { text: 'Premium Royal Wedding (₹1,20,000)', advance: 20000 }
+        ],
+        'Pre-Wedding Shoot': [
+            { text: 'Outdoor Couple Shoot (₹15,000)', advance: 3000 },
+            { text: 'Cinematic Location Pre-Wedding (₹35,000)', advance: 7000, selected: true },
+            { text: 'Destination Pre-Wedding (₹75,000)', advance: 15000 }
+        ],
+        'Engagement Ceremony': [
+            { text: 'Ring Ceremony Basic (₹20,000)', advance: 4000 },
+            { text: 'Grand Engagement Coverage (₹40,000)', advance: 8000, selected: true }
+        ],
+        'Birthday Party': [
+            { text: 'Mini Birthday Shoot (₹8,000)', advance: 2000 },
+            { text: 'Grand Birthday Celebration (₹18,000)', advance: 4000, selected: true }
+        ],
+        'Baby & Maternity Shoot': [
+            { text: 'Studio Baby Shoot (₹10,000)', advance: 2000 },
+            { text: 'Indoor + Outdoor Maternity Shoot (₹25,000)', advance: 5000, selected: true }
+        ],
+        'Corporate Event': [
+            { text: 'Half Day Corporate Shoot (₹12,000)', advance: 2500 },
+            { text: 'Full Day Corporate Shoot (₹28,000)', advance: 5500, selected: true }
+        ],
+        'Fashion & Portfolio': [
+            { text: 'Portfolio Studio Shoot (₹15,000)', advance: 3000 },
+            { text: 'High Fashion Editorial Shoot (₹35,000)', advance: 7000, selected: true }
+        ],
+        'Other Photography': [
+            { text: 'Standard Custom Shoot (₹15,000)', advance: 3000 },
+            { text: 'Deluxe Custom Shoot (₹35,000)', advance: 7000, selected: true }
+        ]
+    };
+
+    function updatePackagesByServiceOrEvent() {
+        const serviceSelect = document.getElementById('serviceSelect');
+        const serviceVal = serviceSelect ? serviceSelect.value : '';
+        const eventSelect = document.getElementById('eventTypeSelect');
+        const eventVal = eventSelect ? eventSelect.value : '';
+
+        const packageSelect = document.getElementById('packageSelect');
+        if (!packageSelect) return;
+
+        let packages = servicePackagesMap[serviceVal] || eventPackagesMap[eventVal] || [
+            { text: 'Basic Package (₹15,000)', advance: 3000 },
+            { text: 'Standard Package (₹30,000)', advance: 5000, selected: true },
+            { text: 'Premium Package (₹60,000)', advance: 10000 },
+            { text: 'Luxury Royal Package (₹1,00,000+)', advance: 20000 }
+        ];
+
+        packageSelect.innerHTML = '';
+        packages.forEach(pkg => {
+            const opt = document.createElement('option');
+            opt.value = pkg.text;
+            opt.text = pkg.text;
+            opt.dataset.advance = pkg.advance;
+            if (pkg.selected) opt.selected = true;
+            packageSelect.appendChild(opt);
+        });
+
+        calculateAdvanceAmount();
+    }
+
+    function calculateAdvanceAmount() {
+        const packageSelect = document.getElementById('packageSelect');
+        if (!packageSelect) return;
+        const selectedOpt = packageSelect.options[packageSelect.selectedIndex];
+        
+        let amount = 3000;
+        if (selectedOpt && selectedOpt.dataset && selectedOpt.dataset.advance) {
+            amount = parseInt(selectedOpt.dataset.advance, 10);
+        } else {
+            const packageValue = packageSelect.value || '';
+            if (packageValue.includes('8,000')) amount = 2000;
+            else if (packageValue.includes('10,000')) amount = 2000;
+            else if (packageValue.includes('12,000')) amount = 2500;
+            else if (packageValue.includes('15,000')) amount = 3000;
+            else if (packageValue.includes('18,000')) amount = 4000;
+            else if (packageValue.includes('20,000')) amount = 4000;
+            else if (packageValue.includes('25,000')) amount = 5000;
+            else if (packageValue.includes('28,000')) amount = 5500;
+            else if (packageValue.includes('30,000')) amount = 5000;
+            else if (packageValue.includes('35,000')) amount = 7000;
+            else if (packageValue.includes('40,000')) amount = 8000;
+            else if (packageValue.includes('60,000')) amount = 10000;
+            else if (packageValue.includes('75,000')) amount = 15000;
+            else if (packageValue.includes('1,20,000')) amount = 20000;
+            else if (packageValue.includes('1,00,000')) amount = 20000;
+        }
+
+        const displayEl = document.getElementById('displayAdvanceAmount');
+        if (displayEl) displayEl.innerText = '₹' + amount.toLocaleString('en-IN');
+        const inputEl = document.getElementById('advanceAmountInput');
+        if (inputEl) inputEl.value = amount;
+        const modalEl = document.getElementById('modalPayableAmount');
+        if (modalEl) modalEl.innerText = '₹' + amount.toLocaleString('en-IN');
+    }
+
+    function openPaymentGatewayModal() {
+        const form = document.getElementById('bookingForm');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        // Auto-generate transaction ID for simulation
+        const randomTxn = 'TXN' + Math.floor(100000000 + Math.random() * 900000000);
+        document.getElementById('utrInput').value = randomTxn;
+
+        const modal = new bootstrap.Modal(document.getElementById('paymentGatewayModal'));
+        modal.show();
+    }
+
+    function confirmPaymentAndSubmit() {
+        const utr = document.getElementById('utrInput').value || ('TXN' + Date.now());
+        document.getElementById('transactionIdInput').value = utr;
+
+        // Submit form
+        document.getElementById('bookingForm').submit();
+    }
+
+    function downloadPDFReceipt() {
+        const element = document.getElementById('bookingReceiptCard');
+        const noPrintElements = element.querySelectorAll('.no-print');
+        noPrintElements.forEach(el => el.style.display = 'none');
+
+        const opt = {
+            margin:       10,
+            filename:     'Booking_Receipt_{{ booking.id|default:"Confirmation" }}.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => {
+            noPrintElements.forEach(el => el.style.display = 'flex');
+        });
+    }
+
+    // Set minimum date to today and auto-select service from URL query params
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateInput = document.getElementById('eventDateInput');
+        if (dateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const rawParam = urlParams.get('service') || urlParams.get('event_type') || urlParams.get('category') || urlParams.get('event') || "{{ prefilled_service|escapejs }}";
+
+        if (rawParam && rawParam.trim() !== '') {
+            const displayTitle = decodeURIComponent(rawParam).trim();
+            const cleanParam = displayTitle.toLowerCase();
+            const cleanBase = cleanParam.replace(/s$/, ''); // "weddings" -> "wedding"
+            
+            const eventSelect = document.getElementById('eventTypeSelect');
+            const serviceSelect = document.getElementById('serviceSelect');
+            let eventMatched = false;
+
+            if (eventSelect) {
+                // 1. Check exact or keyword match
+                for (let i = 0; i < eventSelect.options.length; i++) {
+                    const optVal = eventSelect.options[i].value.toLowerCase();
+                    const optTxt = eventSelect.options[i].text.toLowerCase();
+                    const optBase = optVal.replace(/s$/, '');
+
+                    if (optVal === cleanParam || optTxt === cleanParam ||
+                        optVal === cleanBase || optTxt === cleanBase ||
+                        (cleanBase.includes('wedding') && optVal.includes('wedding') && !cleanBase.includes('pre') && !optVal.includes('pre')) ||
+                        (cleanBase.includes('pre') && optVal.includes('pre')) ||
+                        (cleanBase.includes('portrait') && (optVal.includes('portrait') || optVal.includes('fashion')))) {
+                        eventSelect.selectedIndex = i;
+                        eventMatched = true;
+                        break;
+                    }
+                }
+
+                // 2. If not matched, dynamically create and select this exact event title
+                if (!eventMatched) {
+                    const newOpt = new Option(displayTitle, displayTitle, true, true);
+                    eventSelect.add(newOpt, 1);
+                    eventSelect.selectedIndex = 1;
+                }
+            }
+
+            if (serviceSelect) {
+                for (let i = 0; i < serviceSelect.options.length; i++) {
+                    const optVal = serviceSelect.options[i].value.toLowerCase();
+                    const optTxt = serviceSelect.options[i].text.toLowerCase();
+
+                    if (optVal === cleanParam || optTxt === cleanParam ||
+                        optVal.includes(cleanBase) || cleanBase.includes(optVal) ||
+                        (cleanBase.includes('wedding') && optVal.includes('wedding')) ||
+                        (cleanBase.includes('portrait') && optVal.includes('portrait'))) {
+                        serviceSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (typeof updatePackagesByServiceOrEvent === 'function') {
+                updatePackagesByServiceOrEvent();
+            }
+        }
+
+    });
+
+
+    function checkDateAvailability(selectedDate) {
+        const feedback = document.getElementById('dateFeedback');
+        const submitBtn = document.querySelector('.btn-submit-booking');
+        if (!selectedDate) {
+            if (feedback) feedback.innerHTML = '';
+            return;
+        }
+
+        if (feedback) {
+            feedback.className = 'mt-2 small fw-bold text-secondary';
+            feedback.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> Checking date availability...';
+        }
+
+        fetch(`/check-date-availability/?date=${encodeURIComponent(selectedDate)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.available) {
+                    if (feedback) {
+                        feedback.className = 'mt-2 small fw-bold text-danger bg-danger-subtle p-2 rounded-3 border border-danger-subtle d-block';
+                        feedback.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-1"></i> ${data.message}`;
+                    }
+                    document.getElementById('eventDateInput').value = '';
+                    if (submitBtn) submitBtn.disabled = true;
+                } else {
+                    if (feedback) {
+                        feedback.className = 'mt-2 small fw-bold text-success bg-success-subtle p-2 rounded-3 border border-success-subtle d-block';
+                        feedback.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> ${data.message}`;
+                    }
+                    if (submitBtn) submitBtn.disabled = false;
+                }
+            })
+            .catch(err => {
+                if (feedback) feedback.innerHTML = '';
+            });
+    }
+</script>
+
+</body>
+</html>
+
+{% include "website/footer.html" %}

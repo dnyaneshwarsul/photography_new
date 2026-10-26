@@ -1,0 +1,406 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .page-card {
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        border: 1px solid #E2E8F0;
+        margin: 20px auto;
+        padding: 24px;
+    }
+
+    .page-title {
+        font-weight: 800;
+        color: #0F172A;
+        font-size: 1.35rem;
+    }
+
+    .btn-theme {
+        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 9px 18px;
+        font-weight: 600;
+        font-size: 0.88rem;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        transition: all 0.2s ease;
+    }
+    .btn-theme:hover {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+        color: #ffffff;
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+    }
+
+    .search-box {
+        position: relative;
+        width: 280px;
+    }
+
+    .search-box input {
+        border-radius: 8px;
+        padding-left: 36px;
+        font-size: 0.86rem;
+        border: 1px solid #CBD5E1;
+        height: 40px;
+    }
+
+    .search-box i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94A3B8;
+    }
+
+    /* Table Styling */
+    .admin-table {
+        margin-bottom: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .admin-table thead th {
+        background: #1a0000;
+        color: #FFFFFF;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 14px 16px;
+        border: none;
+        white-space: nowrap;
+    }
+
+    .admin-table thead th:first-child {
+        border-top-left-radius: 8px;
+    }
+    .admin-table thead th:last-child {
+        border-top-right-radius: 8px;
+    }
+
+    .admin-table tbody td {
+        padding: 14px 16px;
+        vertical-align: middle;
+        font-size: 0.88rem;
+        color: #334155;
+        border-bottom: 1px solid #F1F5F9;
+        white-space: nowrap;
+    }
+
+    .admin-table tbody tr:hover td {
+        background-color: #FFF5F5;
+    }
+
+    /* User Profile Info */
+    .user-info-box {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .user-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #EF4444;
+        background: #FEE2E2;
+        flex-shrink: 0;
+    }
+
+    .user-name {
+        font-weight: 700;
+        color: #0F172A;
+        font-size: 0.92rem;
+        display: block;
+    }
+
+    .user-email {
+        font-size: 0.78rem;
+        color: #64748B;
+        display: block;
+    }
+
+    /* Logo Image */
+    .logo-thumb {
+        width: 54px;
+        height: 36px;
+        object-fit: contain;
+        border-radius: 6px;
+        border: 1px solid #E2E8F0;
+        padding: 3px;
+        background: #FAFAFA;
+    }
+
+    /* Social Icons Pill Container */
+    .social-pills {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .social-pill {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.88rem;
+        transition: all 0.18s ease;
+        text-decoration: none;
+        border: 1px solid #E2E8F0;
+    }
+
+    .social-pill:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    .social-insta { background: #FDF2F8; color: #E1306C; border-color: #FBCFE8; }
+    .social-fb    { background: #EFF6FF; color: #1877F2; border-color: #BFDBFE; }
+    .social-li    { background: #F0F9FF; color: #0A66C2; border-color: #BAE6FD; }
+    .social-tw    { background: #F8FAFC; color: #0F172A; border-color: #E2E8F0; }
+    .social-yt    { background: #FEF2F2; color: #FF0000; border-color: #FECACA; }
+
+    .mobile-badge {
+        background: #F1F5F9;
+        color: #334155;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-size: 0.82rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .password-badge {
+        background: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-family: monospace;
+        font-size: 0.85rem;
+    }
+
+    .action-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        border: 1px solid #E2E8F0;
+        background: #fff;
+        color: #475569;
+        transition: all 0.15s ease;
+        text-decoration: none;
+    }
+
+    .action-btn:hover {
+        background: #EF4444;
+        color: #fff;
+        border-color: #EF4444;
+    }
+
+    .empty-box {
+        padding: 50px;
+        text-align: center;
+        color: #64748B;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="page-card">
+        <!-- HEADER -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <div>
+                <h3 class="page-title mb-1">
+                    <i class="bi bi-person-lines-fill me-2 text-danger"></i>
+                    Admin Profile List
+                </h3>
+                <small class="text-muted">Manage and view all registered admin profiles</small>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="tableSearchInput" class="form-control" placeholder="Search profiles...">
+                </div>
+                <a href="{% url 'admin_profile' %}" class="btn btn-theme">
+                    <i class="bi bi-plus-circle me-1"></i> Add Profile
+                </a>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-responsive">
+            <table class="table admin-table align-middle" id="adminProfilesTable">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">#</th>
+                        <th>Logo</th>
+                        <th>Admin Info</th>
+                        <th>Mobile</th>
+                        <th>Password</th>
+                        <th>Social Profiles</th>
+                        <th class="text-end" style="width: 100px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for profile in profiles %}
+                    <tr>
+                        <td class="fw-bold text-muted">{{ forloop.counter }}</td>
+                        <td>
+                            {% if profile.website_logo %}
+                                <img src="{{ profile.website_logo.url }}" 
+                                     class="logo-thumb" 
+                                     alt="Website Logo"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/100x60/f1f5f9/94a3b8?text=Logo';">
+                            {% else %}
+                                <span class="badge bg-light text-muted border">No Logo</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="user-info-box">
+                                {% if profile.admin_profile %}
+                                    <img src="{{ profile.admin_profile.url }}" 
+                                         class="user-avatar" 
+                                         alt="{{ profile.admin_name }}"
+                                         onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name={{ profile.admin_name|urlencode }}&background=EF4444&color=fff';">
+                                {% else %}
+                                    <img src="https://ui-avatars.com/api/?name={{ profile.admin_name|urlencode }}&background=EF4444&color=fff" 
+                                         class="user-avatar" 
+                                         alt="{{ profile.admin_name }}">
+                                {% endif %}
+                                <div>
+                                    <span class="user-name">{{ profile.admin_name }}</span>
+                                    <span class="user-email"><i class="bi bi-envelope me-1"></i>{{ profile.admin_email }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="mobile-badge">
+                                <i class="bi bi-telephone-fill text-muted"></i>
+                                {{ profile.admin_mobile }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="password-badge d-flex align-items-center gap-2">
+                                <span class="password-mask text-muted" data-password="{{ profile.admin_password }}">••••••••</span>
+                                <button type="button" class="btn btn-sm btn-light border p-1 toggle-password-btn" style="line-height: 1;" title="Show/Hide Password">
+                                    <i class="bi bi-eye text-muted" style="font-size: 0.85rem;"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="social-pills">
+                                {% if profile.admin_instagram_link %}
+                                    <a href="{{ profile.admin_instagram_link }}" target="_blank" class="social-pill social-insta" title="Instagram">
+                                        <i class="bi bi-instagram"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if profile.admin_facebook_link %}
+                                    <a href="{{ profile.admin_facebook_link }}" target="_blank" class="social-pill social-fb" title="Facebook">
+                                        <i class="bi bi-facebook"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if profile.admin_linkden_link %}
+                                    <a href="{{ profile.admin_linkden_link }}" target="_blank" class="social-pill social-li" title="LinkedIn">
+                                        <i class="bi bi-linkedin"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if profile.admin_twiter_link %}
+                                    <a href="{{ profile.admin_twiter_link }}" target="_blank" class="social-pill social-tw" title="X (Twitter)">
+                                        <i class="bi bi-twitter-x"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if profile.admin_youtube_link %}
+                                    <a href="{{ profile.admin_youtube_link }}" target="_blank" class="social-pill social-yt" title="YouTube">
+                                        <i class="bi bi-youtube"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if not profile.admin_instagram_link and not profile.admin_facebook_link and not profile.admin_linkden_link and not profile.admin_twiter_link and not profile.admin_youtube_link %}
+                                    <span class="text-muted small">-</span>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end gap-1">
+                                <a href="{% url 'admin_profile' %}" class="action-btn" title="Edit Profile">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="8">
+                            <div class="empty-box">
+                                <i class="bi bi-person-x text-muted" style="font-size:45px;"></i>
+                                <h5 class="mt-3 font-weight-bold">No Admin Profiles Found</h5>
+                                <p class="text-muted">Start by adding your first admin profile.</p>
+                                <a href="{% url 'admin_profile' %}" class="btn btn-theme">
+                                    <i class="bi bi-plus-circle me-1"></i> Add Profile
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Search filter
+    const searchInput = document.getElementById("tableSearchInput");
+    const table = document.getElementById("adminProfilesTable");
+    if (searchInput && table) {
+        searchInput.addEventListener("keyup", function() {
+            const filter = this.value.toLowerCase();
+            const rows = table.querySelectorAll("tbody tr");
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filter) ? "" : "none";
+            });
+        });
+    }
+
+    // Toggle Show/Hide Password
+    const toggleBtns = document.querySelectorAll(".toggle-password-btn");
+    toggleBtns.forEach(btn => {
+        btn.addEventListener("click", function() {
+            const span = this.previousElementSibling;
+            const icon = this.querySelector("i");
+            const realPassword = span.getAttribute("data-password");
+            if (span.textContent === "••••••••") {
+                span.textContent = realPassword;
+                span.classList.remove("text-muted");
+                span.classList.add("text-dark", "fw-bold");
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            } else {
+                span.textContent = "••••••••";
+                span.classList.remove("text-dark", "fw-bold");
+                span.classList.add("text-muted");
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            }
+        });
+    });
+});
+</script>
+
+{% include "admin/footer.html" %}
